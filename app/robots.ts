@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://forme.studio/sitemap.xml",
+    sitemap: "https://isaevnikita.tilda.ws/",
   };
 }

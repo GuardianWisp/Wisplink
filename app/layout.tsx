@@ -17,7 +17,7 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://forme.studio";
+const siteUrl = "https://isaevnikita.tilda.ws/";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
