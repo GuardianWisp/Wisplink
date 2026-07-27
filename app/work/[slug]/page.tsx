@@ -29,7 +29,7 @@ export default function ProjectPage({ params }: Props) {
   if (!project) notFound();
 
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
-  const next = projects[(currentIndex + 1) % projects.length];
+  const next = projects[(currentIndex + 1) % projects.length] ?? projects[0]!;
 
   return (
     <article>
