@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const social = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "Are.na", href: "https://are.na" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
+  { label: "Instagram", href: "https://instagram.com/wisplink/" },
+  { label: "Behance", href: "https://behance.net/wisplink" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/wisplink" },
 ];
 
 export default function Footer() {
