@@ -264,7 +264,7 @@
             <div class="win-title"><span>photo_01.png</span><div class="btns"><span></span></div></div>
             <div class="win-body">
               <div class="photo-frame-sm">
-                <img src="images/photo_01.jpg" style="width:100%;height:100%;object-fit:cover;">
+                <img src="https://picsum.photos/seed/nikita-01/400/400?grayscale" alt="Фото" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
                 <span class="tag-corner">своё фото</span>
               </div>
             </div>
@@ -273,7 +273,7 @@
             <div class="win-title"><span>photo_02.png</span><div class="btns"><span></span></div></div>
             <div class="win-body">
               <div class="photo-frame-sm">
-                <img src="images/photo_02.jpg" style="width:100%;height:100%;object-fit:cover;">
+                <img src="https://picsum.photos/seed/nikita-02/400/400?grayscale" alt="Фото" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
                 <span class="tag-corner">своё фото</span>
               </div>
             </div>
@@ -545,17 +545,7 @@
   ];
 
   function placeholderSVG(seed){
-    const hues = ['#D8D8D2','#B4B4AE','#8A8A85'];
-    const c = hues[seed % hues.length];
-    return `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-      <rect width="400" height="300" fill="#15171C"/>
-      <circle cx="${140 + seed*12}" cy="130" r="70" fill="${c}" opacity="0.8"/>
-      <rect x="230" y="70" width="110" height="110" fill="${c}" opacity="0.25"/>
-      <g stroke="#0B0C0F" stroke-width="1" opacity="0.4">
-        <line x1="0" y1="150" x2="400" y2="150"/>
-        <line x1="200" y1="0" x2="200" y2="300"/>
-      </g>
-    </svg>`;
+    return `<img src="https://picsum.photos/seed/nikita-work-${seed}/400/300?grayscale" alt="Проект" style="width:100%;height:100%;object-fit:cover;" loading="lazy">`;
   }
 
   const grid = document.getElementById('workGrid');
