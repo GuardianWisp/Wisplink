@@ -19,12 +19,19 @@ const aspectMap: Record<string, string> = {
   wide: "aspect-[21/9]",
 };
 
+// Определяем basePath для production-сборки на GitHub Pages
+const basePath = process.env.NODE_ENV === "production" ? "/Wisplink" : "";
+
 export default function RenderPlaceholder({
   src,
+  label = "3D Artwork",
   aspect = "landscape",
   className = "",
   priority = false,
 }: RenderPlaceholderProps) {
+  // Если src начинается со слэша, склеиваем с basePath, если путь уже полный — оставляем как есть
+  const imageSrc = src.startsWith("/") ? `${basePath}${src}` : src;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -35,11 +42,12 @@ export default function RenderPlaceholder({
     >
       <div className="absolute inset-0 transition-transform duration-700 ease-studio group-hover:scale-[1.015]">
         <Image
-          src={src}
-          alt="Biotech 3D artwork"
+          src={imageSrc}
+          alt={label}
           fill
           priority={priority}
           className="object-cover"
+          unoptimized // Гарантирует корректную работу со статическими путями в export
         />
       </div>
 
