@@ -10,10 +10,9 @@ export const metadata: Metadata = {
 
 const software = [
   "Cinema 4D",
-  "Blender",
+  "Midjourney",
   "Houdini",
   "Redshift",
-  "Octane",
   "Substance 3D",
   "ZBrush",
   "After Effects",
@@ -23,16 +22,16 @@ const software = [
 const skills = [
   "3D modelling & sculpting",
   "Lighting & material design",
+  "UX & Ui design",
   "Procedural generation",
   "Motion & animation",
   "Art direction",
-  "Systems & identity design",
 ];
 
 const experience = [
-  { years: "2021 — Present", role: "Founder & Creative Director, Forme" },
-  { years: "2018 — 2021", role: "Senior 3D Designer, Studio Berg" },
-  { years: "2015 — 2018", role: "3D Artist, Various agencies" },
+  { years: "2023 — Present", role: "Фрилансер" },
+  { years: "2018 — 2023", role: "Middle 3D Designer, Chipsa Design" },
+  { years: "2019 — 2021", role: "Дизайнер интерфейсов" },
 ];
 
 const services = [
