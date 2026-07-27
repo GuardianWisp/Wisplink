@@ -1,16 +1,17 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-type RenderPlaceholderProps = {
+export interface RenderPlaceholderProps {
   src: string;
   label?: string;
   index?: string;
   aspect?: "portrait" | "landscape" | "square" | "wide";
   className?: string;
   priority?: boolean;
-};
+}
 
 const aspectMap: Record<string, string> = {
   portrait: "aspect-[4/5]",
@@ -19,7 +20,6 @@ const aspectMap: Record<string, string> = {
   wide: "aspect-[21/9]",
 };
 
-// Определяем basePath для production-сборки на GitHub Pages
 const basePath = process.env.NODE_ENV === "production" ? "/Wisplink" : "";
 
 export default function RenderPlaceholder({
@@ -29,7 +29,6 @@ export default function RenderPlaceholder({
   className = "",
   priority = false,
 }: RenderPlaceholderProps) {
-  // Если src начинается со слэша, склеиваем с basePath, если путь уже полный — оставляем как есть
   const imageSrc = src.startsWith("/") ? `${basePath}${src}` : src;
 
   return (
@@ -47,7 +46,7 @@ export default function RenderPlaceholder({
           fill
           priority={priority}
           className="object-cover"
-          unoptimized // Гарантирует корректную работу со статическими путями в export
+          unoptimized
         />
       </div>
 
