@@ -20,12 +20,13 @@ const software = [
 ];
 
 const skills = [
-  "3D modelling & sculpting",
-  "Lighting & material design",
-  "UX & Ui design",
-  "Procedural generation",
-  "Motion & animation",
-  "Art direction",
+  "3D Моделинг",
+  "Освещение сцен",
+  "Создание материалов",
+  "Ai изображения и видео",
+  "Дизайн интерфейсов",
+  "Симуляции / Нодовые генерации",
+  "Моушн и анимации",
 ];
 
 const experience = [
