@@ -12,20 +12,24 @@ export type Project = {
   renderCount: number;
   processCount: number;
   aspect: "portrait" | "landscape" | "square";
+  cover: string;
+  hero: string;
+  renders: string[];
+  process: string[];
 };
 
 export const projects: Project[] = [
   {
-    slug: "silt",
-    title: "Silt",
-    category: "3D Design — Product Visualization",
-    year: "2025",
-    client: "Private Client",
+    slug: "biotech",
+    title: "Biotech",
+    category: "3D Design — Визуализация микроорганизмов",
+    year: "2023",
+    client: "Artlife Biotech",
     index: "01",
     summary:
-      "A study of sediment and light, translated into a series of still forms for a mineral skincare line.",
+      "A study of biological structures translated into a futuristic 3D visual system.",
     description: [
-      "Silt began as an exercise in restraint — how little geometry is needed to describe weight, texture and material truth. The brief called for a set of key visuals that could carry a mineral skincare line across packaging, print and digital without leaning on photography.",
+      "biotech began as an exercise in restraint — how little geometry is needed to describe weight, texture and material truth. The brief called for a set of key visuals that could carry a mineral skincare line across packaging, print and digital without leaning on photography.",
       "We built a small library of eroded, sediment-like forms and lit them the way a geologist might document a core sample: flat, even, unsentimental. The palette was drawn entirely from the minerals themselves — no colour was added in post.",
       "The result is a system of eleven renders that the client continues to draw from a year later, extended for new products without a single reshoot.",
     ],
@@ -33,7 +37,19 @@ export const projects: Project[] = [
     services: ["3D Design", "Creative Direction"],
     renderCount: 4,
     processCount: 4,
-    aspect: "portrait",
+    aspect: "landscape",
+    cover: "/images/projects/biotech/cover.webp", 
+    hero: "/images/projects/biotech/hero.webp",
+    renders: [
+    "/images/projects/biotech/render-01.webp",
+    "/images/projects/biotech/render-02.webp",
+    "/images/projects/biotech/render-03.webp",
+    "/images/projects/biotech/render-04.webp",
+  ],
+    process: [
+          "/images/projects/biotech/process-01.webp",
+          "/images/projects/biotech/process-02.webp",
+            ],
   },
   {
     slug: "ballast",
@@ -54,6 +70,7 @@ export const projects: Project[] = [
     renderCount: 5,
     processCount: 5,
     aspect: "landscape",
+    image: "/images/projects/ballast.webp",
   },
   {
     slug: "aperture",

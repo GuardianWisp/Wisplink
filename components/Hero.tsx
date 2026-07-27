@@ -14,10 +14,17 @@ export default function Hero() {
         transition={{ duration: 1.1, ease }}
         className="max-w-5xl text-[clamp(2.75rem,7.4vw,6.5rem)] font-medium leading-[0.96] tracking-tightest"
       >
-        3D Контент
-        <br />
-        Ux/Ui Дизайн
+        Nikita Isaev
       </motion.h1>
+
+      <motion.p
+       initial={{ opacity: 0, y: 20 }}
+       animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.15, ease }}
+         className="mt-6 text-lg text-muted md:text-xl"
+>
+           CG Generalist · 3D Artist · UX/UI Designer
+      </motion.p>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -42,7 +49,9 @@ export default function Hero() {
         transition={{ duration: 1.2, delay: 0.4, ease }}
         className="mt-16 md:mt-24"
       >
+        
         <RenderPlaceholder
+          src="/images/hero.webp"
           label="Hero render"
           index="INDEX — 00"
           aspect="wide"

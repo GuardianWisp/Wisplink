@@ -22,9 +22,10 @@ export default function WorkCard({
           }`}
         >
           <RenderPlaceholder
+            src={project.cover}
             label={`${project.title} — Render`}
             index={project.index}
-            aspect={project.aspect === "square" ? "square" : "landscape"}
+            aspect={project.aspect}
           />
         </div>
 

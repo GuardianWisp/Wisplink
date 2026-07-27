@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 type RenderPlaceholderProps = {
+  src: string;
   label?: string;
   index?: string;
   aspect?: "portrait" | "landscape" | "square" | "wide";
@@ -17,15 +19,8 @@ const aspectMap: Record<string, string> = {
   wide: "aspect-[21/9]",
 };
 
-/**
- * Placeholder for a future 3D render.
- * Replace the inner content with next/image or a <video> element
- * once final renders are available — the outer frame, hover and
- * reveal behaviour can stay exactly as-is.
- */
 export default function RenderPlaceholder({
-  label = "Render pending",
-  index,
+  src,
   aspect = "landscape",
   className = "",
   priority = false,
@@ -38,16 +33,20 @@ export default function RenderPlaceholder({
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       className={`group relative w-full overflow-hidden bg-panel ${aspectMap[aspect]} ${className}`}
     >
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 transition-transform duration-1100 ease-studio group-hover:scale-[1.015]">
-        <span className="label text-faint">{label}</span>
-        {index && (
-          <span className="font-mono text-xs text-faint">{index}</span>
-        )}
+      <div className="absolute inset-0 transition-transform duration-700 ease-studio group-hover:scale-[1.015]">
+        <Image
+          src={src}
+          alt="Biotech 3D artwork"
+          fill
+          priority={priority}
+          className="object-cover"
+        />
       </div>
-      <div className="absolute inset-0 border border-line-strong/60" aria-hidden />
-      {priority && (
-        <span className="sr-only">Placeholder image reserved for hero render</span>
-      )}
+
+      <div
+        className="absolute inset-0 border border-line-strong/60"
+        aria-hidden
+      />
     </motion.div>
   );
 }
