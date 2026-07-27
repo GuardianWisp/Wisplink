@@ -14,9 +14,9 @@ export default function Hero() {
         transition={{ duration: 1.1, ease }}
         className="max-w-5xl text-[clamp(2.75rem,7.4vw,6.5rem)] font-medium leading-[0.96] tracking-tightest"
       >
-        A studio for
+        3D Контент
         <br />
-        three&#8209;dimensional form.
+        Ux/Ui Дизайн
       </motion.h1>
 
       <motion.div
@@ -26,15 +26,13 @@ export default function Hero() {
         className="mt-10 grid grid-cols-1 gap-6 md:mt-14 md:grid-cols-12"
       >
         <p className="text-lg leading-relaxed text-muted md:col-span-5">
-          Forme designs and renders three-dimensional work for brands that
-          measure success in decades, not quarters. We work in a narrow
-          range — 3D, motion, identity, direction — and go deep rather
-          than wide.
+          Создаю дизайн и визуальные решения для брендов.
+          3D, моушн, айдентика и визуальное направление —
+          погружаясь глубоко, а не распыляясь.
         </p>
         <div className="hidden md:col-span-1 md:block" />
         <p className="text-lg leading-relaxed text-muted md:col-span-5">
-          Based between Amsterdam and Zürich. Available for a small number
-          of new studio partnerships each year.
+          Нахожусь в Красноярске, Открыт к проектам по всему миру.
         </p>
       </motion.div>
 
