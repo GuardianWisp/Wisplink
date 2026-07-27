@@ -1,12 +1,6 @@
-# Forme — Studio Portfolio
+# Wisplink — Portfolio
 
-A premium, minimalist portfolio for a 3D design studio. Built with
-Next.js (App Router), TypeScript, Tailwind CSS and Framer Motion.
-
-The UI is intentionally quiet — large type, generous whitespace and a
-single hairline-grey palette — so that the 3D artwork itself is the only
-thing carrying colour. Every render slot in the site is currently a
-placeholder ready to be swapped for real work.
+Trying create my folio with ai
 
 ## Getting started
 

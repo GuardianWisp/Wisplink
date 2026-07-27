@@ -4,14 +4,15 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
+// Добавили поддержку кириллицы
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"], // 👈 добавлена кириллица
   variable: "--font-inter",
   display: "swap",
 });
 
 const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"], // 👈 добавлена кириллица
   weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
@@ -22,32 +23,33 @@ const siteUrl = "https://isaevnikita.tilda.ws/";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Forme — Studio for Three-Dimensional Form",
-    template: "%s — Forme",
+    default: "Никита Исаев — 3D Generalist & Motion Designer",
+    template: "%s — Никита Исаев", // 👈 Каждая страница будет именоваться как "Заголовок — Никита Исаев"
   },
   description:
-    "Forme is a design studio working in three dimensions. We produce 3D design, motion, brand identity and creative direction for clients who value precision and restraint.",
+    "Портфолио 3D Generalist и Motion Designer. 3D-визуализация, моушн-дизайн, мокапы и концепты для брендов.",
   keywords: [
-    "3D design studio",
-    "3D graphic design",
-    "motion design",
-    "brand identity",
-    "creative direction",
-    "CGI studio",
+    "3D generalist",
+    "motion designer",
+    "3D дизайн",
+    "моушн дизайн",
+    "3D мокапы",
+    "key visuals",
+    "CGI",
   ],
   openGraph: {
-    title: "Forme — Studio for Three-Dimensional Form",
+    title: "Никита Исаев — 3D Generalist & Motion Designer",
     description:
-      "A design studio working in three dimensions. Selected 3D, motion and identity work.",
+      "Портфолио 3D Generalist и Motion Designer. Избранные проекты по 3D, моушн-дизайну и визуальным концептам.",
     url: siteUrl,
-    siteName: "Forme",
+    siteName: "Никита Исаев",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Forme — Studio for Three-Dimensional Form",
+    title: "Никита Исаев — 3D Generalist & Motion Designer",
     description:
-      "A design studio working in three dimensions. Selected 3D, motion and identity work.",
+      "Портфолио 3D Generalist и Motion Designer. Избранные проекты по 3D, моушн-дизайну и визуальным концептам.",
   },
   robots: {
     index: true,
@@ -64,13 +66,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
+    <html lang="ru" className={`${inter.variable} ${mono.variable}`}> {/* 👈 Изменили lang="en" на lang="ru" */}
       <body className="flex min-h-screen flex-col bg-paper text-ink">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
         >
-          Skip to content
+          Перейти к содержимому
         </a>
         <Nav />
         <main id="main" className="flex-1">

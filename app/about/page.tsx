@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import RenderPlaceholder from "@/components/RenderPlaceholder";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "Обо мне",
   description:
-    "Forme is a small studio working in three dimensions — 3D design, motion, brand identity and creative direction.",
+    "3D Generalist и Motion Designer. Специализируюсь на 3D-моделировании, моушн-дизайне, симуляциях и визуалe для брендов.",
 };
 
 const software = [
@@ -23,38 +23,38 @@ const skills = [
   "3D Моделинг",
   "Освещение сцен",
   "Создание материалов",
-  "Ai изображения и видео",
+  "AI изображения и видео",
   "Дизайн интерфейсов",
   "Симуляции / Нодовые генерации",
   "Моушн и анимации",
 ];
 
 const experience = [
-  { years: "2023 — Present", role: "Фрилансер" },
-  { years: "2018 — 2023", role: "Middle 3D Designer, Chipsa Design" },
-  { years: "2019 — 2021", role: "Дизайнер интерфейсов" },
+  { years: "2023 — Наст. время", role: "3D Generalist / Motion Designer (Freelance)" },
+  { years: "2018 — 2023", role: "Middle 3D Designer & UX/UI, Chipsa Design" },
+  { years: "2019 — 2021", role: "UX/UI Дизайнер" },
 ];
 
 const services = [
   {
-    title: "3D Design",
+    title: "3D Дизайн & Визуализация",
     description:
-      "Still and rendered imagery — product visualization, abstract form studies and key visuals built for print, packaging and screen.",
+      "Рендеры любой сложности, продуктовая визуализация, реалистичные 3D-мокапы и ключевые визуалы (Key Visuals) для брендов и промо-кампаний.",
   },
   {
-    title: "Motion Design",
+    title: "Моушн & Видеоролики",
     description:
-      "Looping and narrative animation for campaigns, product launches and spatial storytelling, rendered frame-accurate.",
+      "Динамичная анимация, промо-видео и презентационные ролики для запусков продуктов, сочетающие техническую точность и эстетику.",
   },
   {
-    title: "Brand Identity",
+    title: "Визуальная концептуализация",
     description:
-      "Identity systems built from three-dimensional material rather than a logotype alone — form, light and texture as brand language.",
+      "Разработка объемного визуального языка: передача характера бренда через форму, свет, фактуру материалов и движение.",
   },
   {
-    title: "Creative Direction",
+    title: "AI & Генеративный визуал",
     description:
-      "End-to-end direction for studios and in-house teams who need a singular point of view carried across a full campaign.",
+      "Активная интеграция ИИ в пайплайн: быстрый концепт-арт, нейро-видео и ускорение 3D-продакшна с помощью Midjourney и современных AI-инструментов.",
   },
 ];
 
@@ -62,37 +62,39 @@ export default function AboutPage() {
   return (
     <div className="container-studio py-16 md:py-24">
       <Reveal>
-        <span className="label">About</span>
+        <span className="label">Обо мне</span>
         <h1 className="mt-4 max-w-3xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[0.98] tracking-tightest">
-          A small studio, working in a narrow range, deliberately.
+          3D Generalist с фокусом на деталях, форме и движении.
         </h1>
       </Reveal>
 
       <div className="mt-16 grid grid-cols-1 gap-10 md:mt-24 md:grid-cols-12 md:gap-12">
         <Reveal className="md:col-span-5">
-          <RenderPlaceholder label="Portrait" index="—" aspect="portrait" />
+          <div className="relative aspect-[3/4] w-full min-h-[400px] overflow-hidden rounded-lg bg-line">
+            <Image
+              src="/images/portrait.webp"
+              alt="Портрет"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 40vw"
+              priority
+            />
+          </div>
         </Reveal>
 
         <Reveal delay={0.1} className="md:col-span-6 md:col-start-7">
           <p className="text-lg leading-relaxed text-muted">
-            Forme was founded in 2021 on a simple premise: most 3D work is
-            rushed, and it shows. We take on a small number of projects each
-            year and give each one the time a physical craft would demand —
-            weeks of material study before a single final render.
+            Мой путь в дизайн начался в 2018 году с увлечения трёхмерной графикой. Позже я прошёл обучение в школе дизайна по направлению UX/UI, что дало мне сильную базу в понимании структуры, логики и пользовательского опыта. 
           </p>
           <p className="mt-6 text-lg leading-relaxed text-muted">
-            The studio is led by a single creative direction, supported by a
-            close network of specialist collaborators brought in project by
-            project. Clients work with the same person from first sketch to
-            final delivery.
+            В студии Chipsa я начинал как UX/UI специалист, позже полностью переключился на 3D-контент и графику. Там я работал над крупными проектами: создавал 3D-мокапы, Key Visuals для брендов, рекламные видеоролики и графику для презентаций.
           </p>
           <p className="mt-6 text-lg leading-relaxed text-muted">
-            We're based between Amsterdam and Zürich, and work with clients
-            across Europe and North America.
+            Понимание UX/UI помогает мне делать 3D не просто красивой картинкой, а продуманным инструментом, который работает на задачи продукта и аккуратно вписывается в любой интерфейс или бренд-систему.
           </p>
 
           <div className="mt-14">
-            <span className="label">Experience</span>
+            <span className="label">Опыт работы</span>
             <ul className="mt-5 flex flex-col gap-4">
               {experience.map((item) => (
                 <li
@@ -112,7 +114,7 @@ export default function AboutPage() {
 
       <div className="mt-20 grid grid-cols-1 gap-10 border-t border-line pt-14 md:mt-28 md:grid-cols-2 md:gap-12 md:pt-20">
         <Reveal>
-          <span className="label">Skills</span>
+          <span className="label">Навыки</span>
           <ul className="mt-5 flex flex-col gap-3">
             {skills.map((skill) => (
               <li key={skill} className="text-base">
@@ -123,7 +125,7 @@ export default function AboutPage() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <span className="label">Software</span>
+          <span className="label">Софт</span>
           <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3">
             {software.map((tool) => (
               <li key={tool} className="text-base">
@@ -136,7 +138,7 @@ export default function AboutPage() {
 
       <div className="mt-20 border-t border-line pt-14 md:mt-28 md:pt-20">
         <Reveal>
-          <span className="label">Services</span>
+          <span className="label">Услуги</span>
         </Reveal>
         <div className="mt-8 grid grid-cols-1 gap-x-12 gap-y-10 md:mt-10 md:grid-cols-2">
           {services.map((service, i) => (

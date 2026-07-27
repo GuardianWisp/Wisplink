@@ -2,29 +2,30 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Контакты",
   description:
-    "Get in touch with Forme about a new 3D design, motion, brand identity or creative direction project.",
+    "Свяжитесь со мной для обсуждения проектов по 3D-графике, моушн-дизайну и визуальным концептам.",
 };
 
 const social = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "Are.na", href: "https://are.na" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
+  { label: "Telegram", href: "https://t.me/wispsoul" }, // 
+  { label: "Behance", href: "https://behance.net/wisplink" },
+  { label: "Instagram", href: "https://instagram.com/wisplink" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/wisplink" },
 ];
 
 const details = [
   {
-    label: "Studio",
-    value: "Amsterdam & Zürich",
+    label: "Локация",
+    value: "Россия / Удаленно",
   },
   {
-    label: "Availability",
-    value: "A small number of new partnerships each year",
+    label: "Формат работы",
+    value: "Фриланс, проектная занятость",
   },
   {
-    label: "Response time",
-    value: "Within two working days",
+    label: "Время ответа",
+    value: "В течение нескольких часов",
   },
 ];
 
@@ -32,25 +33,25 @@ export default function ContactPage() {
   return (
     <div className="container-studio py-16 md:py-24">
       <Reveal>
-        <span className="label">Contact</span>
+        <span className="label">Контакты</span>
         <h1 className="mt-4 max-w-2xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[0.98] tracking-tightest">
-          Let's talk about the work.
+          Давайте обсудим ваш проект.
         </h1>
       </Reveal>
 
       <Reveal delay={0.1} className="mt-16 border-t border-line pt-12 md:mt-24 md:pt-16">
         <span className="label">Email</span>
         <a
-          href="mailto:studio@forme.design"
+          href="mailto:lisitsu@icloud.com" // 
           className="mt-4 block text-[clamp(2rem,6vw,4.5rem)] font-medium leading-none tracking-tighter transition-colors duration-300 hover:text-muted"
         >
-          studio@forme.design
+          lisitsu@icloud.com
         </a>
       </Reveal>
 
       <div className="mt-16 grid grid-cols-1 gap-12 border-t border-line pt-12 md:mt-20 md:grid-cols-12 md:gap-12 md:pt-16">
         <Reveal delay={0.05} className="md:col-span-6">
-          <span className="label">Details</span>
+          <span className="label">Детали</span>
           <dl className="mt-5 flex flex-col gap-5">
             {details.map((item) => (
               <div
@@ -67,7 +68,7 @@ export default function ContactPage() {
         </Reveal>
 
         <Reveal delay={0.1} className="md:col-span-5 md:col-start-8">
-          <span className="label">Follow</span>
+          <span className="label">Соцсети & Связь</span>
           <ul className="mt-5 flex flex-col gap-3">
             {social.map((item) => (
               <li

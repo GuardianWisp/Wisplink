@@ -38,9 +38,6 @@ export default function Hero() {
           погружаясь глубоко, а не распыляясь.
         </p>
         <div className="hidden md:col-span-1 md:block" />
-        <p className="text-lg leading-relaxed text-muted md:col-span-5">
-          Нахожусь в Красноярске, Открыт к проектам по всему миру.
-        </p>
       </motion.div>
 
       <motion.div

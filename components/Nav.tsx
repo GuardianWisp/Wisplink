@@ -5,10 +5,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
+// Переведенные пункты меню
 const links = [
-  { href: "/#work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#work", label: "Проекты" },
+  { href: "/about", label: "Обо мне" },
+  { href: "/contact", label: "Контакты" },
 ];
 
 export default function Nav() {
@@ -29,13 +30,15 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-sm">
       <div className="container-studio flex h-20 items-center justify-between md:h-24">
+        {/* Текстовый логотип как в оригинале */}
         <Link
           href="/"
           className="font-mono text-sm font-medium tracking-label text-ink"
         >
-          FORME
+          Wisp
         </Link>
 
+        {/* Десктопное меню */}
         <nav className="hidden items-center gap-10 md:flex">
           {links.map((link) => (
             <Link
@@ -48,17 +51,19 @@ export default function Nav() {
           ))}
         </nav>
 
+        {/* Кнопка мобильного меню */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? "Закрыть меню" : "Открыть меню"}
           className="label flex items-center gap-3 md:hidden"
         >
-          {open ? "Close" : "Menu"}
+          {open ? "Закрыть" : "Меню"}
         </button>
       </div>
 
+      {/* Мобильное выпадающее меню */}
       <AnimatePresence>
         {open && (
           <motion.nav
