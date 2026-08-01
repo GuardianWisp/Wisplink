@@ -35,7 +35,7 @@ export default function Nav() {
           href="/"
           className="font-mono text-sm font-medium tracking-label text-ink"
         >
-          Wisp
+          WISPLINK
         </Link>
 
         {/* Десктопное меню */}
