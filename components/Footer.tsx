@@ -37,10 +37,10 @@ export default function Footer() {
         {/* Контакты и копирайт */}
         <div className="flex flex-col gap-1 md:items-end">
           <a
-            href="mailto:lisitsu@icloud.com" // 👈 
+            href="mailto:wisplink@icloud.com" // 👈 
             className="label text-ink transition-colors duration-300 hover:text-muted"
           >
-            lisitsu@icloud.com
+            wisplink@icloud.com
           </a>
           <span className="label">
             &copy; {new Date().getFullYear()} Wisplink          </span>

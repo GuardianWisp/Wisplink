@@ -19,10 +19,10 @@
   }
 
   ::selection {
-    background: #111111;
-    color: #f7f6f2;
+  background: #111111;
+  color: #ffffff;
   }
-
+  
   /* visible, deliberate focus state — never removed */
   :focus-visible {
     outline: 1.5px solid #111111;

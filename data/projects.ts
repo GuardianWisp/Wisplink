@@ -27,13 +27,13 @@ export const projects: Project[] = [
     client: "Artlife Biotech",
     index: "01",
     summary:
-      "A study of biological structures translated into a futuristic 3D visual system.",
+      "Визузализация микроаргонизмов для компании Artlife.",
     description: [
       "biotech began as an exercise in restraint — how little geometry is needed to describe weight, texture and material truth. The brief called for a set of key visuals that could carry a mineral skincare line across packaging, print and digital without leaning on photography.",
       "We built a small library of eroded, sediment-like forms and lit them the way a geologist might document a core sample: flat, even, unsentimental. The palette was drawn entirely from the minerals themselves — no colour was added in post.",
       "The result is a system of eleven renders that the client continues to draw from a year later, extended for new products without a single reshoot.",
     ],
-    software: ["Cinema 4D", "Redshift", "Substance 3D", "Photoshop"],
+    software: ["Cinema 4D", "Redshift", "Substance 3D", "Figma"],
     services: ["3D Design", "Creative Direction"],
     renderCount: 2,
     processCount: 2,
