@@ -71,7 +71,7 @@ export default function AboutPage() {
 
       <div className="mt-16 grid grid-cols-1 gap-10 md:mt-24 md:grid-cols-12 md:gap-12">
         <Reveal className="md:col-span-5">
-          <div className="relative aspect-[3/4] w-full min-h-[400px] overflow-hidden rounded-lg bg-line">
+          <div className="relative aspect-[3/4] w-full min-h-[400px] overflow-hidden bg-line">
             <Image
               src={portraitImg} // 👈 Используем импортированный объект
               alt="Портрет"
@@ -85,7 +85,7 @@ export default function AboutPage() {
 
         <Reveal delay={0.1} className="md:col-span-6 md:col-start-7">
           <p className="text-lg leading-relaxed text-muted">
-            Мой путь в дизайн начался в 2018 году с увлечения трёхмерной графикой. Позже я прошёл обучение в школе дизайна по направлению UX/UI, что дало мне сильную базу в понимании структуры, логики и пользовательского опыта. 
+            Мой путь в дизайн начался в 2018 году с увлечения трёхмерной графикой. Позже я прошёл обучение в школе дизайна по направлению UX/UI, что дало мне сильную базу в понимании структуры, логики и пользовательского опыта.
           </p>
           <p className="mt-6 text-lg leading-relaxed text-muted">
             В студии Chipsa я начинал как UX/UI специалист, позже полностью переключился на 3D-контент и графику. Там я работал над крупными проектами: создавал 3D-мокапы, Key Visuals для брендов, рекламные видеоролики и графику для презентаций.
