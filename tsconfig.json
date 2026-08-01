@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "target": "ES2017",
     "lib": [
       "dom",
@@ -24,7 +25,7 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
+    // ❌ Удалите эту строку: "baseUrl": ".",
     "paths": {
       "@/*": [
         "./*"
@@ -32,6 +33,7 @@
     }
   },
   "include": [
+    "global.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
