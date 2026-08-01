@@ -4,7 +4,6 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
-// 2. Настраиваем шрифт
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
   variable: "--font-inter",
@@ -18,14 +17,16 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const siteUrl = "https://guardianwisp.github.io/Wisplink";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Wisplink — Independent 3D Designer",
+    default: "Wisplink — 3D Generalist & Freelance Designer",
     template: "%s — Wisplink",
   },
   description:
-    "An independent practice working in three dimensions, producing 3D design, motion, brand identity and creative direction.",
+    "Wisplink is the portfolio of a freelance 3D generalist, producing 3D design, motion, brand identity and creative direction for clients who value precision and restraint.",
 };
 
 export default function RootLayout({
