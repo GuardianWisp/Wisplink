@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
-import portraitImg from "@/public/images/portrait.webp"; // 
+import portraitImg from "@/public/images/portrait.webp"; // 👈 Импортируем портрет прямо из public
 
 export const metadata: Metadata = {
   title: "Обо мне",
