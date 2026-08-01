@@ -1,17 +1,31 @@
+import type { Metadata } from "next";
+import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { Inter } from "next/font/google"; // 1. Импортируем шрифт
 
 // 2. Настраиваем шрифт
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
+  variable: "--font-inter",
   display: "swap",
 });
 
-export const metadata = {
-  title: "Wisplink",
-  description: "Portfolio",
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Wisplink — Independent 3D Designer",
+    template: "%s — Wisplink",
+  },
+  description:
+    "An independent practice working in three dimensions, producing 3D design, motion, brand identity and creative direction.",
 };
 
 export default function RootLayout({
@@ -20,10 +34,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.className}> {/* 3. Добавляем класс к <html> */}
-      <body className="bg-background text-foreground antialiased">
+    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
+      <body className="flex min-h-screen flex-col bg-paper text-ink antialiased">
+        
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+        >
+          Skip to content
+        </a>
         <Nav />
-        {children}
+        <main id="main" className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
