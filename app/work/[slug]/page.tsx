@@ -5,27 +5,32 @@ import { getProject, projects } from "@/data/projects";
 import RenderPlaceholder from "@/components/RenderPlaceholder";
 import Reveal from "@/components/Reveal";
 
-type Props = { params: { slug: string } };
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  const project = getProject(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProject(slug);
   if (!project) return {};
+
   return {
     title: project.title,
     description: project.summary,
     openGraph: {
-      title: `${project.title} — Никита Исаев`, // 👈 
+      title: `${project.title} — Wisplink`,
       description: project.summary,
     },
   };
 }
 
-export default function ProjectPage({ params }: Props) {
-  const project = getProject(params.slug);
+export default async function ProjectPage({ params }: Props) {
+  const { slug } = await params;
+  const project = getProject(slug);
   if (!project) notFound();
 
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
@@ -34,7 +39,7 @@ export default function ProjectPage({ params }: Props) {
   return (
     <article>
       <header className="container-studio pb-14 pt-14 md:pb-20 md:pt-20">
-        <Link href="/#work" className="label text-muted hover:text-ink">
+        <Link href="/" className="label text-muted hover:text-ink">
           ← Все проекты
         </Link>
 

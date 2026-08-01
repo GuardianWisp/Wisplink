@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-// Переведенные пункты меню
 const links = [
-  { href: "/#work", label: "Проекты" },
+  { href: "/", label: "Проекты", hash: "#work" }, // Разделили путь и хэш
   { href: "/about", label: "Обо мне" },
   { href: "/contact", label: "Контакты" },
 ];
@@ -27,10 +26,20 @@ export default function Nav() {
     };
   }, [open]);
 
+  // Плавный скролл к секции #work, если мы уже на главной
+  const handleWorkClick = (e: React.MouseEvent<HTMLAnchorElement>, hash?: string) => {
+    if (hash && pathname === "/") {
+      e.preventDefault();
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-sm">
       <div className="container-studio flex h-20 items-center justify-between md:h-24">
-        {/* Текстовый логотип как в оригинале */}
         <Link
           href="/"
           className="font-mono text-sm font-medium tracking-label text-ink"
@@ -42,8 +51,9 @@ export default function Nav() {
         <nav className="hidden items-center gap-10 md:flex">
           {links.map((link) => (
             <Link
-              key={link.href}
-              href={link.href}
+              key={link.href + (link.hash || "")}
+              href={link.hash ? `${link.href}${link.hash}` : link.href}
+              onClick={(e) => handleWorkClick(e, link.hash)}
               className="label text-ink transition-colors duration-300 hover:text-muted"
             >
               {link.label}
@@ -76,8 +86,9 @@ export default function Nav() {
             <div className="container-studio flex flex-col gap-6 py-8">
               {links.map((link) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={link.href + (link.hash || "")}
+                  href={link.hash ? `${link.href}${link.hash}` : link.href}
+                  onClick={(e) => handleWorkClick(e, link.hash)}
                   className="text-3xl tracking-tighter"
                 >
                   {link.label}

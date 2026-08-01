@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
-import portraitImg from "@/public/images/portrait.webp"; // 👈 Импортируем портрет прямо из public
 
 export const metadata: Metadata = {
   title: "Обо мне",
@@ -73,7 +72,7 @@ export default function AboutPage() {
         <Reveal className="md:col-span-5">
           <div className="relative aspect-[3/4] w-full min-h-[400px] overflow-hidden bg-line">
             <Image
-              src={portraitImg} // 👈 Используем импортированный объект
+              src="/images/portrait.webp"
               alt="Портрет"
               fill
               className="object-cover"
