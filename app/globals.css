@@ -1,10 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  /* Объявляем ваши кастомные цвета темы */
+  --color-paper: #0a0a0a;
+  /* Укажите ваш цвет фона (например, #000000 или #0a0a0a) */
+  --color-ink: #ededed;
+  /* Укажите ваш цвет текста */
+  --color-line: #262626;
+  /* Цвет линий и бордеров */
+  --color-muted: #888888;
+  /* Цвет второстепенного текста */
+
+  /* Максимальная ширина для container-studio (из вашего max-w-studio) */
+  --breakpoint-studio: 1440px;
+
+  /* Кастомный трекинг */
+  --tracking-label: 0.1em;
+}
 
 @layer base {
   * {
-    @apply border-line;
+    /* В Tailwind v4 для универсальной рамки указываем цвет через переменную темы */
+    border-color: var(--color-line);
   }
 
   html {
@@ -13,19 +30,21 @@
   }
 
   body {
-    @apply bg-paper text-ink antialiased font-sans;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans, system-ui, sans-serif);
     font-feature-settings: "ss01" 1, "cv01" 1;
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-  background: #111111;
-  color: #ffffff;
+    background: #111111;
+    color: #ffffff;
   }
-  
-  /* visible, deliberate focus state — never removed */
+
   :focus-visible {
-    outline: 1.5px solid #111111;
+    outline: 1.5px solid #ffffff;
     outline-offset: 4px;
   }
 
@@ -33,6 +52,7 @@
     html {
       scroll-behavior: auto;
     }
+
     *,
     *::before,
     *::after {
@@ -44,16 +64,39 @@
   }
 }
 
-@layer utilities {
-  .container-studio {
-    @apply mx-auto w-full max-w-studio px-6 md:px-12 lg:px-20 xl:px-28;
+@utility container-studio {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: var(--breakpoint-studio, 1440px);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @media (min-width: 768px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
-  .label {
-    @apply font-mono text-[11px] uppercase tracking-label text-muted;
+  @media (min-width: 1024px) {
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 
-  .hairline {
-    @apply border-t border-line;
+  @media (min-width: 1280px) {
+    padding-left: 7rem;
+    padding-right: 7rem;
   }
+}
+
+@utility label {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label, 0.1em);
+  color: var(--color-muted);
+}
+
+@utility hairline {
+  border-top-width: 1px;
+  border-color: var(--color-line);
 }

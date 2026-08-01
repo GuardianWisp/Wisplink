@@ -23,6 +23,9 @@ const nextConfig = {
     unoptimized: true, // GH Pages has no image optimization server
     formats: ["image/avif", "image/webp"],
   },
+  experimental: {
+    useTypeScriptCli: true,
+  },
 };
 
 module.exports = nextConfig;
