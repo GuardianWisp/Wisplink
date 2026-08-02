@@ -19,6 +19,12 @@ const nextConfig = {
   basePath,
   assetPrefix: basePath,
   trailingSlash: true, // /about/ instead of /about — matches how GH Pages resolves folders
+  // Next.js does NOT auto-prefix next/image srcs with basePath when
+  // images.unoptimized is true (a known gap, not a bug in this config) —
+  // so we expose basePath here and prepend it ourselves in lib/paths.ts.
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   images: {
     unoptimized: true, // GH Pages has no image optimization server
     formats: ["image/avif", "image/webp"],

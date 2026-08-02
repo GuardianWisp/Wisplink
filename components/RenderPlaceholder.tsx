@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type { MouseEventHandler } from "react";
+import { withBasePath } from "@/lib/paths";
 
 type RenderPlaceholderProps = {
   /** Real image path — when provided, renders the actual image instead of a placeholder. */
@@ -44,16 +45,20 @@ export default function RenderPlaceholder({
 }: RenderPlaceholderProps) {
   const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   // If the browser already has this image cached, the load event can fire
   // before React attaches the listener (or not fire at all) — checking
   // `.complete` on mount catches that case so a cached image never gets
   // stuck at opacity-0, or double-fades in.
   useEffect(() => {
+    setFailed(false);
     if (imgRef.current?.complete) {
       setLoaded(true);
     }
   }, [src]);
+
+  const showImage = Boolean(src) && !failed;
 
   // Only when there's a real photo do we need the container itself to be
   // visible immediately (so its bg-panel shows through as a calm "loading"
@@ -84,7 +89,7 @@ export default function RenderPlaceholder({
       {src ? (
         <Image
           ref={imgRef}
-          src={src}
+          src={withBasePath(src)}
           alt={alt || label}
           fill
           priority={priority}
