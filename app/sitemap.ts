@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 
-const siteUrl = "https://isaevnikita.tilda.ws/";
+const siteUrl = "https://guardianwisp.github.io/Wisplink";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = ["", "/about", "/contact"].map((route) => ({

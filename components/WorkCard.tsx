@@ -23,9 +23,10 @@ export default function WorkCard({
         >
           <RenderPlaceholder
             src={project.cover}
-            label={`${project.title} — Render`}
+            alt={`${project.title} — обложка`}
+            label={`${project.title} — Рендер`}
             index={project.index}
-            aspect={project.aspect}
+            aspect={project.aspect === "square" ? "square" : "landscape"}
           />
         </div>
 
@@ -48,7 +49,7 @@ export default function WorkCard({
             <span className="label">{project.category}</span>
             <span className="label">{project.year}</span>
             <span className="label text-ink underline decoration-line-strong underline-offset-4 transition-colors duration-300 group-hover:decoration-ink">
-              View project →
+              Смотреть проект →
             </span>
           </div>
         </div>

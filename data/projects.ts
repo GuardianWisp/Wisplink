@@ -9,11 +9,12 @@ export type Project = {
   description: string[];
   software: string[];
   services: string[];
-  renderCount: number;
-  processCount: number;
   aspect: "portrait" | "landscape" | "square";
+  /** Cover image used on the homepage work list. */
   cover: string;
+  /** Fullscreen hero image at the top of the project page. */
   hero: string;
+  /** Gallery images, in order — leave empty to fall back to placeholders. */
   renders: string[];
   process: string[];
 };
@@ -27,16 +28,14 @@ export const projects: Project[] = [
     client: "Artlife Biotech",
     index: "01",
     summary:
-      "Визузализация микроаргонизмов для компании Artlife.",
+      "Исследование биологических структур, переведённое в футуристичную 3D-визуальную систему.",
     description: [
-      "biotech began as an exercise in restraint — how little geometry is needed to describe weight, texture and material truth. The brief called for a set of key visuals that could carry a mineral skincare line across packaging, print and digital without leaning on photography.",
-      "We built a small library of eroded, sediment-like forms and lit them the way a geologist might document a core sample: flat, even, unsentimental. The palette was drawn entirely from the minerals themselves — no colour was added in post.",
-      "The result is a system of eleven renders that the client continues to draw from a year later, extended for new products without a single reshoot.",
+      "Biotech начался как задача показать невидимое: как выглядят биологические структуры и микроорганизмы, если довести их форму до чистой, футуристичной 3D-графики. Бренду Artlife Biotech нужен был визуальный язык, который не копирует фотографию или снимки под микроскопом буквально, а превращает научную тему в самостоятельный, запоминающийся образ.",
+      "Я построил библиотеку органических, клеточных форм и выстроил свет так, будто это кадры из лаборатории будущего: чистый фон, точная фокусировка, минимум лишних деталей. Палитра выдержана в холодных, почти стерильных тонах — под стать теме биотехнологий.",
+      "В результате получилась система рендеров, которую клиент использует и сейчас — в презентациях, на сайте и в маркетинговых материалах, без необходимости пересъёмки.",
     ],
-    software: ["Cinema 4D", "Redshift", "Substance 3D", "Figma"],
+    software: ["Cinema 4D", "Redshift", "Substance 3D", "Photoshop"],
     services: ["3D Design", "Creative Direction"],
-    renderCount: 2,
-    processCount: 2,
     aspect: "landscape",
     cover: "/images/projects/biotech/cover.webp",
     hero: "/images/projects/biotech/hero.webp",
@@ -65,8 +64,6 @@ export const projects: Project[] = [
     ],
     software: ["Cinema 4D", "Redshift", "After Effects", "Figma"],
     services: ["3D Generalist", "Motion Design", "Visual Direction"],
-    renderCount: 9,
-    processCount: 3,
     aspect: "landscape",
     cover: "/images/projects/kozhindev/cover.webp",
     hero: "/images/projects/kozhindev/hero.webp",
@@ -87,23 +84,21 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "aperture",
-    title: "Aperture",
-    category: "Motion Design — Campaign",
+    slug: "ai-content",
+    title: "Ai Контент",
+    category: "Моушн-дизайн — Рекламная кампания",
     year: "2024",
     client: "Aperture Optics",
     index: "03",
     summary:
-      "A twelve-second loop exploring how glass bends light, built for an eyewear launch.",
+      "12-секундный луп о том, как стекло преломляет свет — снят для запуска линейки очков.",
     description: [
-      "Aperture Optics wanted a single moving image that could run silently in a shop window and carry the same weight as a thirty-second broadcast spot. We chose to slow everything down instead of speeding it up.",
-      "A single lens, a single light source, and twelve seconds of refraction — rendered at a resolution high enough to hold up on a five-metre storefront screen.",
-      "The loop has since run in fourteen cities with no edits, a rare outcome for a campaign asset built this early in a product's life.",
+      "Aperture Optics хотели один движущийся кадр, который можно беззвучно крутить в витрине магазина, но чтобы он держал внимание не хуже тридцатисекундного телевизионного ролика. Вместо того чтобы ускорять действие, я решил его замедлить.",
+      "Одна линза, один источник света и двенадцать секунд преломления — рендер в разрешении, которое держит чёткость даже на пятиметровом экране витрины.",
+      "Ролик с тех пор крутится в четырнадцати городах без единой правки — редкий результат для кампании, запущенной на таком раннем этапе жизни продукта.",
     ],
     software: ["Houdini", "Redshift", "After Effects", "DaVinci Resolve"],
     services: ["Motion Design", "Creative Direction"],
-    renderCount: 4,
-    processCount: 3,
     aspect: "landscape",
     cover: "/images/projects/aperture/cover.webp",
     hero: "/images/projects/aperture/hero.webp",

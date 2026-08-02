@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getProject, projects } from "@/data/projects";
-import RenderPlaceholder from "@/components/RenderPlaceholder";
+import ProjectCarousel from "@/components/ProjectCarousel";
+import ProjectGallery from "@/components/ProjectGallery";
 import Reveal from "@/components/Reveal";
 
 type Props = { params: { slug: string } };
@@ -18,7 +19,7 @@ export function generateMetadata({ params }: Props): Metadata {
     title: project.title,
     description: project.summary,
     openGraph: {
-      title: `${project.title} — Никита Исаев`, // 👈 
+      title: `${project.title} — Wisplink`,
       description: project.summary,
     },
   };
@@ -30,6 +31,12 @@ export default function ProjectPage({ params }: Props) {
 
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length] ?? projects[0]!;
+
+  // Hero image plus the first few renders — a curated highlight reel,
+  // separate from the full render+process set browsable in the Gallery below.
+  const heroImages = [project.hero, ...project.renders.slice(0, 4)].filter(
+    (src): src is string => Boolean(src)
+  );
 
   return (
     <article>
@@ -52,7 +59,7 @@ export default function ProjectPage({ params }: Props) {
               <dd className="mt-1 text-sm">{project.year}</dd>
             </div>
             <div>
-              <dt className="label">Заказчик</dt>
+              <dt className="label">Клиент</dt>
               <dd className="mt-1 text-sm">{project.client}</dd>
             </div>
             <div>
@@ -63,16 +70,9 @@ export default function ProjectPage({ params }: Props) {
         </div>
       </header>
 
-      {/* Полноэкранный главный рендер */}
+      {/* hero carousel — a curated highlight reel of the project's top renders */}
       <Reveal className="px-0" y={28}>
-        <RenderPlaceholder
-          src={project.hero}
-          label={`${project.title} — Главный рендер`}
-          index="01"
-          aspect="wide"
-          priority
-          className="h-[60vh] md:h-[86vh]"
-        />
+        <ProjectCarousel title={project.title} images={heroImages} />
       </Reveal>
 
       <section className="container-studio py-16 md:py-24">
@@ -89,7 +89,7 @@ export default function ProjectPage({ params }: Props) {
 
           <div className="md:col-span-4 md:col-start-9">
             <Reveal>
-              <span className="label">Использованный софт</span>
+              <span className="label">Используемый софт</span>
               <ul className="mt-4 flex flex-col gap-2">
                 {project.software.map((tool) => (
                   <li key={tool} className="text-sm text-ink">
@@ -102,47 +102,23 @@ export default function ProjectPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Галерея процесса */}
-      {project.process && project.process.length > 0 && (
+      {/* gallery — renders and process interleaved, click any image to open fullscreen */}
+      {(project.renders.length > 0 || project.process.length > 0) && (
         <section className="container-studio border-t border-line py-16 md:py-24">
-          <Reveal>
-            <span className="label">Процесс разработки</span>
+          <Reveal className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+            <span className="label">Галерея</span>
+            <span className="label text-faint">Нажмите на фото для полноэкранного просмотра</span>
           </Reveal>
-          <div className="mt-8 grid grid-cols-1 gap-6 md:mt-10 md:grid-cols-2 md:gap-8">
-            {project.process.map((src, i) => (
-              <RenderPlaceholder
-                key={i}
-                src={src}
-                label="Кадр процесса"
-                index={String(i + 1).padStart(2, "0")}
-                aspect={i % 3 === 0 ? "portrait" : "landscape"}
-              />
-            ))}
+          <div className="mt-8 md:mt-10">
+            <ProjectGallery
+              title={project.title}
+              renders={project.renders}
+              process={project.process}
+            />
           </div>
         </section>
       )}
 
-      {/* Дополнительные рендеры */}
-      {project.renders && project.renders.length > 0 && (
-        <section className="container-studio border-t border-line py-16 md:py-24">
-          <Reveal>
-            <span className="label">Кадры из проекта</span>
-          </Reveal>
-          <div className="mt-8 grid grid-cols-1 gap-6 md:mt-10 md:grid-cols-3 md:gap-8">
-            {project.renders.map((src, i) => (
-              <RenderPlaceholder
-                key={i}
-                src={src}
-                label={`${project.title} — Рендер`}
-                index={String(i + 1).padStart(2, "0")}
-                aspect="square"
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Следующий проект */}
       <section className="container-studio border-t border-line py-16 md:py-24">
         <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

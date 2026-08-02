@@ -13,16 +13,16 @@
   }
 
   body {
-    @apply bg-paper text-ink antialiased font-sans;
+    @apply bg-paper text-ink antialiased;
     font-feature-settings: "ss01" 1, "cv01" 1;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-  background: #111111;
-  color: #ffffff;
+    background: #111111;
+    color: #ffffff;
   }
-  
+
   /* visible, deliberate focus state — never removed */
   :focus-visible {
     outline: 1.5px solid #111111;

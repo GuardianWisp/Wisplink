@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const social = [
-  { label: "Telegram", href: "https://t.me/wispsoul" }, // 
+  { label: "Telegram", href: "https://t.me/wispsoul" },
   { label: "Behance", href: "https://behance.net/wisplink" },
   { label: "Instagram", href: "https://instagram.com/wisplink" },
   { label: "LinkedIn", href: "https://linkedin.com/in/wisplink" },
@@ -42,10 +42,10 @@ export default function ContactPage() {
       <Reveal delay={0.1} className="mt-16 border-t border-line pt-12 md:mt-24 md:pt-16">
         <span className="label">Email</span>
         <a
-          href="mailto:lisitsu@icloud.com" // 
+          href="mailto:wisplink@icloud.com"
           className="mt-4 block text-[clamp(2rem,6vw,4.5rem)] font-medium leading-none tracking-tighter transition-colors duration-300 hover:text-muted"
         >
-          lisitsu@icloud.com
+          wisplink@icloud.com
         </a>
       </Reveal>
 

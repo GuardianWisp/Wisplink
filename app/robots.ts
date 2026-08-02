@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://isaevnikita.tilda.ws/",
+    sitemap: "https://guardianwisp.github.io/Wisplink/sitemap.xml",
   };
 }

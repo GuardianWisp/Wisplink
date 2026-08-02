@@ -14,17 +14,10 @@ export default function Hero() {
         transition={{ duration: 1.1, ease }}
         className="max-w-5xl text-[clamp(2.75rem,7.4vw,6.5rem)] font-medium leading-[0.96] tracking-tightest"
       >
-        Nikita Isaev
+        Фриланс
+        <br />
+        3D-генералист.
       </motion.h1>
-
-      <motion.p
-       initial={{ opacity: 0, y: 20 }}
-       animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.15, ease }}
-         className="mt-6 text-lg text-muted md:text-xl"
->
-           CG Generalist · 3D Artist · UX/UI Designer
-      </motion.p>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -33,11 +26,16 @@ export default function Hero() {
         className="mt-10 grid grid-cols-1 gap-6 md:mt-14 md:grid-cols-12"
       >
         <p className="text-lg leading-relaxed text-muted md:col-span-5">
-          Создаю дизайн и визуальные решения для брендов.
-          3D, моушн, айдентика и визуальное направление —
-          погружаясь глубоко, а не распыляясь.
+          Я создаю трёхмерную графику для клиентов, которые ценят результат
+          на годы вперёд, а не на квартал. Один человек ведёт проект от
+          моделинга до моушна, айдентики и режиссуры — от начала до конца,
+          без передачи между разными специалистами.
         </p>
         <div className="hidden md:col-span-1 md:block" />
+        <p className="text-lg leading-relaxed text-muted md:col-span-5">
+          Россия, работаю удалённо. Беру в работу небольшое количество новых
+          проектов каждый год.
+        </p>
       </motion.div>
 
       <motion.div
@@ -46,10 +44,8 @@ export default function Hero() {
         transition={{ duration: 1.2, delay: 0.4, ease }}
         className="mt-16 md:mt-24"
       >
-        
         <RenderPlaceholder
-          src="/images/hero.webp"
-          label="Hero render"
+          label="Рендер скоро появится"
           index="INDEX — 00"
           aspect="wide"
           priority

@@ -1,6 +1,12 @@
-# Wisplink — Portfolio
+# Wisplink — Personal Portfolio
 
-Trying create my folio with ai
+A premium, minimalist portfolio for a freelance 3D generalist. Built with
+Next.js (App Router), TypeScript, Tailwind CSS and Framer Motion.
+
+The UI is intentionally quiet — large type, generous whitespace and a
+single hairline-grey palette — so that the 3D artwork itself is the only
+thing carrying colour. Every render slot in the site is currently a
+placeholder ready to be swapped for real work.
 
 ## Getting started
 
@@ -31,6 +37,8 @@ components/
   Nav.tsx, Footer.tsx
   Hero.tsx
   WorkCard.tsx           Large project card used in the work grid
+  ProjectCarousel.tsx    Embla carousel — hero highlight reel on the project page
+  ProjectGallery.tsx     Interleaved render/process grid + fullscreen lightbox
   RenderPlaceholder.tsx  Placeholder for every future 3D render
   Reveal.tsx             Shared scroll-fade animation wrapper
 data/
@@ -40,20 +48,58 @@ data/
 ## Adding or editing projects
 
 Everything about a project — title, category, year, description,
-software list and image counts — lives in `data/projects.ts`. Add a new
-object to the `projects` array and a project page is generated
-automatically at `/work/<slug>`, including static params for the build.
+software list and images — lives in `data/projects.ts`. Add a new object
+to the `projects` array and a project page is generated automatically at
+`/work/<slug>`, including static params for the build.
 
-## Replacing placeholders with real renders
+Each project has:
 
-Every render in the site goes through `components/RenderPlaceholder.tsx`.
-To swap in a real image or video:
+```ts
+cover: string;      // thumbnail shown on the homepage work list
+hero: string;        // fullscreen image at the top of the project page
+renders: string[];   // gallery — final render images, in order
+process: string[];   // gallery — process/behind-the-scenes images, in order
+```
 
-1. Add the asset under `public/` (or use a remote URL with `next/image`).
-2. Replace the placeholder's inner `div` with `next/image` (for stills) or
-   a native `<video>` element (for loops), keeping the same wrapping
-   `motion.div` so hover/reveal behaviour is unchanged.
-3. Remove the `label`/`index` overlay once a real image is in place.
+Drop the actual image files under `public/images/projects/<slug>/` and
+point these fields at them (e.g. `/images/projects/silt/cover.webp`).
+`renders` and `process` can hold any number of images — the gallery on
+the project page builds itself from however many you provide, in an
+interleaved, asymmetric grid (see `components/ProjectGallery.tsx`).
+
+Leave `renders`/`process` empty (`[]`) and that project's Gallery section
+simply won't render. Leave `cover` or `hero` as an empty string and that
+specific spot falls back to a placeholder box automatically — no other
+code changes needed.
+
+## How images render
+
+`components/RenderPlaceholder.tsx` is the one component every image in
+the site goes through — homepage cards, the project hero, and every
+gallery/lightbox image. Pass it a `src` and it renders the real image
+(via `next/image`, object-cover, with the site's hover-zoom and hairline
+border already applied); omit `src` and it shows a "Render pending"
+placeholder box instead. This means a project can mix real and
+not-yet-shot images with zero extra markup.
+
+## Hero carousel vs. gallery grid
+
+The project page has two ways to browse images, deliberately not
+overlapping:
+
+- **`ProjectCarousel.tsx`** (top of the page) — an Embla carousel showing
+  a curated highlight reel: `project.hero` plus the first four items in
+  `project.renders`. One large slide at a time, thin hairline arrows,
+  and a progress line instead of dots (keeps the editorial tone). This
+  is the first impression — a handful of the best shots.
+- **`ProjectGallery.tsx`** (further down) — the full, interleaved
+  render + process set in an asymmetric grid with a fullscreen lightbox.
+  This is the complete archive for anyone who wants to go deeper.
+
+Showing the same images in both would be redundant, so the carousel
+intentionally only pulls from the front of `renders` — adjust the slice
+in `app/work/[slug]/page.tsx` (`project.renders.slice(0, 4)`) if you
+want more or fewer highlight slides.
 
 ## Design tokens
 

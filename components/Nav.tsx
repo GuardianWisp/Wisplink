@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-// Переведенные пункты меню
 const links = [
   { href: "/#work", label: "Проекты" },
   { href: "/about", label: "Обо мне" },
@@ -30,15 +29,13 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-sm">
       <div className="container-studio flex h-20 items-center justify-between md:h-24">
-        {/* Текстовый логотип как в оригинале */}
         <Link
           href="/"
           className="font-mono text-sm font-medium tracking-label text-ink"
         >
-          WISPLINK
+          Wisp
         </Link>
 
-        {/* Десктопное меню */}
         <nav className="hidden items-center gap-10 md:flex">
           {links.map((link) => (
             <Link
@@ -51,7 +48,6 @@ export default function Nav() {
           ))}
         </nav>
 
-        {/* Кнопка мобильного меню */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -63,7 +59,6 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Мобильное выпадающее меню */}
       <AnimatePresence>
         {open && (
           <motion.nav

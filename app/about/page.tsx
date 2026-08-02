@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import RenderPlaceholder from "@/components/RenderPlaceholder";
 import Reveal from "@/components/Reveal";
-import portraitImg from "@/public/images/portrait.webp"; // 👈 Импортируем портрет прямо из public
 
 export const metadata: Metadata = {
   title: "Обо мне",
   description:
-    "3D Generalist и Motion Designer. Специализируюсь на 3D-моделировании, моушн-дизайне, симуляциях и визуалe для брендов.",
+    "3D Generalist и Motion Designer. Специализируюсь на 3D-моделировании, моушн-дизайне, симуляциях и визуале для брендов.",
 };
 
 const software = [
@@ -65,22 +64,18 @@ export default function AboutPage() {
       <Reveal>
         <span className="label">Обо мне</span>
         <h1 className="mt-4 max-w-3xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[0.98] tracking-tightest">
-          3D Generalist с фокусом на деталях, форме и движении.
+          3D Generalist с фокусом на Motion дизайне и Ai.
         </h1>
       </Reveal>
 
       <div className="mt-16 grid grid-cols-1 gap-10 md:mt-24 md:grid-cols-12 md:gap-12">
         <Reveal className="md:col-span-5">
-          <div className="relative aspect-[3/4] w-full min-h-[400px] overflow-hidden bg-line">
-            <Image
-              src={portraitImg} // 👈 Используем импортированный объект
-              alt="Портрет"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 40vw"
-              priority
-            />
-          </div>
+          <RenderPlaceholder
+            src="/images/portrait.webp"
+            alt="Портрет"
+            aspect="portrait"
+            priority
+          />
         </Reveal>
 
         <Reveal delay={0.1} className="md:col-span-6 md:col-start-7">
