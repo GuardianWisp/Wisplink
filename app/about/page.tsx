@@ -71,7 +71,7 @@ export default function AboutPage() {
       <div className="mt-16 grid grid-cols-1 gap-10 md:mt-24 md:grid-cols-12 md:gap-12">
         <Reveal className="md:col-span-5">
           <RenderPlaceholder
-            src="/images/portrait.webp"
+            src="./images/portrait.webp"
             alt="Портрет"
             aspect="portrait"
             priority
