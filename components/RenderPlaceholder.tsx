@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type { MouseEventHandler } from "react";
@@ -42,15 +42,37 @@ export default function RenderPlaceholder({
   static: isStatic = false,
   onClick,
 }: RenderPlaceholderProps) {
+  const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
 
+  // If the browser already has this image cached, the load event can fire
+  // before React attaches the listener (or not fire at all) — checking
+  // `.complete` on mount catches that case so a cached image never gets
+  // stuck at opacity-0, or double-fades in.
+  useEffect(() => {
+    if (imgRef.current?.complete) {
+      setLoaded(true);
+    }
+  }, [src]);
+
+  // Only when there's a real photo do we need the container itself to be
+  // visible immediately (so its bg-panel shows through as a calm "loading"
+  // state) — the container only slides, it doesn't fade. The image is the
+  // only thing that fades, once, when it's actually ready. Stacking two
+  // separate opacity fades (container + image) is what read as a "blink".
   const revealProps = isStatic
-    ? { initial: { opacity: 1, y: 0 }, animate: { opacity: 1, y: 0 } }
-    : {
-      initial: { opacity: 0, y: 24 },
-      whileInView: { opacity: 1, y: 0 },
-      viewport: { once: true, margin: "-10% 0px" },
-    };
+    ? { initial: { y: 0 }, animate: { y: 0 } }
+    : src
+      ? {
+          initial: { y: 24 },
+          whileInView: { y: 0 },
+          viewport: { once: true, margin: "-10% 0px" },
+        }
+      : {
+          initial: { opacity: 0, y: 24 },
+          whileInView: { opacity: 1, y: 0 },
+          viewport: { once: true, margin: "-10% 0px" },
+        };
 
   return (
     <motion.div
@@ -61,14 +83,15 @@ export default function RenderPlaceholder({
     >
       {src ? (
         <Image
+          ref={imgRef}
           src={src}
           alt={alt || label}
           fill
           priority={priority}
+          decoding="async"
           sizes="(max-width: 768px) 100vw, 80vw"
           onLoad={() => setLoaded(true)}
-          className={`object-cover transition-[opacity,transform] duration-700 ease-studio group-hover:scale-[1.03] ${loaded ? "opacity-100" : "opacity-0"
-            }`}
+          className={`transform-gpu object-cover ${loaded ? "opacity-100" : "opacity-0"} transition-opacity duration-700 ease-studio group-hover:scale-[1.03] group-hover:transition-transform group-hover:duration-1100`}
         />
       ) : (
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 transition-transform duration-1100 ease-studio group-hover:scale-[1.015]">

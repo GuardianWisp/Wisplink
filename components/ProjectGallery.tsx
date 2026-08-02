@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import RenderPlaceholder from "./RenderPlaceholder";
 import type { GalleryImage } from "@/data/projects";
@@ -95,7 +95,10 @@ export default function ProjectGallery({
   renders: GalleryImage[];
   process: GalleryImage[];
 }) {
-  const items = buildSequence(renders, process);
+  const items = useMemo(
+    () => buildSequence(renders, process),
+    [renders, process]
+  );
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const close = useCallback(() => setOpenIndex(null), []);
