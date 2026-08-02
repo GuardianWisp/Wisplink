@@ -34,9 +34,10 @@ export default function ProjectPage({ params }: Props) {
 
   // Hero image plus the first few renders — a curated highlight reel,
   // separate from the full render+process set browsable in the Gallery below.
-  const heroImages = [project.hero, ...project.renders.slice(0, 4)].filter(
-    (src): src is string => Boolean(src)
-  );
+  const heroImages = [
+    project.hero,
+    ...project.renders.slice(0, 4).map((r) => (typeof r === "string" ? r : r.src)),
+  ].filter((src): src is string => Boolean(src));
 
   return (
     <article>

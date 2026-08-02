@@ -1,3 +1,22 @@
+/**
+ * A gallery image, in the simplest case just a path. To control how much
+ * visual weight it gets in the gallery grid, use the object form instead:
+ *
+ *   "/images/projects/silt/render-02.webp"                          // default size
+ *   { src: "/images/projects/silt/render-02.webp", size: "xl" }      // full-width feature
+ *   { src: "/images/projects/silt/render-03.webp", size: "sm" }      // small accent tile
+ *
+ * size: "sm" | "md" | "lg" | "xl" (defaults to an automatic rhythm if omitted)
+ * aspect: optional override — otherwise a sensible aspect is picked per size
+ */
+export type GalleryImage =
+  | string
+  | {
+      src: string;
+      size?: "sm" | "md" | "lg" | "xl";
+      aspect?: "portrait" | "landscape" | "square" | "wide";
+    };
+
 export type Project = {
   slug: string;
   title: string;
@@ -15,8 +34,8 @@ export type Project = {
   /** Fullscreen hero image at the top of the project page. */
   hero: string;
   /** Gallery images, in order — leave empty to fall back to placeholders. */
-  renders: string[];
-  process: string[];
+  renders: GalleryImage[];
+  process: GalleryImage[];
 };
 
 export const projects: Project[] = [
@@ -37,15 +56,15 @@ export const projects: Project[] = [
     software: ["Cinema 4D", "Redshift", "Substance 3D", "Photoshop"],
     services: ["3D Design", "Creative Direction"],
     aspect: "landscape",
-    cover: "./images/projects/biotech/cover.webp",
-    hero: "./images/projects/biotech/hero.webp",
+    cover: "/images/projects/biotech/cover.webp",
+    hero: "/images/projects/biotech/hero.webp",
     renders: [
-      "./images/projects/biotech/render-01.webp",
-      "./images/projects/biotech/render-02.webp",
+      "/images/projects/biotech/render-01.webp",
+      "/images/projects/biotech/render-02.webp",
     ],
     process: [
-      "./images/projects/biotech/process-01.webp",
-      "./images/projects/biotech/process-02.webp",
+      "/images/projects/biotech/process-01.webp",
+      "/images/projects/biotech/process-02.webp",
     ],
   },
   {
@@ -65,22 +84,22 @@ export const projects: Project[] = [
     software: ["Cinema 4D", "Redshift", "After Effects", "Figma"],
     services: ["3D Generalist", "Motion Design", "Visual Direction"],
     aspect: "landscape",
-    cover: "./images/projects/kozhindev/cover.webp",
-    hero: "./images/projects/kozhindev/hero.webp",
+    cover: "/images/projects/kozhindev/cover.webp",
+    hero: "/images/projects/kozhindev/hero.webp",
     renders: [
-      "./images/projects/kozhindev/render-01.webp",
-      "./images/projects/kozhindev/render-02.webp",
-      "./images/projects/kozhindev/render-03.webp",
-      "./images/projects/kozhindev/render-04.webp",
-      "./images/projects/kozhindev/render-05.webp",
-      "./images/projects/kozhindev/render-06.webp",
-      "./images/projects/kozhindev/render-07.webp",
-      "./images/projects/kozhindev/render-08.webp",
+      "/images/projects/kozhindev/render-01.webp",
+      "/images/projects/kozhindev/render-02.webp",
+      "/images/projects/kozhindev/render-03.webp",
+      "/images/projects/kozhindev/render-04.webp",
+      "/images/projects/kozhindev/render-05.webp",
+      "/images/projects/kozhindev/render-06.webp",
+      "/images/projects/kozhindev/render-07.webp",
+      "/images/projects/kozhindev/render-08.webp",
     ],
     process: [
-      "./images/projects/kozhindev/process-01.webp",
-      "./images/projects/kozhindev/process-02.webp",
-      "./images/projects/kozhindev/process-03.webp",
+      "/images/projects/kozhindev/process-01.webp",
+      "/images/projects/kozhindev/process-02.webp",
+      "/images/projects/kozhindev/process-03.webp",
     ],
   },
   {
@@ -100,15 +119,15 @@ export const projects: Project[] = [
     software: ["Houdini", "Redshift", "After Effects", "DaVinci Resolve"],
     services: ["Motion Design", "Creative Direction"],
     aspect: "landscape",
-    cover: "./images/projects/aperture/cover.webp",
-    hero: "./images/projects/aperture/hero.webp",
+    cover: "/images/projects/aperture/cover.webp",
+    hero: "/images/projects/aperture/hero.webp",
     renders: [
-      "./images/projects/aperture/render-01.webp",
-      "./images/projects/aperture/render-02.webp",
+      "/images/projects/aperture/render-01.webp",
+      "/images/projects/aperture/render-02.webp",
     ],
     process: [
-      "./images/projects/aperture/process-01.webp",
-      "./images/projects/aperture/process-02.webp",
+      "/images/projects/aperture/process-01.webp",
+      "/images/projects/aperture/process-02.webp",
     ],
   },
 ];

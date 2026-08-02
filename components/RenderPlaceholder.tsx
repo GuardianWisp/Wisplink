@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type { MouseEventHandler } from "react";
@@ -41,13 +42,15 @@ export default function RenderPlaceholder({
   static: isStatic = false,
   onClick,
 }: RenderPlaceholderProps) {
+  const [loaded, setLoaded] = useState(false);
+
   const revealProps = isStatic
     ? { initial: { opacity: 1, y: 0 }, animate: { opacity: 1, y: 0 } }
     : {
-        initial: { opacity: 0, y: 24 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-10% 0px" },
-      };
+      initial: { opacity: 0, y: 24 },
+      whileInView: { opacity: 1, y: 0 },
+      viewport: { once: true, margin: "-10% 0px" },
+    };
 
   return (
     <motion.div
@@ -63,7 +66,9 @@ export default function RenderPlaceholder({
           fill
           priority={priority}
           sizes="(max-width: 768px) 100vw, 80vw"
-          className="object-cover transition-transform duration-1100 ease-studio group-hover:scale-[1.03]"
+          onLoad={() => setLoaded(true)}
+          className={`object-cover transition-[opacity,transform] duration-700 ease-studio group-hover:scale-[1.03] ${loaded ? "opacity-100" : "opacity-0"
+            }`}
         />
       ) : (
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 transition-transform duration-1100 ease-studio group-hover:scale-[1.015]">

@@ -3,65 +3,87 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import RenderPlaceholder from "./RenderPlaceholder";
+import type { GalleryImage } from "@/data/projects";
 
 type Aspect = "portrait" | "landscape" | "square" | "wide";
+type Size = "sm" | "md" | "lg" | "xl";
 
 type GalleryItem = {
   type: "render" | "process";
   src: string;
+  size: Size;
   aspect: Aspect;
 };
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /**
- * A 6-step column/aspect rhythm that repeats down the page:
- * wide + narrow → three even squares → one full-width breather.
- * Renders and process shots share the same rhythm so the whole
- * gallery reads as one considered sequence, not two separate grids.
+ * How much grid space + which default aspect each size tier gets.
+ * `grid-flow-row-dense` on the container (below) backfills any gaps
+ * left when spans don't divide evenly into a row — so any mix of
+ * sizes, in any order, still lays out cleanly with no holes.
  */
-const layoutPattern: { col: string; aspect: Aspect }[] = [
-  { col: "md:col-span-7", aspect: "landscape" },
-  { col: "md:col-span-5", aspect: "portrait" },
-  { col: "md:col-span-4", aspect: "square" },
-  { col: "md:col-span-4", aspect: "square" },
-  { col: "md:col-span-4", aspect: "square" },
-  { col: "md:col-span-12", aspect: "wide" },
-];
+const sizeMap: Record<Size, { col: string; aspect: Aspect }> = {
+  sm: { col: "md:col-span-4", aspect: "square" },
+  md: { col: "md:col-span-6", aspect: "landscape" },
+  lg: { col: "md:col-span-8", aspect: "landscape" },
+  xl: { col: "md:col-span-12", aspect: "wide" },
+};
 
 /**
- * Builds the interleaved sequence directly from the real image arrays —
- * renders lead, then renders and process stills alternate roughly 2:1,
- * so process work surfaces naturally through the set instead of being
- * siloed at the end. Reading straight from array length (not a separate
- * count field) means there's nothing to keep in sync by hand.
+ * Automatic rhythm used only for images that don't specify their own
+ * size — so a plain list of image paths still reads as a considered,
+ * asymmetric layout with zero manual curation required.
  */
-function buildSequence(renders: string[], process: string[]): GalleryItem[] {
-  const items: { type: "render" | "process"; src: string }[] = [];
+const defaultSizeCycle: Size[] = ["lg", "sm", "md", "xl", "sm", "md"];
+
+function resolveImage(
+  image: GalleryImage,
+  fallbackSize: Size
+): { src: string; size: Size; aspect: Aspect } {
+  if (typeof image === "string") {
+    return { src: image, size: fallbackSize, aspect: sizeMap[fallbackSize].aspect };
+  }
+  const size = image.size ?? fallbackSize;
+  const aspect = image.aspect ?? sizeMap[size].aspect;
+  return { src: image.src, size, aspect };
+}
+
+/**
+ * Builds the interleaved sequence — renders lead, then renders and
+ * process stills alternate roughly 2:1 — then resolves each item's
+ * size/aspect, respecting any manual override on that specific image.
+ */
+function buildSequence(
+  renders: GalleryImage[],
+  process: GalleryImage[]
+): GalleryItem[] {
+  const raw: { type: "render" | "process"; image: GalleryImage }[] = [];
   let r = 0;
   let p = 0;
 
   const lead = Math.min(2, renders.length);
   for (let i = 0; i < lead; i++) {
-    items.push({ type: "render", src: renders[r]! });
+    raw.push({ type: "render", image: renders[r]! });
     r++;
   }
 
   while (r < renders.length || p < process.length) {
     for (let k = 0; k < 2 && r < renders.length; k++) {
-      items.push({ type: "render", src: renders[r]! });
+      raw.push({ type: "render", image: renders[r]! });
       r++;
     }
     if (p < process.length) {
-      items.push({ type: "process", src: process[p]! });
+      raw.push({ type: "process", image: process[p]! });
       p++;
     }
   }
 
-  return items.map((item, i) => ({
-    ...item,
-    aspect: layoutPattern[i % layoutPattern.length]!.aspect,
-  }));
+  return raw.map((item, i) => {
+    const fallbackSize = defaultSizeCycle[i % defaultSizeCycle.length]!;
+    const resolved = resolveImage(item.image, fallbackSize);
+    return { type: item.type, ...resolved };
+  });
 }
 
 export default function ProjectGallery({
@@ -70,8 +92,8 @@ export default function ProjectGallery({
   process,
 }: {
   title: string;
-  renders: string[];
-  process: string[];
+  renders: GalleryImage[];
+  process: GalleryImage[];
 }) {
   const items = buildSequence(renders, process);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -109,9 +131,9 @@ export default function ProjectGallery({
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
+      <div className="grid grid-flow-row-dense grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
         {items.map((item, i) => (
-          <div key={item.src} className={layoutPattern[i % layoutPattern.length]!.col}>
+          <div key={item.src} className={sizeMap[item.size].col}>
             <RenderPlaceholder
               src={item.src}
               alt={

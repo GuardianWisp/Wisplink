@@ -64,14 +64,14 @@ export default function AboutPage() {
       <Reveal>
         <span className="label">Обо мне</span>
         <h1 className="mt-4 max-w-3xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[0.98] tracking-tightest">
-          3D Generalist с фокусом на Motion дизайне и Ai.
+          3D Generalist с фокусом на деталях, форме и движении.
         </h1>
       </Reveal>
 
       <div className="mt-16 grid grid-cols-1 gap-10 md:mt-24 md:grid-cols-12 md:gap-12">
         <Reveal className="md:col-span-5">
           <RenderPlaceholder
-            src="./images/portrait.webp"
+            src="/images/portrait.webp"
             alt="Портрет"
             aspect="portrait"
             priority
