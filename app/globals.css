@@ -12,8 +12,16 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* native cursor is hidden only once JS confirms a real mouse is present
+     (see CustomCursor.tsx) — touch devices never get this class, so this
+     rule never affects them */
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
+  }
+
   body {
-    @apply bg-paper text-ink antialiased;
+    @apply bg-paper text-ink antialiased font-sans;
     font-feature-settings: "ss01" 1, "cv01" 1;
     text-rendering: optimizeLegibility;
   }

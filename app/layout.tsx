@@ -3,6 +3,9 @@ import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
+import GrainOverlay from "@/components/GrainOverlay";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -77,6 +80,9 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ScrollProgress />
+        <GrainOverlay />
+        <CustomCursor />
       </body>
     </html>
   );

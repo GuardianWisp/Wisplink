@@ -14,6 +14,7 @@ export default function WorkCard({
     <Reveal className="group border-t border-line py-16 first:border-t-0 md:py-24">
       <Link
         href={`/work/${project.slug}`}
+        data-cursor-label="Смотреть"
         className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12"
       >
         <div

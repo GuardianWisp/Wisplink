@@ -84,23 +84,27 @@ export default function RenderPlaceholder({
       {...revealProps}
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
+      {...(onClick ? { "data-cursor-label": "Открыть" } : {})}
       className={`group relative w-full overflow-hidden bg-panel ${aspectMap[aspect]} ${className}`}
     >
-      {src ? (
+      {showImage ? (
         <Image
           ref={imgRef}
-          src={withBasePath(src)}
+          src={withBasePath(src!)}
           alt={alt || label}
           fill
           priority={priority}
           decoding="async"
           sizes="(max-width: 768px) 100vw, 80vw"
           onLoad={() => setLoaded(true)}
+          onError={() => setFailed(true)}
           className={`transform-gpu object-cover ${loaded ? "opacity-100" : "opacity-0"} transition-opacity duration-700 ease-studio group-hover:scale-[1.03] group-hover:transition-transform group-hover:duration-1100`}
         />
       ) : (
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 transition-transform duration-1100 ease-studio group-hover:scale-[1.015]">
-          <span className="label text-faint">{label}</span>
+          <span className="label text-faint">
+            {failed ? "Не удалось загрузить изображение" : label}
+          </span>
           {index && (
             <span className="font-mono text-xs text-faint">{index}</span>
           )}

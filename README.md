@@ -126,6 +126,38 @@ intentionally only pulls from the front of `renders` — adjust the slice
 in `app/work/[slug]/page.tsx` (`project.renders.slice(0, 4)`) if you
 want more or fewer highlight slides.
 
+## "How I work" section + CV download
+
+`components/Process.tsx` is a 4-step section on the homepage, between
+Selected Work and the closing CTA — edit the `steps` array directly in
+that file to change the copy.
+
+The About page has a "Скачать CV →" button linking to `public/cv.pdf`.
+**A placeholder PDF is already there** so the link isn't broken by
+default — replace `public/cv.pdf` with your real resume, same filename,
+nothing else to change. Note it's a plain `<a href>` (not `next/link`),
+so it goes through `withBasePath()` from `lib/paths.ts` just like every
+image — the same GitHub Pages basePath issue that hit the images would
+hit any other local file link the same way if that step were skipped.
+
+## Atmosphere components
+
+Three small, purely decorative components mounted once in `app/layout.tsx`,
+each with a built-in safety rail so they can't hurt responsiveness or a11y:
+
+- **`CustomCursor.tsx`** — dot + trailing ring cursor, grows and shows a
+  label over `<a>`/`<button>`/`[data-cursor]` elements. Only activates
+  after confirming a real mouse via `matchMedia("(hover: hover) and
+  (pointer: fine)")` — never touches touch/mobile devices, and renders
+  nothing until that check passes. Add `data-cursor-label="..."` to any
+  element for a custom label (already on project cards and every
+  clickable gallery image).
+- **`GrainOverlay.tsx`** — static SVG noise, ~4.5% opacity, `mix-blend-
+  multiply`. No animation, no JS cost after first paint — just texture.
+- **`ScrollProgress.tsx`** — hairline vertical rail on the right edge
+  that fills as you scroll the page. `hidden md:block` — skipped on
+  mobile where there's no margin for it.
+
 ## Hand-drawn accents (Doodle.tsx)
 
 `components/Doodle.tsx` adds small, thin monoline SVG marks — an

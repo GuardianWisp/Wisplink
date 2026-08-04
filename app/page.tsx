@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import WorkCard from "@/components/WorkCard";
+import Process from "@/components/Process";
 import Reveal from "@/components/Reveal";
 import Doodle from "@/components/Doodle";
 import Link from "next/link";
@@ -36,6 +37,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <Process />
 
       <section className="container-studio border-t border-line py-24 md:py-32">
         <Reveal className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end">

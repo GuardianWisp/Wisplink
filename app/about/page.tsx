@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RenderPlaceholder from "@/components/RenderPlaceholder";
 import Reveal from "@/components/Reveal";
+import { withBasePath } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "Обо мне",
@@ -66,6 +67,13 @@ export default function AboutPage() {
         <h1 className="mt-4 max-w-3xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[0.98] tracking-tightest">
           3D Generalist с фокусом на деталях, форме и движении.
         </h1>
+        <a
+          href={withBasePath("/cv.pdf")}
+          download
+          className="label mt-8 inline-flex items-center gap-3 border border-ink px-6 py-4 text-ink transition-colors duration-300 hover:bg-ink hover:text-paper"
+        >
+          Скачать CV →
+        </a>
       </Reveal>
 
       <div className="mt-16 grid grid-cols-1 gap-10 md:mt-24 md:grid-cols-12 md:gap-12">
