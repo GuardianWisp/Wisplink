@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
+import Doodle from "@/components/Doodle";
 
 export const metadata: Metadata = {
   title: "Контакты",
@@ -39,7 +40,12 @@ export default function ContactPage() {
         </h1>
       </Reveal>
 
-      <Reveal delay={0.1} className="mt-16 border-t border-line pt-12 md:mt-24 md:pt-16">
+      <Reveal delay={0.1} className="relative mt-16 border-t border-line pt-12 md:mt-24 md:pt-16">
+        <Doodle
+          variant="spark"
+          className="absolute right-0 top-8 w-6 text-muted md:top-12 md:w-8"
+          delay={0.6}
+        />
         <span className="label">Email</span>
         <a
           href="mailto:wisplink@icloud.com"

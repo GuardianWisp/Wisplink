@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import WorkCard from "@/components/WorkCard";
 import Reveal from "@/components/Reveal";
+import Doodle from "@/components/Doodle";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 
@@ -41,7 +42,12 @@ export default function HomePage() {
           <h2 className="text-[clamp(2.25rem,5vw,4.25rem)] font-medium leading-[0.98] tracking-tighter md:col-span-8">
             Есть проект, который заслуживает такого же внимания к деталям?
           </h2>
-          <div className="md:col-span-4 md:justify-self-end">
+          <div className="relative md:col-span-4 md:justify-self-end">
+            <Doodle
+              variant="arrow"
+              className="absolute -top-10 right-6 w-16 -rotate-12 text-muted"
+              delay={0.5}
+            />
             <Link
               href="/contact"
               className="label inline-flex items-center gap-3 border border-ink px-6 py-4 text-ink transition-colors duration-300 hover:bg-ink hover:text-paper"

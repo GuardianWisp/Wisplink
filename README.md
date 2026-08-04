@@ -55,10 +55,10 @@ to the `projects` array and a project page is generated automatically at
 Each project has:
 
 ```ts
-cover: string;      // thumbnail shown on the homepage work list
-hero: string;        // fullscreen image at the top of the project page
-renders: string[];   // gallery — final render images, in order
-process: string[];   // gallery — process/behind-the-scenes images, in order
+cover: string;             // thumbnail shown on the homepage work list
+hero: string;               // fullscreen image at the top of the project page
+renders: GalleryImage[];    // gallery — final render images, in order
+process: GalleryImage[];    // gallery — process/behind-the-scenes images, in order
 ```
 
 Drop the actual image files under `public/images/projects/<slug>/` and
@@ -71,6 +71,31 @@ Leave `renders`/`process` empty (`[]`) and that project's Gallery section
 simply won't render. Leave `cover` or `hero` as an empty string and that
 specific spot falls back to a placeholder box automatically — no other
 code changes needed.
+
+### Controlling how much space an image gets
+
+A `GalleryImage` is either just a path, or an object when you want to
+control its size in the grid:
+
+```ts
+renders: [
+  "/images/projects/silt/render-01.webp",                              // automatic size
+  { src: "/images/projects/silt/render-02.webp", size: "xl" },          // full-width feature
+  { src: "/images/projects/silt/render-03.webp", size: "sm" },          // small accent tile
+  { src: "/images/projects/silt/render-04.webp", size: "lg", aspect: "portrait" }, // size + aspect override
+],
+```
+
+`size` is `"sm" | "md" | "lg" | "xl"`. Leave it off and the image falls
+back to an automatic rhythm (`components/ProjectGallery.tsx` →
+`defaultSizeCycle`) so a plain list of paths still looks considered with
+zero curation. `aspect` is optional too — each size already has a
+sensible default aspect ratio; only set it if you want e.g. a tall
+portrait crop on a large tile.
+
+The grid uses `grid-flow-row-dense`, so any mix of sizes in any order
+packs cleanly with no leftover gaps — put your best shot at `xl` wherever
+it falls in the sequence, no need to reorder anything around it.
 
 ## How images render
 
@@ -101,7 +126,35 @@ intentionally only pulls from the front of `renders` — adjust the slice
 in `app/work/[slug]/page.tsx` (`project.renders.slice(0, 4)`) if you
 want more or fewer highlight slides.
 
-## Design tokens
+## Hand-drawn accents (Doodle.tsx)
+
+`components/Doodle.tsx` adds small, thin monoline SVG marks — an
+underline, a loose circle, an arrow, a spark — as "margin note" style
+accents (editorial, not cartoon). A few are already placed: under the
+hero headline, pointing at the homepage CTA, circling "404", and beside
+the email on the contact page.
+
+```tsx
+<div className="relative">
+  <Doodle
+    variant="underline" // "underline" | "circle" | "arrow" | "spark"
+    className="absolute -bottom-2 left-0 w-full" // position + size it here
+    color="text-ink" // or "text-muted"
+  />
+  Your content
+</div>
+```
+
+Rules that keep it from hurting responsiveness or clutter:
+- Always `absolute`-positioned inside a `relative` parent — doodles are
+  decorative and sit outside the document flow, so they can never shift
+  or wrap surrounding layout.
+- Hidden below the `md` breakpoint automatically (built into the
+  component) — there's rarely room for them on mobile.
+- Use sparingly — one or two per page reads as intentional; more starts
+  to look decorative rather than editorial.
+
+
 
 Defined in `tailwind.config.ts`:
 

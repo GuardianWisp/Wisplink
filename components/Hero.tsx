@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import RenderPlaceholder from "./RenderPlaceholder";
+import Doodle from "./Doodle";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -16,7 +17,14 @@ export default function Hero() {
       >
         Фриланс
         <br />
-        3D-генералист.
+        <span className="relative inline-block">
+          3D-генералист.
+          <Doodle
+            variant="underline"
+            className="absolute -bottom-2 left-0 w-full md:-bottom-3"
+            delay={0.9}
+          />
+        </span>
       </motion.h1>
 
       <motion.div
