@@ -73,7 +73,7 @@ export default function CustomCursor() {
         style={{ x: cursorX, y: cursorY, translateX: "-50%", translateY: "-50%" }}
       />
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[200] flex items-center justify-center overflow-hidden rounded-full border border-ink bg-paper/40 backdrop-blur-[1px]"
+        className="pointer-events-none fixed left-0 top-0 z-[200] flex items-center justify-center overflow-hidden rounded-full border border-ink bg-paper/40"
         style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}
         animate={{
           width: hovering ? (label ? 92 : 52) : 26,

@@ -1,13 +1,13 @@
-import Link from "next/link";
+"use client";
 
-const social = [
-  { label: "Instagram", href: "https://instagram.com/wisplink/" },
-  { label: "Telegram", href: "https://t.me/wispsoul" },
-  { label: "Behance", href: "https://behance.net/wisplink" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/wisplink" },
-];
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { social, email } from "@/data/social";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname === "/links") return null;
+
   return (
     <footer className="border-t border-line">
       <div className="container-studio flex flex-col gap-10 py-12 md:flex-row md:items-end md:justify-between md:py-14">
@@ -34,10 +34,10 @@ export default function Footer() {
 
         <div className="flex flex-col gap-1 md:items-end">
           <a
-            href="mailto:wisplink@icloud.com"
+            href={`mailto:${email}`}
             className="label text-ink transition-colors duration-300 hover:text-muted"
           >
-            wisplink@icloud.com
+            {email}
           </a>
           <span className="label">
             &copy; {new Date().getFullYear()} Wisplink

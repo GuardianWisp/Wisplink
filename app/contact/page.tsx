@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import Doodle from "@/components/Doodle";
+import { social, email } from "@/data/social";
 
 export const metadata: Metadata = {
   title: "Контакты",
   description:
     "Свяжитесь со мной для обсуждения проектов по 3D-графике, моушн-дизайну и визуальным концептам.",
 };
-
-const social = [
-  { label: "Telegram", href: "https://t.me/wispsoul" },
-  { label: "Behance", href: "https://behance.net/wisplink" },
-  { label: "Instagram", href: "https://instagram.com/wisplink" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/wisplink" },
-];
 
 const details = [
   {
@@ -48,10 +42,10 @@ export default function ContactPage() {
         />
         <span className="label">Email</span>
         <a
-          href="mailto:wisplink@icloud.com"
+          href={`mailto:${email}`}
           className="mt-4 block text-[clamp(2rem,6vw,4.5rem)] font-medium leading-none tracking-tighter transition-colors duration-300 hover:text-muted"
         >
-          wisplink@icloud.com
+          {email}
         </a>
       </Reveal>
 

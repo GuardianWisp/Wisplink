@@ -28,21 +28,30 @@ npm run lint    # lint
 ```
 app/
   layout.tsx          Root layout — fonts, metadata, Nav/Footer
-  page.tsx             Home — Hero + Selected Work
-  about/page.tsx        About — bio, skills, software, services
+  page.tsx             Home — Hero + Selected Work + Process + CTA
+  about/page.tsx        About — bio, skills, software, services, CV download
   contact/page.tsx      Contact — email + details
-  work/[slug]/page.tsx   Project detail — fullscreen render, process, gallery
+  work/[slug]/page.tsx   Project detail — carousel, description, gallery
+  blog/page.tsx          Blog archive
+  blog/[slug]/page.tsx    Blog post
   sitemap.ts / robots.ts SEO
 components/
   Nav.tsx, Footer.tsx
-  Hero.tsx
+  Hero.tsx, Process.tsx
   WorkCard.tsx           Large project card used in the work grid
   ProjectCarousel.tsx    Embla carousel — hero highlight reel on the project page
   ProjectGallery.tsx     Interleaved render/process grid + fullscreen lightbox
   RenderPlaceholder.tsx  Placeholder for every future 3D render
+  MdxContent.tsx         Styled MDX renderer for blog posts
+  Doodle.tsx, CustomCursor.tsx, GrainOverlay.tsx, ScrollProgress.tsx  Atmosphere
   Reveal.tsx             Shared scroll-fade animation wrapper
 data/
   projects.ts            All project content — edit here to add/change work
+content/
+  posts/*.mdx             Blog posts — see "Blog / Журнал" below
+lib/
+  posts.ts               Reads + parses content/posts at build time
+  paths.ts                GitHub Pages basePath helper for local asset links
 ```
 
 ## Adding or editing projects
@@ -125,6 +134,50 @@ Showing the same images in both would be redundant, so the carousel
 intentionally only pulls from the front of `renders` — adjust the slice
 in `app/work/[slug]/page.tsx` (`project.renders.slice(0, 4)`) if you
 want more or fewer highlight slides.
+
+## Link-in-bio page (`/links`)
+
+A standalone, mobile-first page for pasting into an Instagram/Telegram
+bio — avatar, name, and a stack of full-width buttons (portfolio,
+projects, blog, email, CV, social). It deliberately has **no site
+Nav/Footer** — both components check `usePathname()` and render nothing
+on `/links`, so the page is just itself with no extra chrome to scroll
+past on a phone.
+
+Social links and the contact email live in one place —
+**`data/social.ts`** — shared by the Footer, Contact page and this page.
+Edit there once; it updates everywhere.
+
+## Blog / Журнал
+
+Real content, written as `.mdx` files — supports headings, paragraphs,
+links, blockquotes, lists and images, styled to match the site's own
+type system (not generic Tailwind Typography defaults).
+
+**Add a post:** create `content/posts/<slug>.mdx` with frontmatter:
+
+```mdx
+---
+title: "Заголовок поста"
+date: "2025-08-12"        # ISO date — controls sort order on /blog
+excerpt: "Одно-два предложения для карточки в архиве."
+tags: ["процесс", "AI"]    # optional
+---
+
+Текст поста — обычный Markdown/MDX. Поддерживаются `##` заголовки,
+**жирный текст**, [ссылки](/), `> цитаты`, списки и `![картинки](/images/...)`.
+```
+
+That's it — no other file needs editing. `/blog` (archive) and
+`/blog/<slug>` (post page) are generated automatically from whatever's
+in `content/posts/`, the same static-generation pattern as `/work/<slug>`.
+Delete the two example posts in that folder whenever you're ready to
+publish your own.
+
+Under the hood: `lib/posts.ts` reads the folder + parses frontmatter
+(`gray-matter`) at build time; `next-mdx-remote/rsc` renders the MDX
+body as a Server Component — both are static-export-safe, nothing here
+needs a runtime server.
 
 ## "How I work" section + CV download
 

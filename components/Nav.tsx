@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const links = [
   { href: "/#work", label: "Проекты" },
+  { href: "/blog", label: "Журнал" },
   { href: "/about", label: "Обо мне" },
   { href: "/contact", label: "Контакты" },
 ];
@@ -26,8 +27,11 @@ export default function Nav() {
     };
   }, [open]);
 
+  // /links is a standalone link-in-bio page — no site chrome around it.
+  if (pathname === "/links") return null;
+
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 isolate border-b border-line bg-paper">
       <div className="container-studio flex h-20 items-center justify-between md:h-24">
         <Link
           href="/"

@@ -71,12 +71,12 @@ export default function ProjectCarousel({
               type="button"
               onClick={scrollPrev}
               aria-label="Предыдущий слайд"
-              className="label pointer-events-auto border border-ink bg-paper/90 px-4 py-3 backdrop-blur-sm transition-colors duration-300 hover:bg-ink hover:text-paper"
+              className="label pointer-events-auto border border-ink bg-paper px-4 py-3 transition-colors duration-300 hover:bg-ink hover:text-paper"
             >
               ←
             </button>
 
-            <span className="label pointer-events-none bg-paper/90 px-3 py-2 backdrop-blur-sm">
+            <span className="label pointer-events-none bg-paper px-3 py-2">
               {String(selectedIndex + 1).padStart(2, "0")} /{" "}
               {String(images.length).padStart(2, "0")}
             </span>
@@ -85,7 +85,7 @@ export default function ProjectCarousel({
               type="button"
               onClick={scrollNext}
               aria-label="Следующий слайд"
-              className="label pointer-events-auto border border-ink bg-paper/90 px-4 py-3 backdrop-blur-sm transition-colors duration-300 hover:bg-ink hover:text-paper"
+              className="label pointer-events-auto border border-ink bg-paper px-4 py-3 transition-colors duration-300 hover:bg-ink hover:text-paper"
             >
               →
             </button>
