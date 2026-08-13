@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* native cursor is hidden only once JS confirms a real mouse is present
+     (see CustomCursor.tsx) — touch devices never get this class, so this
+     rule never affects them */
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
+  }
+
+  body {
+    @apply bg-paper text-ink antialiased font-sans;
+    font-feature-settings: "ss01" 1, "cv01" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  /* visible, deliberate focus state — never removed */
+  :focus-visible {
+    outline: 1.5px solid #111111;
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .container-studio {
+    @apply mx-auto w-full max-w-studio px-6 md:px-12 lg:px-20 xl:px-28;
+  }
+
+  .label {
+    @apply font-mono text-[11px] uppercase tracking-label text-muted;
+  }
+
+  .hairline {
+    @apply border-t border-line;
+  }
+}

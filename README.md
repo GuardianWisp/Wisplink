@@ -211,35 +211,26 @@ each with a built-in safety rail so they can't hurt responsiveness or a11y:
   that fills as you scroll the page. `hidden md:block` — skipped on
   mobile where there's no margin for it.
 
-## Hand-drawn accents (Doodle.tsx)
-
-`components/Doodle.tsx` adds small, thin monoline SVG marks — an
-underline, a loose circle, an arrow, a spark — as "margin note" style
-accents (editorial, not cartoon). A few are already placed: under the
-hero headline, pointing at the homepage CTA, circling "404", and beside
-the email on the contact page.
+**`Doodle.tsx`** — thin monoline SVG marks (underline, circle, arrow,
+spark) as "margin note" style accents. Used sparingly on purpose — right
+now just the `spark` beside the email on the Contact page. Other variants
+exist in the component if you want to add an accent elsewhere:
 
 ```tsx
 <div className="relative">
   <Doodle
-    variant="underline" // "underline" | "circle" | "arrow" | "spark"
-    className="absolute -bottom-2 left-0 w-full" // position + size it here
-    color="text-ink" // or "text-muted"
+    variant="spark" // "underline" | "circle" | "arrow" | "spark"
+    className="absolute right-0 top-8 w-6" // position + size it here
   />
   Your content
 </div>
 ```
 
-Rules that keep it from hurting responsiveness or clutter:
-- Always `absolute`-positioned inside a `relative` parent — doodles are
-  decorative and sit outside the document flow, so they can never shift
-  or wrap surrounding layout.
-- Hidden below the `md` breakpoint automatically (built into the
-  component) — there's rarely room for them on mobile.
-- Use sparingly — one or two per page reads as intentional; more starts
-  to look decorative rather than editorial.
+Always wrap in a `relative` parent — the doodle is `absolute`, so it sits
+outside the document flow and can never affect layout. Hidden below the
+`md` breakpoint automatically.
 
-
+## Design tokens
 
 Defined in `tailwind.config.ts`:
 
