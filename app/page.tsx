@@ -1,5 +1,5 @@
 import Hero from "@/components/Hero";
-import WorkCard from "@/components/WorkCard";
+import WorkList from "@/components/WorkList";
 import Process from "@/components/Process";
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
@@ -26,15 +26,7 @@ export default function HomePage() {
           </span>
         </Reveal>
 
-        <div>
-          {projects.map((project, i) => (
-            <WorkCard
-              key={project.slug}
-              project={project}
-              reverse={i % 2 === 1}
-            />
-          ))}
-        </div>
+        <WorkList projects={projects} />
       </section>
 
       <Process />

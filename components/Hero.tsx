@@ -14,9 +14,9 @@ export default function Hero() {
         transition={{ duration: 1.1, ease }}
         className="max-w-5xl text-[clamp(2.75rem,7.4vw,6.5rem)] font-medium leading-[0.96] tracking-tightest"
       >
-        Фриланс
+        AI-дизайнер,
         <br />
-        3D-генералист.
+        фрилансер.
       </motion.h1>
 
       <motion.div
@@ -26,10 +26,10 @@ export default function Hero() {
         className="mt-10 grid grid-cols-1 gap-6 md:mt-14 md:grid-cols-12"
       >
         <p className="text-lg leading-relaxed text-muted md:col-span-5">
-          Я создаю трёхмерную графику для клиентов, которые ценят результат
-          на годы вперёд, а не на квартал. Один человек ведёт проект от
-          моделинга до моушна, айдентики и режиссуры — от начала до конца,
-          без передачи между разными специалистами.
+          Я держу AI в центре процесса — от быстрого концепта до ускорения
+          продакшна — и довожу результат до финального качества руками, там,
+          где точность важнее скорости. 3D, моушн и интерфейсы — медиумы,
+          подход общий.
         </p>
         <div className="hidden md:col-span-1 md:block" />
         <p className="text-lg leading-relaxed text-muted md:col-span-5">

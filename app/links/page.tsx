@@ -6,7 +6,7 @@ import { withBasePath } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "Все ссылки",
-  description: "Портфолио, журнал, CV и соцсети — Wisplink, 3D-генералист.",
+  description: "Портфолио, журнал, CV и соцсети — Wisplink, AI-дизайнер.",
 };
 
 const buttonClass =
@@ -30,7 +30,7 @@ export default function LinksPage() {
           <span className="font-mono text-sm tracking-label text-ink">
             НИКИТА ИСАЕВ
           </span>
-          <p className="label mt-1">3D-генералист, фриланс</p>
+          <p className="label mt-1">AI-дизайнер, фриланс</p>
         </div>
 
         <div className="mt-10 flex flex-col gap-3">

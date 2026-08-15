@@ -6,12 +6,12 @@ import { withBasePath } from "@/lib/paths";
 export const metadata: Metadata = {
   title: "Обо мне",
   description:
-    "3D Generalist и Motion Designer. Специализируюсь на 3D-моделировании, моушн-дизайне, симуляциях и визуале для брендов.",
+    "AI-дизайнер и Motion Designer. Держу AI в центре процесса — от концепта до продакшна — и работаю через 3D, моушн и интерфейсы.",
 };
 
 const software = [
-  "Cinema 4D",
   "Midjourney",
+  "Cinema 4D",
   "Houdini",
   "Redshift",
   "Substance 3D",
@@ -21,22 +21,27 @@ const software = [
 ];
 
 const skills = [
+  "AI изображения и видео",
   "3D Моделинг",
   "Освещение сцен",
   "Создание материалов",
-  "AI изображения и видео",
   "Дизайн интерфейсов",
   "Симуляции / Нодовые генерации",
   "Моушн и анимации",
 ];
 
 const experience = [
-  { years: "2023 — Наст. время", role: "3D Generalist / Motion Designer (Freelance)" },
+  { years: "2023 — Наст. время", role: "AI-дизайнер / 3D Generalist (Freelance)" },
   { years: "2018 — 2023", role: "Middle 3D Designer & UX/UI, Chipsa Design" },
   { years: "2019 — 2021", role: "UX/UI Дизайнер" },
 ];
 
 const services = [
+  {
+    title: "AI-дизайн",
+    description:
+      "Системная интеграция ИИ в пайплайн: быстрый концепт-арт, референсы, нейро-видео и ускорение 3D-продакшна с помощью Midjourney и современных AI-инструментов.",
+  },
   {
     title: "3D Дизайн & Визуализация",
     description:
@@ -52,11 +57,6 @@ const services = [
     description:
       "Разработка объемного визуального языка: передача характера бренда через форму, свет, фактуру материалов и движение.",
   },
-  {
-    title: "AI & Генеративный визуал",
-    description:
-      "Активная интеграция ИИ в пайплайн: быстрый концепт-арт, нейро-видео и ускорение 3D-продакшна с помощью Midjourney и современных AI-инструментов.",
-  },
 ];
 
 export default function AboutPage() {
@@ -65,7 +65,7 @@ export default function AboutPage() {
       <Reveal>
         <span className="label">Обо мне</span>
         <h1 className="mt-4 max-w-3xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[0.98] tracking-tightest">
-          3D Generalist с фокусом на деталях, форме и движении.
+          AI-дизайнер с фокусом на процессе, форме и скорости.
         </h1>
         <a
           href={withBasePath("/cv.pdf")}
@@ -94,7 +94,11 @@ export default function AboutPage() {
             В студии Chipsa я начинал как UX/UI специалист, позже полностью переключился на 3D-контент и графику. Там я работал над крупными проектами: создавал 3D-мокапы, Key Visuals для брендов, рекламные видеоролики и графику для презентаций.
           </p>
           <p className="mt-6 text-lg leading-relaxed text-muted">
-            Понимание UX/UI помогает мне делать 3D не просто красивой картинкой, а продуманным инструментом, который работает на задачи продукта и аккуратно вписывается в любой интерфейс или бренд-систему.
+            Последние пару лет я системно встраиваю AI в свой процесс — от
+            быстрого прототипирования и генерации референсов до ускорения
+            3D-продакшна. AI для меня — не замена ремеслу, а инструмент,
+            который освобождает время на то, что действительно требует глаза
+            и опыта.
           </p>
 
           <div className="mt-14">

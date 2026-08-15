@@ -15,7 +15,7 @@ export default function Footer() {
           <span className="font-mono text-sm tracking-label text-ink">
             НИКИТА ИСАЕВ
           </span>
-          <span className="label">3D-генералист и моушн-дизайнер</span>
+          <span className="label">AI-дизайнер и моушн-дизайнер</span>
         </div>
 
         <nav className="flex flex-wrap gap-x-8 gap-y-3">

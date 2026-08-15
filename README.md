@@ -54,6 +54,23 @@ lib/
   paths.ts                GitHub Pages basePath helper for local asset links
 ```
 
+## Tag filters
+
+Both the homepage project list and the blog archive have a tag filter
+row above the list — built automatically from whatever tags exist in
+the data, no separate list to maintain:
+
+- **Projects** — filters by each project's `services` array (already
+  used for the "Услуги" field on the project page, doing double duty).
+  Add a new value to any project's `services` and it shows up as a
+  filter automatically.
+- **Blog posts** — filters by the `tags` field in each post's
+  frontmatter. Same idea — add a tag to a post's frontmatter and it
+  appears as a filter button on `/blog`.
+
+The filter row only renders when there's more than one distinct tag —
+a single-tag site just shows the plain list, no empty "Все" button.
+
 ## Adding or editing projects
 
 Everything about a project — title, category, year, description,
