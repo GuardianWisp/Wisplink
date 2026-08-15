@@ -19,7 +19,9 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
   const tags = useMemo(() => {
     const all = new Set<string>();
     posts.forEach((p) => p.tags?.forEach((t) => all.add(t)));
-    return Array.from(all);
+    return Array.from(all).sort((a, b) =>
+      a === "AI" ? -1 : b === "AI" ? 1 : 0
+    );
   }, [posts]);
 
   const [active, setActive] = useState<string | null>(null);

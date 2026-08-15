@@ -8,7 +8,9 @@ export default function WorkList({ projects }: { projects: Project[] }) {
   const tags = useMemo(() => {
     const all = new Set<string>();
     projects.forEach((p) => p.services.forEach((s) => all.add(s)));
-    return Array.from(all);
+    return Array.from(all).sort((a, b) =>
+      a === "AI" ? -1 : b === "AI" ? 1 : 0
+    );
   }, [projects]);
 
   const [active, setActive] = useState<string | null>(null);
