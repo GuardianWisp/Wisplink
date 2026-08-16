@@ -13,7 +13,7 @@ const components = {
     <h3 className="mt-10 text-xl font-medium tracking-tight" {...props} />
   ),
   p: (props: ComponentProps<"p">) => (
-    <p className="mt-6 text-lg leading-relaxed text-muted" {...props} />
+    <p className="mt-6 text-lg leading-relaxed text-muted first:mt-0" {...props} />
   ),
   a: (props: ComponentProps<"a">) => (
     <a

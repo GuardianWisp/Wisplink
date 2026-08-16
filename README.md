@@ -46,12 +46,14 @@ components/
   Doodle.tsx, CustomCursor.tsx, GrainOverlay.tsx, ScrollProgress.tsx  Atmosphere
   Reveal.tsx             Shared scroll-fade animation wrapper
 data/
-  projects.ts            All project content — edit here to add/change work
+  social.ts               Social links + email — shared by Footer, Contact, /links
 content/
-  posts/*.mdx             Blog posts — see "Blog / Журнал" below
+  projects/*.mdx           Project case studies — see "Adding or editing projects" below
+  posts/*.mdx              Blog posts — see "Blog / Журнал" below
 lib/
-  posts.ts               Reads + parses content/posts at build time
-  paths.ts                GitHub Pages basePath helper for local asset links
+  projects.ts              Reads + parses content/projects at build time
+  posts.ts                 Reads + parses content/posts at build time
+  paths.ts                 GitHub Pages basePath helper for local asset links
 ```
 
 ## Tag filters
@@ -73,10 +75,33 @@ a single-tag site just shows the plain list, no empty "Все" button.
 
 ## Adding or editing projects
 
-Everything about a project — title, category, year, description,
-software list and images — lives in `data/projects.ts`. Add a new object
-to the `projects` array and a project page is generated automatically at
-`/work/<slug>`, including static params for the build.
+Each project is its own file — **`content/projects/<slug>.mdx`** — same
+pattern as blog posts. Add a new file and a project page is generated
+automatically at `/work/<slug>`, including static params for the build.
+No central list to edit, no risk of breaking a different project's
+object while editing one.
+
+```mdx
+---
+title: "Название проекта"
+category: "3D Design — Product Visualization"
+year: "2025"
+client: "Имя клиента"
+index: "05"                # controls sort order across the site
+summary: "Одно-два предложения для карточки в списке проектов."
+software: ["Cinema 4D", "Redshift"]
+services: ["3D Design", "Creative Direction"]   # also powers the tag filter
+aspect: "landscape"          # "portrait" | "landscape" | "square" — homepage card shape
+cover: "/images/projects/slug/cover.webp"
+hero: "/images/projects/slug/hero.webp"
+renders: []
+process: []
+---
+
+Описание проекта — обычный Markdown/MDX. Поддерживает `##` заголовки,
+**жирный текст**, ссылки, `> цитаты`, списки и `![картинки](/images/...)`,
+не только голый текст абзацами.
+```
 
 Each project has:
 
@@ -100,16 +125,20 @@ code changes needed.
 
 ### Controlling how much space an image gets
 
-A `GalleryImage` is either just a path, or an object when you want to
-control its size in the grid:
+A `GalleryImage` in `renders`/`process` is either just a path, or a map
+when you want to control its size in the grid — in frontmatter (YAML),
+that looks like:
 
-```ts
-renders: [
-  "/images/projects/silt/render-01.webp",                              // automatic size
-  { src: "/images/projects/silt/render-02.webp", size: "xl" },          // full-width feature
-  { src: "/images/projects/silt/render-03.webp", size: "sm" },          // small accent tile
-  { src: "/images/projects/silt/render-04.webp", size: "lg", aspect: "portrait" }, // size + aspect override
-],
+```yaml
+renders:
+  - "/images/projects/silt/render-01.webp"          # automatic size
+  - src: "/images/projects/silt/render-02.webp"
+    size: xl                                         # full-width feature
+  - src: "/images/projects/silt/render-03.webp"
+    size: sm                                          # small accent tile
+  - src: "/images/projects/silt/render-04.webp"
+    size: lg
+    aspect: portrait                                    # size + aspect override
 ```
 
 `size` is `"sm" | "md" | "lg" | "xl"`. Leave it off and the image falls
@@ -262,6 +291,17 @@ Defined in `tailwind.config.ts`:
 Typography: Inter (grotesque, weight-driven hierarchy) for display and
 body copy, IBM Plex Mono for labels, indices and metadata — a deliberate
 nod to technical/production data (`SOFTWARE USED`, `01`, `2025`).
+
+## Future: an admin UI
+
+Both projects and posts are now plain files with frontmatter — the
+exact shape a **git-based CMS** (e.g. [Decap CMS](https://decapcms.org)
+or [Tina CMS](https://tina.io)) expects. Either gives a web UI (fields,
+image upload) at something like `/admin` that commits directly to this
+repo as `.mdx` files — no database, no separate backend, fully
+compatible with the static export + GitHub Pages setup. Not wired up
+yet, but this file structure is the prerequisite for it whenever it's
+worth adding.
 
 ## Deploying to GitHub Pages
 

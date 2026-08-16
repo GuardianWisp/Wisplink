@@ -3,9 +3,10 @@ import WorkList from "@/components/WorkList";
 import Process from "@/components/Process";
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { getAllProjects } from "@/lib/projects";
 
 export default function HomePage() {
+  const projects = getAllProjects();
   const years = projects.map((p) => parseInt(p.year, 10)).filter(Boolean);
   const minYear = Math.min(...years);
   const maxYear = Math.max(...years);

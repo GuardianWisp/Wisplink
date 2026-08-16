@@ -12,10 +12,10 @@
 export type GalleryImage =
   | string
   | {
-      src: string;
-      size?: "sm" | "md" | "lg" | "xl";
-      aspect?: "portrait" | "landscape" | "square" | "wide";
-    };
+    src: string;
+    size?: "sm" | "md" | "lg" | "xl";
+    aspect?: "portrait" | "landscape" | "square" | "wide";
+  };
 
 export type Project = {
   slug: string;
@@ -54,7 +54,7 @@ export const projects: Project[] = [
       "Итог — контент, который не считывается как сгенерированный: конкретные цифры вместо общих фраз, реальная терминология вместо маркетингового «мы лучшие». Клиент получил готовый текст для всего сайта быстрее, чем при заказе у копирайтера, но без потери в доверии — а в этой нише доверие решает всё.",
     ],
     software: ["ChatGPT", "Claude", "Perplexity", "SurferSEO"],
-    services: ["AI", "Копирайтинг", "SEO"],
+    services: ["AI"],
     aspect: "landscape",
     cover: "",
     hero: "",
@@ -76,7 +76,7 @@ export const projects: Project[] = [
       "В результате получилась система рендеров, которую клиент использует и сейчас — в презентациях, на сайте и в маркетинговых материалах, без необходимости пересъёмки.",
     ],
     software: ["Cinema 4D", "Redshift", "Substance 3D", "Photoshop"],
-    services: ["3D Design", "Creative Direction"],
+    services: ["3D Design"],
     aspect: "landscape",
     cover: "/images/projects/biotech/cover.webp",
     hero: "/images/projects/biotech/hero.webp",

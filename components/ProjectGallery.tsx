@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import RenderPlaceholder from "./RenderPlaceholder";
-import type { GalleryImage } from "@/data/projects";
+import type { GalleryImage } from "@/lib/projects";
 
 type Aspect = "portrait" | "landscape" | "square" | "wide";
 type Size = "sm" | "md" | "lg" | "xl";

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import WorkCard from "./WorkCard";
-import type { Project } from "@/data/projects";
+import type { Project } from "@/lib/projects";
 
 export default function WorkList({ projects }: { projects: Project[] }) {
   const tags = useMemo(() => {

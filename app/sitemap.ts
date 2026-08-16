@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { projects } from "@/data/projects";
+import { getAllProjects } from "@/lib/projects";
 import { getAllPosts } from "@/lib/posts";
 
 const siteUrl = "https://guardianwisp.github.io/Wisplink";
@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  const projectRoutes = projects.map((project) => ({
+  const projectRoutes = getAllProjects().map((project) => ({
     url: `${siteUrl}/work/${project.slug}`,
     lastModified: new Date(),
   }));
