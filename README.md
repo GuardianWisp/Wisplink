@@ -34,6 +34,8 @@ app/
   work/[slug]/page.tsx   Project detail — carousel, description, gallery
   blog/page.tsx          Blog archive
   blog/[slug]/page.tsx    Blog post
+  admin/page.tsx          Decap CMS editor — see "Decap CMS" below
+  api/auth, api/callback   GitHub OAuth for the admin editor
   sitemap.ts / robots.ts SEO
 components/
   Nav.tsx, Footer.tsx
@@ -80,6 +82,11 @@ pattern as blog posts. Add a new file and a project page is generated
 automatically at `/work/<slug>`, including static params for the build.
 No central list to edit, no risk of breaking a different project's
 object while editing one.
+
+Naming the file *is* what sets the URL — a `slug` field in frontmatter
+is optional and only there for the Decap CMS editor's convenience (see
+"Decap CMS" below); the site itself always reads the slug from the
+filename.
 
 ```mdx
 ---
@@ -289,40 +296,43 @@ Typography: Inter (grotesque, weight-driven hierarchy) for display and
 body copy, IBM Plex Mono for labels, indices and metadata — a deliberate
 nod to technical/production data (`SOFTWARE USED`, `01`, `2025`).
 
-## Tina CMS (`/admin`)
+## Decap CMS (`/admin`)
 
-The config is already written — `tina/config.ts` defines the editing
-schema for both `content/projects` and `content/posts`, matching the
-frontmatter fields each already uses. What's left is connecting it to
-your own TinaCloud account (free) — this part can't be done for you,
-it needs your login:
+A git-based editor that talks **only to GitHub and this site itself** —
+no third-party CMS cloud service in the loop, so nothing to be blocked
+or need a VPN for. The admin UI (`app/admin/page.tsx`) and the two API
+routes it needs for login (`app/api/auth`, `app/api/callback`) are
+already written. What's left is creating your own GitHub OAuth App —
+this part needs your GitHub login, can't be done for you:
 
-1. Go to [app.tina.io](https://app.tina.io), sign up, and click
-   **Import an existing Git repository** — connect the same GitHub repo
-   this project lives in.
-2. Once connected, TinaCloud gives you two values: a **Client ID** and
-   a **Token**.
-3. Add both as environment variables in **Vercel** (Project → Settings
+1. On GitHub: **Settings → Developer settings → OAuth Apps → New OAuth
+   App**.
+2. Fill in:
+   - **Homepage URL**: your site's URL (e.g. `https://wisplink.vercel.app`)
+   - **Authorization callback URL**: the same URL + `/api/callback`
+     (e.g. `https://wisplink.vercel.app/api/callback`)
+3. Register the app, then click **Generate a new client secret**.
+4. Copy the **Client ID** and the **Client secret**.
+5. Add both as environment variables in **Vercel** (Project → Settings
    → Environment Variables):
-   - `NEXT_PUBLIC_TINA_CLIENT_ID`
-   - `TINA_TOKEN`
+   - `OAUTH_GITHUB_CLIENT_ID`
+   - `OAUTH_GITHUB_CLIENT_SECRET`
    Redeploy after adding them.
-4. For local editing, copy `.env.example` to `.env.local` and fill in
-   the same two values there.
-5. Run `npm install` (pulls in `tinacms` + `@tinacms/cli`, already in
-   `package.json`), then `npm run dev` as usual — it now also starts
-   Tina's admin alongside Next.js.
+6. For local editing, copy `.env.example` to `.env.local` and fill in
+   the same two values (you'll need a second OAuth App with a
+   `localhost:3000` callback URL if you want to log in locally too —
+   optional, editing via the deployed `/admin` is enough on its own).
 
-Once deployed, the editor is at **`/admin`** — log in with the same
-GitHub account, and every save commits an updated `.mdx` file straight
-to the repo. No database, nothing else to host.
+Once deployed, the editor is at **`/admin`** — log in with your GitHub
+account (the one with access to this repo), and every save commits an
+updated `.mdx` file straight to `main`. No database, nothing else to
+host, and the login flow never leaves GitHub + your own Vercel domain.
 
-This is deliberately "CMS-only" mode: Tina edits the files, and the
-site keeps reading them the same way it already does (`lib/projects.ts`
-/ `lib/posts.ts`, plain `fs` reads at build time) — nothing about how
-pages render had to change. Tina also supports a fancier "visual
-editing" mode (live preview while you type) if you want it later, but
-that needs additional wiring beyond this setup.
+The site keeps reading content exactly the same way it already does
+(`lib/projects.ts` / `lib/posts.ts`, plain `fs` reads at build time) —
+Decap only ever touches the files, nothing about how pages render
+changes. New entries need a unique `slug` field (Latin letters, no
+spaces) — that becomes the filename, and therefore the URL.
 
 ## Deploying to Vercel
 
