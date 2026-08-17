@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { social, email } from "@/data/social";
+import { isChromeFreePath } from "@/lib/site";
 
 export default function Footer() {
   const pathname = usePathname();
-  if (pathname === "/links") return null;
+  if (isChromeFreePath(pathname)) return null;
 
   return (
     <footer className="border-t border-line">

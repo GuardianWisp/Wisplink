@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { isChromeFreePath } from "@/lib/site";
 
 const links = [
   { href: "/#work", label: "Проекты" },
@@ -27,8 +28,8 @@ export default function Nav() {
     };
   }, [open]);
 
-  // /links is a standalone link-in-bio page — no site chrome around it.
-  if (pathname === "/links") return null;
+  // /links and /admin render entirely on their own — no site chrome.
+  if (isChromeFreePath(pathname)) return null;
 
   return (
     <header className="sticky top-0 z-50 isolate border-b border-line bg-paper">

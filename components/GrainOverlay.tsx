@@ -1,3 +1,8 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { isChromeFreePath } from "@/lib/site";
+
 /**
  * A static, extremely subtle grain texture over the whole viewport —
  * gives the flat white background a printed-paper feel rather than a
@@ -5,6 +10,9 @@
  * JS on the main thread — the cheapest possible way to do this.
  */
 export default function GrainOverlay() {
+  const pathname = usePathname();
+  if (isChromeFreePath(pathname)) return null;
+
   return (
     <div
       className="pointer-events-none fixed inset-0 z-[110] opacity-[0.045] mix-blend-multiply"

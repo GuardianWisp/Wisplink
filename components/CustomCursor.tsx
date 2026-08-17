@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { isChromeFreePath } from "@/lib/site";
 
 /**
  * Replaces the native cursor with a small dot + a spring-lagged trailing
@@ -16,6 +18,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
  * project cards.
  */
 export default function CustomCursor() {
+  const pathname = usePathname();
   const [enabled, setEnabled] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [label, setLabel] = useState<string | null>(null);
@@ -26,6 +29,8 @@ export default function CustomCursor() {
   const ringY = useSpring(cursorY, { damping: 25, stiffness: 300, mass: 0.5 });
 
   useEffect(() => {
+    if (isChromeFreePath(pathname)) return;
+
     const isFinePointer = window.matchMedia(
       "(hover: hover) and (pointer: fine)"
     ).matches;
@@ -62,9 +67,9 @@ export default function CustomCursor() {
       document.documentElement.removeEventListener("mouseleave", onLeaveWindow);
       document.documentElement.classList.remove("custom-cursor-active");
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, pathname]);
 
-  if (!enabled) return null;
+  if (!enabled || isChromeFreePath(pathname)) return null;
 
   return (
     <>

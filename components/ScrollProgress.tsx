@@ -1,6 +1,8 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { isChromeFreePath } from "@/lib/site";
 
 /**
  * A hairline-thin vertical line along the right edge that fills as you
@@ -9,12 +11,15 @@ import { motion, useScroll, useSpring } from "framer-motion";
  * margin for it to read as intentional rather than cramped.
  */
 export default function ScrollProgress() {
+  const pathname = usePathname();
   const { scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 300,
     damping: 40,
     mass: 0.5,
   });
+
+  if (isChromeFreePath(pathname)) return null;
 
   return (
     <div
