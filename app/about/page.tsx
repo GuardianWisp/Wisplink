@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import RenderPlaceholder from "@/components/RenderPlaceholder";
 import Reveal from "@/components/Reveal";
-import { withBasePath } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "Обо мне",
@@ -68,7 +67,7 @@ export default function AboutPage() {
           AI-дизайнер с фокусом на процессе, форме и скорости.
         </h1>
         <a
-          href={withBasePath("/cv.pdf")}
+          href="/cv.pdf"
           download
           className="label mt-8 inline-flex items-center gap-3 border border-ink px-6 py-4 text-ink transition-colors duration-300 hover:bg-ink hover:text-paper"
         >

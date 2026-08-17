@@ -53,7 +53,7 @@ content/
 lib/
   projects.ts              Reads + parses content/projects at build time
   posts.ts                 Reads + parses content/posts at build time
-  paths.ts                 GitHub Pages basePath helper for local asset links
+  site.ts                   Canonical site URL, configurable via env var
 ```
 
 ## Tag filters
@@ -234,10 +234,7 @@ that file to change the copy.
 The About page has a "Скачать CV →" button linking to `public/cv.pdf`.
 **A placeholder PDF is already there** so the link isn't broken by
 default — replace `public/cv.pdf` with your real resume, same filename,
-nothing else to change. Note it's a plain `<a href>` (not `next/link`),
-so it goes through `withBasePath()` from `lib/paths.ts` just like every
-image — the same GitHub Pages basePath issue that hit the images would
-hit any other local file link the same way if that step were skipped.
+nothing else to change.
 
 ## Atmosphere components
 
@@ -292,49 +289,71 @@ Typography: Inter (grotesque, weight-driven hierarchy) for display and
 body copy, IBM Plex Mono for labels, indices and metadata — a deliberate
 nod to technical/production data (`SOFTWARE USED`, `01`, `2025`).
 
-## Future: an admin UI
+## Tina CMS (`/admin`)
 
-Both projects and posts are now plain files with frontmatter — the
-exact shape a **git-based CMS** (e.g. [Decap CMS](https://decapcms.org)
-or [Tina CMS](https://tina.io)) expects. Either gives a web UI (fields,
-image upload) at something like `/admin` that commits directly to this
-repo as `.mdx` files — no database, no separate backend, fully
-compatible with the static export + GitHub Pages setup. Not wired up
-yet, but this file structure is the prerequisite for it whenever it's
-worth adding.
+The config is already written — `tina/config.ts` defines the editing
+schema for both `content/projects` and `content/posts`, matching the
+frontmatter fields each already uses. What's left is connecting it to
+your own TinaCloud account (free) — this part can't be done for you,
+it needs your login:
 
-## Deploying to GitHub Pages
+1. Go to [app.tina.io](https://app.tina.io), sign up, and click
+   **Import an existing Git repository** — connect the same GitHub repo
+   this project lives in.
+2. Once connected, TinaCloud gives you two values: a **Client ID** and
+   a **Token**.
+3. Add both as environment variables in **Vercel** (Project → Settings
+   → Environment Variables):
+   - `NEXT_PUBLIC_TINA_CLIENT_ID`
+   - `TINA_TOKEN`
+   Redeploy after adding them.
+4. For local editing, copy `.env.example` to `.env.local` and fill in
+   the same two values there.
+5. Run `npm install` (pulls in `tinacms` + `@tinacms/cli`, already in
+   `package.json`), then `npm run dev` as usual — it now also starts
+   Tina's admin alongside Next.js.
 
-The site is a fully static export (no server-side rendering, no API
-routes), so GitHub Pages works out of the box. This is already wired up:
+Once deployed, the editor is at **`/admin`** — log in with the same
+GitHub account, and every save commits an updated `.mdx` file straight
+to the repo. No database, nothing else to host.
 
-- `next.config.js` sets `output: "export"` and auto-detects the correct
-  `basePath` when building inside GitHub Actions.
-- `.github/workflows/deploy.yml` builds the site and publishes it to
-  Pages on every push to `main`.
-- `public/.nojekyll` stops GitHub Pages' Jekyll processor from ignoring
-  the `_next/` folder.
+This is deliberately "CMS-only" mode: Tina edits the files, and the
+site keeps reading them the same way it already does (`lib/projects.ts`
+/ `lib/posts.ts`, plain `fs` reads at build time) — nothing about how
+pages render had to change. Tina also supports a fancier "visual
+editing" mode (live preview while you type) if you want it later, but
+that needs additional wiring beyond this setup.
+
+## Deploying to Vercel
+
+No static export, no basePath, no manual workflow file — Vercel builds
+and deploys Next.js natively.
 
 **One-time setup:**
 
 1. Push this project to a GitHub repository.
-2. In the repo, go to **Settings → Pages** and set **Source** to
-   **GitHub Actions**.
-3. Push to `main` (or run the workflow manually from the **Actions** tab).
-   The site will be live at `https://<your-username>.github.io/<repo-name>/`.
+2. Go to [vercel.com](https://vercel.com), sign in with GitHub, click
+   **Add New → Project**, and import this repo. Vercel auto-detects
+   Next.js — no config needed, just click **Deploy**.
+3. Once deployed, note the URL Vercel gives you (something like
+   `wisplink.vercel.app`, or your custom domain if you add one under
+   **Settings → Domains**).
+4. Set the environment variable **`NEXT_PUBLIC_SITE_URL`** in
+   **Settings → Environment Variables** to that exact URL (e.g.
+   `https://wisplink.vercel.app`, no trailing slash) — this feeds
+   `sitemap.xml`, `robots.txt` and OpenGraph tags via `lib/site.ts`.
+   Redeploy after setting it (Vercel → Deployments → ⋯ → Redeploy).
 
-If your repo is named `<your-username>.github.io` (a user/org page), the
-site is served from the domain root and no `basePath` prefix is added —
-this is also detected automatically.
+That's it — every push to `main` auto-deploys from here on, and every
+pull request gets its own preview URL automatically.
 
-**Building the static export manually (no GitHub Actions):**
+**Building locally, same as before:**
 
 ```bash
-npm run build
+npm run dev     # local dev server
+npm run build   # production build
+npm run start   # serve the production build locally
 ```
-
-Output goes to the `out/` folder — upload its contents to any static
-host (Pages, Netlify, S3, etc).
 
 ## Accessibility & performance notes
 

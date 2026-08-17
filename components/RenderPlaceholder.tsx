@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type { MouseEventHandler } from "react";
-import { withBasePath } from "@/lib/paths";
 
 type RenderPlaceholderProps = {
   /** Real image path — when provided, renders the actual image instead of a placeholder. */
@@ -90,7 +89,7 @@ export default function RenderPlaceholder({
       {showImage ? (
         <Image
           ref={imgRef}
-          src={withBasePath(src!)}
+          src={src!}
           alt={alt || label}
           fill
           priority={priority}

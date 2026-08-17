@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import RenderPlaceholder from "@/components/RenderPlaceholder";
 import { social, email } from "@/data/social";
-import { withBasePath } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "Все ссылки",
@@ -44,7 +43,7 @@ export default function LinksPage() {
             Написать
           </a>
 
-          <a href={withBasePath("/cv.pdf")} download className={buttonClass}>
+          <a href="/cv.pdf" download className={buttonClass}>
             Скачать CV
           </a>
 

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import GrainOverlay from "@/components/GrainOverlay";
 import ScrollProgress from "@/components/ScrollProgress";
+import { siteUrl } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -19,8 +20,6 @@ const mono = IBM_Plex_Mono({
   variable: "--font-mono",
   display: "swap",
 });
-
-const siteUrl = "https://guardianwisp.github.io/Wisplink";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
