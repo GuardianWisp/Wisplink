@@ -35,6 +35,7 @@ app/
   blog/page.tsx          Blog archive
   blog/[slug]/page.tsx    Blog post
   admin/page.tsx          Decap CMS editor — see "Decap CMS" below
+  admin/config.yml/route.ts  Serves the CMS schema Decap auto-discovers
   api/auth, api/callback   GitHub OAuth for the admin editor
   sitemap.ts / robots.ts SEO
 components/
@@ -300,10 +301,13 @@ nod to technical/production data (`SOFTWARE USED`, `01`, `2025`).
 
 A git-based editor that talks **only to GitHub and this site itself** —
 no third-party CMS cloud service in the loop, so nothing to be blocked
-or need a VPN for. The admin UI (`app/admin/page.tsx`) and the two API
-routes it needs for login (`app/api/auth`, `app/api/callback`) are
-already written. What's left is creating your own GitHub OAuth App —
-this part needs your GitHub login, can't be done for you:
+or need a VPN for. The admin UI (`app/admin/page.tsx`), the CMS schema
+it auto-discovers (`app/admin/config.yml/route.ts` — a route, not a
+static file, so it can inject the right domain automatically instead of
+it being hardcoded), and the two API routes login needs
+(`app/api/auth`, `app/api/callback`) are already written. What's left
+is creating your own GitHub OAuth App — this part needs your GitHub
+login, can't be done for you:
 
 1. On GitHub: **Settings → Developer settings → OAuth Apps → New OAuth
    App**.
