@@ -35,7 +35,7 @@ app/
   blog/page.tsx          Blog archive
   blog/[slug]/page.tsx    Blog post
   admin/page.tsx          Decap CMS editor — see "Decap CMS" below
-  admin/config.yml/route.ts  Serves the CMS schema Decap auto-discovers
+  admin/config.yml/route.ts  Serves the CMS schema (linked from admin/page.tsx)
   api/auth, api/callback   GitHub OAuth for the admin editor
   sitemap.ts / robots.ts SEO
 components/
@@ -301,8 +301,10 @@ nod to technical/production data (`SOFTWARE USED`, `01`, `2025`).
 
 A git-based editor that talks **only to GitHub and this site itself** —
 no third-party CMS cloud service in the loop, so nothing to be blocked
-or need a VPN for. The admin UI (`app/admin/page.tsx`), the CMS schema
-it auto-discovers (`app/admin/config.yml/route.ts` — a route, not a
+or need a VPN for. The admin UI (`app/admin/page.tsx`, which points
+Decap at its config via an explicit absolute link — needed because a
+relative fetch from `/admin` without a trailing slash resolves wrong),
+the CMS schema itself (`app/admin/config.yml/route.ts` — a route, not a
 static file, so it can inject the right domain automatically instead of
 it being hardcoded), and the two API routes login needs
 (`app/api/auth`, `app/api/callback`) are already written. What's left
