@@ -35,7 +35,6 @@ app/
   blog/page.tsx          Blog archive
   blog/[slug]/page.tsx    Blog post
   admin/page.tsx          Decap CMS editor — see "Decap CMS" below
-  admin/config.yml/route.ts  Serves the CMS schema (linked from admin/page.tsx)
   api/auth, api/callback   GitHub OAuth for the admin editor
   sitemap.ts / robots.ts SEO
 components/
@@ -301,15 +300,17 @@ nod to technical/production data (`SOFTWARE USED`, `01`, `2025`).
 
 A git-based editor that talks **only to GitHub and this site itself** —
 no third-party CMS cloud service in the loop, so nothing to be blocked
-or need a VPN for. The admin UI (`app/admin/page.tsx`, which points
-Decap at its config via an explicit absolute link — needed because a
-relative fetch from `/admin` without a trailing slash resolves wrong),
-the CMS schema itself (`app/admin/config.yml/route.ts` — a route, not a
-static file, so it can inject the right domain automatically instead of
-it being hardcoded), and the two API routes login needs
-(`app/api/auth`, `app/api/callback`) are already written. What's left
-is creating your own GitHub OAuth App — this part needs your GitHub
-login, can't be done for you:
+or need a VPN for. The admin UI is `app/admin/page.tsx` — it loads the
+Decap script manually and calls `CMS.init({ config })` with the schema
+written directly as a JS object in that file, rather than fetching a
+separate `config.yml`. That sidesteps a real problem: Decap's bundle
+auto-fetches `config.yml` on its own the moment it loads, and that
+relative-path lookup breaks depending on whether the URL has a trailing
+slash — using an inline config avoids the fetch (and that whole class of
+bug) entirely. The two API routes login needs (`app/api/auth`,
+`app/api/callback`) are already written too. What's left is creating
+your own GitHub OAuth App — this part needs your GitHub login, can't be
+done for you:
 
 1. On GitHub: **Settings → Developer settings → OAuth Apps → New OAuth
    App**.
@@ -339,6 +340,11 @@ The site keeps reading content exactly the same way it already does
 Decap only ever touches the files, nothing about how pages render
 changes. New entries need a unique `slug` field (Latin letters, no
 spaces) — that becomes the filename, and therefore the URL.
+
+To add or change a field in the editor (e.g. a new frontmatter field on
+projects), edit the `CMS_CONFIG` object directly in
+`app/admin/page.tsx` — it's the single source of truth for the schema,
+there's no separate `config.yml` to keep in sync with it.
 
 ## Deploying to Vercel
 
