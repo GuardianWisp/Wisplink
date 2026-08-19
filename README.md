@@ -300,35 +300,54 @@ nod to technical/production data (`SOFTWARE USED`, `01`, `2025`).
 
 A git-based editor that talks **only to GitHub and this site itself** —
 no third-party CMS cloud service in the loop, so nothing to be blocked
-or need a VPN for. The admin UI is `app/admin/page.tsx` — it loads the
-Decap script manually and calls `CMS.init({ config })` with the schema
-written directly as a JS object in that file, rather than fetching a
-separate `config.yml`. That sidesteps a real problem: Decap's bundle
-auto-fetches `config.yml` on its own the moment it loads, and that
-relative-path lookup breaks depending on whether the URL has a trailing
-slash — using an inline config avoids the fetch (and that whole class of
-bug) entirely. The two API routes login needs (`app/api/auth`,
-`app/api/callback`) are already written too. What's left is creating
-your own GitHub OAuth App — this part needs your GitHub login, can't be
-done for you:
+or need a VPN for. The schema lives in a real, standard
+**`public/admin/config.yml`** — the canonical Decap setup, nothing
+generated or dynamic about it. `app/admin/page.tsx` points Decap at it
+by appending a `<link rel="cms-config-url" href="/admin/config.yml">`
+straight into `document.head` via the DOM (not JSX — a non-standard
+`rel` value isn't reliably hoisted into `<head>` by React, so this is
+the one approach that's actually guaranteed to land there before
+Decap's script runs and looks for it). The two API routes login needs
+(`app/api/auth`, `app/api/callback`) are already written too. What's
+left is creating your own GitHub OAuth App — this part needs your
+GitHub login, can't be done for you:
 
 1. On GitHub: **Settings → Developer settings → OAuth Apps → New OAuth
    App**.
 2. Fill in:
    - **Homepage URL**: your site's URL (e.g. `https://wisplink.vercel.app`)
-   - **Authorization callback URL**: the same URL + `/api/callback`
+   - **Redirect URI** (GitHub renamed "Authorization callback URL" to
+     this): the same URL + `/api/callback`
      (e.g. `https://wisplink.vercel.app/api/callback`)
 3. Register the app, then click **Generate a new client secret**.
-4. Copy the **Client ID** and the **Client secret**.
+4. Copy the **Client ID** and the **Client secret** — exactly, no extra
+   spaces, and don't mix them up: the Client ID is short; the Client
+   secret is a 40-character hex string. Swapping them is the single
+   most common cause of a github.com 404 during login.
 5. Add both as environment variables in **Vercel** (Project → Settings
    → Environment Variables):
    - `OAUTH_GITHUB_CLIENT_ID`
    - `OAUTH_GITHUB_CLIENT_SECRET`
-   Redeploy after adding them.
+   **Redeploy after adding them** — Vercel does not apply new env vars
+   to a deployment that already exists.
 6. For local editing, copy `.env.example` to `.env.local` and fill in
    the same two values (you'll need a second OAuth App with a
    `localhost:3000` callback URL if you want to log in locally too —
    optional, editing via the deployed `/admin` is enough on its own).
+
+**If GitHub itself shows a 404 when you try to log in** (not this
+site — an actual github.com 404, after you've already been redirected
+there): that specific error means the `client_id` GitHub received
+doesn't match any of your OAuth Apps. Visit `<your-site>/api/auth`
+directly in the browser and check the `client_id=` value in the
+resulting github.com URL against the Client ID on your OAuth App's
+settings page — a mismatch here almost always means either the Client
+ID/secret got swapped in step 4, or step 5 wasn't saved/redeployed.
+
+`public/admin/config.yml` hardcodes `base_url` to your production
+domain (`https://wisplink.vercel.app`) — that's expected and standard
+for Decap, not something to make "dynamic". If you move to a custom
+domain later, update that one line.
 
 Once deployed, the editor is at **`/admin`** — log in with your GitHub
 account (the one with access to this repo), and every save commits an
@@ -342,9 +361,8 @@ changes. New entries need a unique `slug` field (Latin letters, no
 spaces) — that becomes the filename, and therefore the URL.
 
 To add or change a field in the editor (e.g. a new frontmatter field on
-projects), edit the `CMS_CONFIG` object directly in
-`app/admin/page.tsx` — it's the single source of truth for the schema,
-there's no separate `config.yml` to keep in sync with it.
+projects), edit `public/admin/config.yml` directly — it's the single
+source of truth for the schema.
 
 ## Deploying to Vercel
 
