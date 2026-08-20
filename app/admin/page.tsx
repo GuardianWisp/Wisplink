@@ -8,12 +8,15 @@ import { useEffect } from "react";
  * to. JSX-rendered <link> tags with a non-standard `rel` value aren't
  * reliably hoisted into <head> by React, so this appends the tag to
  * document.head directly — the one approach that's actually guaranteed
- * to land there before the script runs.
+ * to land there before the script runs. Decap also silently ignores the
+ * link unless `type` is "text/yaml" / "application/x-yaml" — without it
+ * it falls back to fetching "config.yml" at the site root.
  */
 export default function AdminPage() {
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "cms-config-url";
+    link.type = "text/yaml";
     link.href = "/admin/config.yml";
     document.head.appendChild(link);
 
