@@ -61,11 +61,11 @@ function TypewriterRole({ roles }: { roles: string[] }) {
   }, [phase, text, roleIndex, roles]);
 
   return (
-    <span className="inline-block">
+    <span className="inline-flex items-center">
       <span aria-hidden="true">{text}</span>
       <span
         aria-hidden="true"
-        className="ml-[0.05em] inline-block h-[0.8em] w-[0.05em] translate-y-[0.06em] animate-pulse bg-ink align-middle"
+        className="ml-[0.06em] h-[0.85em] w-[0.07em] shrink-0 animate-pulse bg-ink"
       />
       <span className="sr-only">{roles.join(" / ")}</span>
     </span>
