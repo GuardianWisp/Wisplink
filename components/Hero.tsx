@@ -61,7 +61,7 @@ function TypewriterRole({ roles }: { roles: string[] }) {
   }, [phase, text, roleIndex, roles]);
 
   return (
-    <span className="inline-flex items-center">
+    <span className="inline-flex h-[1em] items-center align-top">
       <span aria-hidden="true">{text}</span>
       <span
         aria-hidden="true"
@@ -105,7 +105,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.4, ease }}
-        className="mt-16 md:mt-24"
+        className="mt-8 md:mt-14"
       >
         <RenderPlaceholder
           label={t.renderPlaceholder.comingSoon}

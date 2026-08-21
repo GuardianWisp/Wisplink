@@ -151,8 +151,7 @@ const ru: Dictionary = {
     roles: ["UX/UI Designer", "CGI Generalist", "AI-дизайнер"],
     paragraph1:
       "Я держу AI в центре процесса — от быстрого концепта до ускорения продакшна — и довожу результат до финального качества руками, там, где точность важнее скорости. 3D, моушн и интерфейсы — медиумы, подход общий.",
-    paragraph2:
-      "Россия, работаю удалённо. Беру в работу небольшое количество новых проектов каждый год.",
+    paragraph2: "Россия, работаю удалённо.",
   },
   process: {
     eyebrow: "Как я работаю",
@@ -351,8 +350,7 @@ const en: Dictionary = {
     roles: ["UX/UI Designer", "CGI Generalist", "AI Designer"],
     paragraph1:
       "I keep AI at the centre of the process — from fast concepting to speeding up production — and finish the result to final quality by hand, wherever precision matters more than speed. 3D, motion and interfaces are the mediums; the approach stays the same.",
-    paragraph2:
-      "Based in Russia, working remotely. I take on a small number of new projects each year.",
+    paragraph2: "Based in Russia, working remotely.",
   },
   process: {
     eyebrow: "How I work",
