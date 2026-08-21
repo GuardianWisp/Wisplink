@@ -3,6 +3,7 @@ import WorkList from "@/components/WorkList";
 import Process from "@/components/Process";
 import { WorkSectionHeading, HomeCta } from "@/components/HomeSections";
 import { getAllProjects } from "@/lib/projects";
+import { getHomeSettings } from "@/lib/home";
 
 export default function HomePage() {
   const projects = getAllProjects();
@@ -10,10 +11,11 @@ export default function HomePage() {
   const minYear = Math.min(...years);
   const maxYear = Math.max(...years);
   const yearRange = minYear === maxYear ? `${minYear}` : `${minYear}–${maxYear}`;
+  const home = getHomeSettings();
 
   return (
     <>
-      <Hero />
+      <Hero image={home.image} imageAlt={home.alt} />
 
       <section id="work" className="container-studio scroll-mt-24">
         <WorkSectionHeading count={projects.length} yearRange={yearRange} />

@@ -9,6 +9,16 @@ media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+  - name: "home"
+    label: "Главная страница"
+    files:
+      - name: "hero"
+        label: "Hero-блок"
+        file: "content/home.json"
+        fields:
+          - { label: "Рендер / фото на главной", name: "image", widget: "image", required: false, hint: "Показывается на главной вместо плейсхолдера «Рендер скоро появится». Оставьте пустым, чтобы вернуть плейсхолдер." }
+          - { label: "Alt-текст изображения", name: "alt", widget: "string", required: false }
+
   - name: "projects"
     label: "Проекты"
     folder: "content/projects"

@@ -72,7 +72,13 @@ function TypewriterRole({ roles }: { roles: string[] }) {
   );
 }
 
-export default function Hero() {
+export default function Hero({
+  image,
+  imageAlt,
+}: {
+  image?: string;
+  imageAlt?: string;
+}) {
   const { t } = useLocale();
 
   return (
@@ -108,6 +114,8 @@ export default function Hero() {
         className="mt-8 md:mt-14"
       >
         <RenderPlaceholder
+          src={image}
+          alt={imageAlt}
           label={t.renderPlaceholder.comingSoon}
           index="INDEX — 00"
           aspect="wide"
