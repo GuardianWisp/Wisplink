@@ -83,45 +83,48 @@ export default function Hero({
 
   return (
     <section className="container-studio pb-20 pt-16 md:pb-28 md:pt-20">
-      <motion.h1
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.1, ease }}
-        className="min-h-[2.1em] max-w-5xl text-[clamp(2.75rem,7.4vw,6.5rem)] font-medium leading-[0.96] tracking-tightest"
-      >
-        <TypewriterRole roles={t.hero.roles} />
-      </motion.h1>
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-start md:gap-12">
+        <div className="md:col-span-7">
+          <motion.h1
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, ease }}
+            className="min-h-[2.1em] text-[clamp(2.5rem,5.4vw,5.5rem)] font-medium leading-[0.96] tracking-tightest"
+          >
+            <TypewriterRole roles={t.hero.roles} />
+          </motion.h1>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.25, ease }}
-        className="mt-10 grid grid-cols-1 gap-6 md:mt-14 md:grid-cols-12"
-      >
-        <p className="text-lg leading-relaxed text-muted md:col-span-5">
-          {t.hero.paragraph1}
-        </p>
-        <div className="hidden md:col-span-1 md:block" />
-        <p className="text-lg leading-relaxed text-muted md:col-span-5">
-          {t.hero.paragraph2}
-        </p>
-      </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.25, ease }}
+            className="mt-8 flex max-w-xl flex-col gap-4 md:mt-10"
+          >
+            <p className="text-lg leading-relaxed text-muted">
+              {t.hero.paragraph1}
+            </p>
+            <p className="text-lg leading-relaxed text-muted">
+              {t.hero.paragraph2}
+            </p>
+          </motion.div>
+        </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.4, ease }}
-        className="mt-8 md:mt-14"
-      >
-        <RenderPlaceholder
-          src={image}
-          alt={imageAlt}
-          label={t.renderPlaceholder.comingSoon}
-          index="INDEX — 00"
-          aspect="wide"
-          priority
-        />
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.4, ease }}
+          className="md:col-span-5"
+        >
+          <RenderPlaceholder
+            src={image}
+            alt={imageAlt}
+            label={t.renderPlaceholder.comingSoon}
+            index="INDEX — 00"
+            aspect="portrait"
+            priority
+          />
+        </motion.div>
+      </div>
     </section>
   );
 }
