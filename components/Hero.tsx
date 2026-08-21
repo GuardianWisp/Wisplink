@@ -23,16 +23,16 @@ function RotatingRole({ roles }: { roles: string[] }) {
   }, [roles]);
 
   return (
-    <span className="relative inline-block overflow-hidden align-top">
+    <span className="relative inline-block overflow-hidden pb-[0.18em] align-top">
       <span className="invisible">{roles[index]}</span>
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence initial={false}>
         <motion.span
           key={roles[index]}
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.6, ease }}
-          className="absolute inset-0"
+          className="absolute left-0 right-0 top-0"
         >
           {roles[index]}
         </motion.span>
@@ -53,8 +53,6 @@ export default function Hero() {
         className="max-w-5xl text-[clamp(2.75rem,7.4vw,6.5rem)] font-medium leading-[0.96] tracking-tightest"
       >
         <RotatingRole roles={t.hero.roles} />
-        <br />
-        {t.hero.titleLine2}
       </motion.h1>
 
       <motion.div

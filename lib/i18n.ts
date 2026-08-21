@@ -26,7 +26,6 @@ export type Dictionary = {
   };
   hero: {
     roles: string[];
-    titleLine2: string;
     paragraph1: string;
     paragraph2: string;
   };
@@ -150,7 +149,6 @@ const ru: Dictionary = {
   },
   hero: {
     roles: ["UX/UI Designer", "CGI Generalist", "AI-дизайнер"],
-    titleLine2: "фрилансер.",
     paragraph1:
       "Я держу AI в центре процесса — от быстрого концепта до ускорения продакшна — и довожу результат до финального качества руками, там, где точность важнее скорости. 3D, моушн и интерфейсы — медиумы, подход общий.",
     paragraph2:
@@ -351,7 +349,6 @@ const en: Dictionary = {
   },
   hero: {
     roles: ["UX/UI Designer", "CGI Generalist", "AI Designer"],
-    titleLine2: "freelance.",
     paragraph1:
       "I keep AI at the centre of the process — from fast concepting to speeding up production — and finish the result to final quality by hand, wherever precision matters more than speed. 3D, motion and interfaces are the mediums; the approach stays the same.",
     paragraph2:
