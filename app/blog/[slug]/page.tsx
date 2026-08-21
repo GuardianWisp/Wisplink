@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getPost } from "@/lib/posts";
 import BlogPostContent from "@/components/BlogPostContent";
 import MdxContent from "@/components/MdxContent";
+import { blogPostingJsonLd } from "@/lib/structured-data";
 
 type Props = { params: { slug: string } };
 
@@ -28,6 +29,12 @@ export default function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <BlogPostContent post={post} mdxContent={<MdxContent source={post.content} />} />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd(post.meta)) }}
+      />
+      <BlogPostContent post={post} mdxContent={<MdxContent source={post.content} />} />
+    </>
   );
 }

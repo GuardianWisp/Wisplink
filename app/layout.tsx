@@ -11,6 +11,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import { LocaleProvider } from "@/components/LocaleProvider";
 import SkipLink from "@/components/SkipLink";
 import { siteUrl } from "@/lib/site";
+import { personJsonLd, websiteJsonLd } from "@/lib/structured-data";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -76,6 +77,12 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} ${mono.variable}`}>
       <body className="flex min-h-screen flex-col bg-paper text-ink antialiased font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([personJsonLd(), websiteJsonLd()]),
+          }}
+        />
         <LocaleProvider>
           <SkipLink />
           <Nav />

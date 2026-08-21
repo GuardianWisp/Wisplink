@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getProject, getAllProjects } from "@/lib/projects";
 import ProjectPageContent from "@/components/ProjectPageContent";
 import MdxContent from "@/components/MdxContent";
+import { projectJsonLd } from "@/lib/structured-data";
 
 type Props = { params: { slug: string } };
 
@@ -39,11 +40,17 @@ export default function ProjectPage({ params }: Props) {
   ].filter((src): src is string => Boolean(src));
 
   return (
-    <ProjectPageContent
-      project={project}
-      next={next}
-      heroImages={heroImages}
-      mdxContent={<MdxContent source={project.content} />}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project)) }}
+      />
+      <ProjectPageContent
+        project={project}
+        next={next}
+        heroImages={heroImages}
+        mdxContent={<MdxContent source={project.content} />}
+      />
+    </>
   );
 }
