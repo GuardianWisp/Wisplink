@@ -185,7 +185,7 @@ const ru: Dictionary = {
   home: {
     workHeading: "Избранные проекты",
     projectsSuffix: "проектов",
-    ctaHeading: "Есть проект, который заслуживает такого же внимания к деталям?",
+    ctaHeading: "Готовы начать?",
     ctaButton: "Обсудить проект →",
   },
   work: {
@@ -383,7 +383,7 @@ const en: Dictionary = {
   home: {
     workHeading: "Selected work",
     projectsSuffix: "projects",
-    ctaHeading: "Got a project that deserves the same attention to detail?",
+    ctaHeading: "Ready to start?",
     ctaButton: "Let's talk →",
   },
   work: {
