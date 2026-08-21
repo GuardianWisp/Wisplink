@@ -89,7 +89,7 @@ export default function Hero({
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, ease }}
-            className="min-h-[2.1em] text-[clamp(2.5rem,5.4vw,5.5rem)] font-medium leading-[0.96] tracking-tightest"
+            className="text-[clamp(2.5rem,5.4vw,5.5rem)] font-medium leading-[0.96] tracking-tightest"
           >
             <TypewriterRole roles={t.hero.roles} />
           </motion.h1>
@@ -98,7 +98,7 @@ export default function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.25, ease }}
-            className="mt-1.5 flex max-w-xl flex-col gap-4 md:mt-2"
+            className="mt-8 flex max-w-xl flex-col gap-4 md:mt-10"
           >
             <p className="text-lg leading-relaxed text-muted">
               {t.hero.paragraph1}
