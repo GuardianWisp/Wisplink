@@ -150,7 +150,7 @@ const ru: Dictionary = {
   hero: {
     roles: ["UX/UI Designer", "CGI Generalist", "AI-дизайнер"],
     paragraph1:
-      "Я держу AI в центре процесса — от быстрого концепта до ускорения продакшна — и довожу результат до финального качества руками, там, где точность важнее скорости. UX/UI и 3D — медиумы, подход общий.",
+      "Я держу AI в центре процесса — от быстрого концепта до ускорения продакшна — и довожу результат до финального качества руками, там, где точность важнее скорости. Прошёл путь от UX/UI до 3D — подход остаётся тем же.",
     paragraph2: "Россия, работаю удалённо.",
   },
   process: {
@@ -348,7 +348,7 @@ const en: Dictionary = {
   hero: {
     roles: ["UX/UI Designer", "CGI Generalist", "AI Designer"],
     paragraph1:
-      "I keep AI at the centre of the process — from fast concepting to speeding up production — and finish the result to final quality by hand, wherever precision matters more than speed. UX/UI and 3D are the mediums; the approach stays the same.",
+      "I keep AI at the centre of the process — from fast concepting to speeding up production — and finish the result to final quality by hand, wherever precision matters more than speed. I've gone from UX/UI to 3D — the approach stays the same.",
     paragraph2: "Based in Russia, working remotely.",
   },
   process: {
