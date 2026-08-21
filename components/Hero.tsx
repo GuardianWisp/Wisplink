@@ -98,7 +98,7 @@ export default function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.25, ease }}
-            className="mt-3 flex max-w-xl flex-col gap-4 md:mt-4"
+            className="mt-1.5 flex max-w-xl flex-col gap-4 md:mt-2"
           >
             <p className="text-lg leading-relaxed text-muted">
               {t.hero.paragraph1}

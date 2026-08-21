@@ -9,6 +9,7 @@ type ContactDetail = { label: string; value: string };
 
 export type Dictionary = {
   skipLink: string;
+  personName: string;
   nav: {
     brand: string;
     work: string;
@@ -132,6 +133,7 @@ export type Dictionary = {
 
 const ru: Dictionary = {
   skipLink: "Перейти к содержимому",
+  personName: "НИКИТА ИСАЕВ",
   nav: {
     brand: "Wisp",
     work: "Проекты",
@@ -330,6 +332,7 @@ const ru: Dictionary = {
 
 const en: Dictionary = {
   skipLink: "Skip to content",
+  personName: "NIKITA ISAEV",
   nav: {
     brand: "Wisp",
     work: "Work",

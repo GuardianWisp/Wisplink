@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="container-studio flex flex-col gap-10 py-12 md:flex-row md:items-end md:justify-between md:py-14">
         <div className="flex flex-col gap-1">
           <span className="font-mono text-sm tracking-label text-ink">
-            НИКИТА ИСАЕВ
+            {t.personName}
           </span>
           <span className="label">{t.footer.tagline}</span>
         </div>

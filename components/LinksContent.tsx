@@ -30,7 +30,7 @@ export default function LinksContent() {
 
         <div className="mt-6 text-center">
           <span className="font-mono text-sm tracking-label text-ink">
-            НИКИТА ИСАЕВ
+            {t.personName}
           </span>
           <p className="label mt-1">{t.links.tagline}</p>
         </div>
