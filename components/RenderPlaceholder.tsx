@@ -97,6 +97,7 @@ export default function RenderPlaceholder({
           fill
           priority={priority}
           decoding="async"
+          quality={90}
           sizes="(max-width: 768px) 100vw, 80vw"
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
