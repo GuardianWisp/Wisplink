@@ -4,7 +4,7 @@ import AboutContent from "@/components/AboutContent";
 export const metadata: Metadata = {
   title: "Обо мне",
   description:
-    "AI-дизайнер и Motion Designer. Держу AI в центре процесса — от концепта до продакшна — и работаю через 3D, моушн и интерфейсы.",
+    "AI-дизайнер и 3D-дженералист. Держу AI в центре процесса — от концепта до продакшна — и работаю через UX/UI и 3D.",
 };
 
 export default function AboutPage() {

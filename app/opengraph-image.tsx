@@ -7,7 +7,7 @@ export const contentType = "image/png";
 
 const eyebrow = "Портфолио";
 const title = "AI-дизайнер, фриланс.";
-const meta = "3D, моушн и AI-дизайн";
+const meta = "UX/UI, 3D и AI-дизайн";
 
 export default async function Image() {
   const fonts = await loadOgFonts(`Wisplink${eyebrow}${title}${meta}`);

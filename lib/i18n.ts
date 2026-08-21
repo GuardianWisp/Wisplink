@@ -144,13 +144,13 @@ const ru: Dictionary = {
     menuCloseText: "Закрыть",
   },
   footer: {
-    tagline: "AI-дизайнер и моушн-дизайнер",
+    tagline: "AI-дизайнер и 3D-дженералист",
     toTop: "Наверх ↑",
   },
   hero: {
     roles: ["UX/UI Designer", "CGI Generalist", "AI-дизайнер"],
     paragraph1:
-      "Я держу AI в центре процесса — от быстрого концепта до ускорения продакшна — и довожу результат до финального качества руками, там, где точность важнее скорости. 3D, моушн и интерфейсы — медиумы, подход общий.",
+      "Я держу AI в центре процесса — от быстрого концепта до ускорения продакшна — и довожу результат до финального качества руками, там, где точность важнее скорости. UX/UI и 3D — медиумы, подход общий.",
     paragraph2: "Россия, работаю удалённо.",
   },
   process: {
@@ -245,7 +245,7 @@ const ru: Dictionary = {
     portraitAlt: "Портрет",
     bio: [
       "Мой путь в дизайн начался в 2018 году с увлечения трёхмерной графикой. Позже я прошёл обучение в школе дизайна по направлению UX/UI, что дало мне сильную базу в понимании структуры, логики и пользовательского опыта.",
-      "В студии Chipsa я начинал как UX/UI специалист, позже полностью переключился на 3D-контент и графику. Там я работал над крупными проектами: создавал 3D-мокапы, Key Visuals для брендов, рекламные видеоролики и графику для презентаций.",
+      "В студии Chipsa я начинал как UX/UI специалист, позже полностью переключился на 3D-контент и графику. Там я работал над крупными проектами: создавал 3D-мокапы, Key Visuals для брендов и графику для презентаций.",
       "Последние пару лет я системно встраиваю AI в свой процесс — от быстрого прототипирования и генерации референсов до ускорения 3D-продакшна. AI для меня — не замена ремеслу, а инструмент, который освобождает время на то, что действительно требует глаза и опыта.",
     ],
     experienceLabel: "Опыт работы",
@@ -262,7 +262,6 @@ const ru: Dictionary = {
       "Создание материалов",
       "Дизайн интерфейсов",
       "Симуляции / Нодовые генерации",
-      "Моушн и анимации",
     ],
     softwareLabel: "Софт",
     software: [
@@ -288,9 +287,9 @@ const ru: Dictionary = {
           "Рендеры любой сложности, продуктовая визуализация, реалистичные 3D-мокапы и ключевые визуалы (Key Visuals) для брендов и промо-кампаний.",
       },
       {
-        title: "Моушн & Видеоролики",
+        title: "UX/UI Дизайн",
         description:
-          "Динамичная анимация, промо-видео и презентационные ролики для запусков продуктов, сочетающие техническую точность и эстетику.",
+          "Проектирование интерфейсов и пользовательского опыта — от вайрфреймов и логики экрана до финального UI. Дисциплина, с которой начинался мой путь в дизайне.",
       },
       {
         title: "Визуальная концептуализация",
@@ -343,13 +342,13 @@ const en: Dictionary = {
     menuCloseText: "Close",
   },
   footer: {
-    tagline: "AI designer & motion designer",
+    tagline: "AI designer & 3D generalist",
     toTop: "Back to top ↑",
   },
   hero: {
     roles: ["UX/UI Designer", "CGI Generalist", "AI Designer"],
     paragraph1:
-      "I keep AI at the centre of the process — from fast concepting to speeding up production — and finish the result to final quality by hand, wherever precision matters more than speed. 3D, motion and interfaces are the mediums; the approach stays the same.",
+      "I keep AI at the centre of the process — from fast concepting to speeding up production — and finish the result to final quality by hand, wherever precision matters more than speed. UX/UI and 3D are the mediums; the approach stays the same.",
     paragraph2: "Based in Russia, working remotely.",
   },
   process: {
@@ -444,7 +443,7 @@ const en: Dictionary = {
     portraitAlt: "Portrait",
     bio: [
       "My path into design started in 2018 with an interest in 3D graphics. I later trained at a design school in UX/UI, which gave me a solid grounding in structure, logic and user experience.",
-      "At Chipsa studio I started as a UX/UI specialist, later switching fully to 3D content and graphics. I worked on large projects there: 3D mockups, key visuals for brands, promo videos and presentation graphics.",
+      "At Chipsa studio I started as a UX/UI specialist, later switching fully to 3D content and graphics. I worked on large projects there: 3D mockups, key visuals for brands and presentation graphics.",
       "For the past couple of years I've been systematically weaving AI into my process — from fast prototyping and reference generation to speeding up 3D production. AI isn't a replacement for craft to me — it's a tool that frees up time for what actually needs an eye and experience.",
     ],
     experienceLabel: "Experience",
@@ -461,7 +460,6 @@ const en: Dictionary = {
       "Material creation",
       "Interface design",
       "Simulations / node-based generation",
-      "Motion and animation",
     ],
     softwareLabel: "Software",
     software: [
@@ -487,9 +485,9 @@ const en: Dictionary = {
           "Renders of any complexity, product visualization, realistic 3D mockups and key visuals for brands and promo campaigns.",
       },
       {
-        title: "Motion & Video",
+        title: "UX/UI Design",
         description:
-          "Dynamic animation, promo videos and presentation reels for product launches, combining technical precision with aesthetics.",
+          "Interface and user-experience design — from wireframes and screen logic to final UI. The discipline my path into design started with.",
       },
       {
         title: "Visual Concepting",

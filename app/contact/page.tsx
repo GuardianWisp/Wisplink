@@ -4,7 +4,7 @@ import ContactContent from "@/components/ContactContent";
 export const metadata: Metadata = {
   title: "Контакты",
   description:
-    "Свяжитесь со мной для обсуждения проектов по AI-дизайну, 3D-графике, моушн-дизайну и визуальным концептам.",
+    "Свяжитесь со мной для обсуждения проектов по AI-дизайну, 3D-графике, UX/UI и визуальным концептам.",
 };
 
 export default function ContactPage() {
