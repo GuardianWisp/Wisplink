@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type { MouseEventHandler } from "react";
+import { useLocale } from "./LocaleProvider";
 
 type RenderPlaceholderProps = {
   /** Real image path — when provided, renders the actual image instead of a placeholder. */
@@ -34,7 +35,7 @@ const aspectMap: Record<string, string> = {
 export default function RenderPlaceholder({
   src,
   alt,
-  label = "Рендер скоро появится",
+  label,
   index,
   aspect = "landscape",
   className = "",
@@ -42,6 +43,8 @@ export default function RenderPlaceholder({
   static: isStatic = false,
   onClick,
 }: RenderPlaceholderProps) {
+  const { t } = useLocale();
+  const resolvedLabel = label ?? t.renderPlaceholder.comingSoon;
   const imgRef = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -83,14 +86,14 @@ export default function RenderPlaceholder({
       {...revealProps}
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
-      {...(onClick ? { "data-cursor-label": "Открыть" } : {})}
+      {...(onClick ? { "data-cursor-label": t.renderPlaceholder.open } : {})}
       className={`group relative w-full overflow-hidden bg-panel ${aspectMap[aspect]} ${className}`}
     >
       {showImage ? (
         <Image
           ref={imgRef}
           src={src!}
-          alt={alt || label}
+          alt={alt || resolvedLabel}
           fill
           priority={priority}
           decoding="async"
@@ -102,7 +105,7 @@ export default function RenderPlaceholder({
       ) : (
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 transition-transform duration-1100 ease-studio group-hover:scale-[1.015]">
           <span className="label text-faint">
-            {failed ? "Не удалось загрузить изображение" : label}
+            {failed ? t.renderPlaceholder.failedToLoad : resolvedLabel}
           </span>
           {index && (
             <span className="font-mono text-xs text-faint">{index}</span>
@@ -111,7 +114,7 @@ export default function RenderPlaceholder({
       )}
       <div className="absolute inset-0 border border-line-strong/60" aria-hidden />
       {priority && !src && (
-        <span className="sr-only">Место зарезервировано для главного рендера</span>
+        <span className="sr-only">{t.renderPlaceholder.heroReserved}</span>
       )}
     </motion.div>
   );

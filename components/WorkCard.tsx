@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
 import RenderPlaceholder from "./RenderPlaceholder";
 import Reveal from "./Reveal";
+import { useLocale } from "./LocaleProvider";
 
 export default function WorkCard({
   project,
@@ -10,11 +13,13 @@ export default function WorkCard({
   project: Project;
   reverse?: boolean;
 }) {
+  const { t } = useLocale();
+
   return (
     <Reveal className="group border-t border-line py-16 first:border-t-0 md:py-24">
       <Link
         href={`/work/${project.slug}`}
-        data-cursor-label="Смотреть"
+        data-cursor-label={t.work.viewCursor}
         className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12"
       >
         <div
@@ -24,8 +29,8 @@ export default function WorkCard({
         >
           <RenderPlaceholder
             src={project.cover}
-            alt={`${project.title} — обложка`}
-            label={`${project.title} — Рендер`}
+            alt={`${project.title} — ${t.work.coverAlt}`}
+            label={`${project.title} — ${t.work.renderLabel}`}
             index={project.index}
             aspect={project.aspect === "square" ? "square" : "landscape"}
           />
@@ -50,7 +55,7 @@ export default function WorkCard({
             <span className="label">{project.category}</span>
             <span className="label">{project.year}</span>
             <span className="label text-ink underline decoration-line-strong underline-offset-4 transition-colors duration-300 group-hover:decoration-ink">
-              Смотреть проект →
+              {t.work.viewProject}
             </span>
           </div>
         </div>

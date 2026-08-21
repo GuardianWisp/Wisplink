@@ -1,11 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import GrainOverlay from "@/components/GrainOverlay";
 import ScrollProgress from "@/components/ScrollProgress";
+import { LocaleProvider } from "@/components/LocaleProvider";
+import SkipLink from "@/components/SkipLink";
 import { siteUrl } from "@/lib/site";
 
 const inter = Inter({
@@ -72,20 +76,19 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} ${mono.variable}`}>
       <body className="flex min-h-screen flex-col bg-paper text-ink antialiased font-sans">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
-        >
-          Перейти к содержимому
-        </a>
-        <Nav />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <ScrollProgress />
-        <GrainOverlay />
-        <CustomCursor />
+        <LocaleProvider>
+          <SkipLink />
+          <Nav />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <ScrollProgress />
+          <GrainOverlay />
+          <CustomCursor />
+        </LocaleProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

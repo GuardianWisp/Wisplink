@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import RenderPlaceholder from "./RenderPlaceholder";
+import { useLocale } from "./LocaleProvider";
 
 export default function ProjectCarousel({
   title,
@@ -11,6 +12,7 @@ export default function ProjectCarousel({
   title: string;
   images: string[];
 }) {
+  const { t } = useLocale();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -31,7 +33,7 @@ export default function ProjectCarousel({
   if (images.length === 0) {
     return (
       <RenderPlaceholder
-        label={`${title} — Полноэкранный рендер`}
+        label={`${title} — ${t.gallery.fullscreenRender}`}
         index="01"
         aspect="wide"
         priority
@@ -45,7 +47,7 @@ export default function ProjectCarousel({
       className="group relative"
       role="region"
       aria-roledescription="carousel"
-      aria-label={`${title} — избранные рендеры`}
+      aria-label={`${title} — ${t.gallery.highlightReel}`}
     >
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
@@ -53,7 +55,7 @@ export default function ProjectCarousel({
             <div key={src} className="relative min-w-0 flex-[0_0_100%]">
               <RenderPlaceholder
                 src={src}
-                alt={`${title} — рендер ${i + 1}`}
+                alt={`${title} — ${t.gallery.renderAlt} ${i + 1}`}
                 aspect="wide"
                 static
                 priority={i === 0}
@@ -70,7 +72,7 @@ export default function ProjectCarousel({
             <button
               type="button"
               onClick={scrollPrev}
-              aria-label="Предыдущий слайд"
+              aria-label={t.gallery.prevSlide}
               className="label pointer-events-auto border border-ink bg-paper px-4 py-3 transition-colors duration-300 hover:bg-ink hover:text-paper"
             >
               ←
@@ -84,7 +86,7 @@ export default function ProjectCarousel({
             <button
               type="button"
               onClick={scrollNext}
-              aria-label="Следующий слайд"
+              aria-label={t.gallery.nextSlide}
               className="label pointer-events-auto border border-ink bg-paper px-4 py-3 transition-colors duration-300 hover:bg-ink hover:text-paper"
             >
               →

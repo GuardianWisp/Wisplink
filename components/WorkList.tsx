@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 import WorkCard from "./WorkCard";
 import type { Project } from "@/lib/projects";
+import { useLocale } from "./LocaleProvider";
 
 export default function WorkList({ projects }: { projects: Project[] }) {
+  const { t } = useLocale();
   const tags = useMemo(() => {
     const all = new Set<string>();
     projects.forEach((p) => p.services.forEach((s) => all.add(s)));
@@ -32,7 +34,7 @@ export default function WorkList({ projects }: { projects: Project[] }) {
                 : "border-line-strong text-muted hover:border-ink hover:text-ink"
             }`}
           >
-            Все
+            {t.blog.all}
           </button>
           {tags.map((tag) => (
             <button
@@ -57,7 +59,7 @@ export default function WorkList({ projects }: { projects: Project[] }) {
         ))}
         {filtered.length === 0 && (
           <p className="border-t border-line py-16 text-muted">
-            Пока нет проектов с этим тегом.
+            {t.work.noProjectsForTag}
           </p>
         )}
       </div>

@@ -4,18 +4,21 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import type { PostMeta } from "@/lib/posts";
-
-function formatDate(iso: string) {
-  if (!iso) return "";
-  const date = new Date(iso);
-  return date.toLocaleDateString("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
+import { useLocale } from "./LocaleProvider";
 
 export default function BlogList({ posts }: { posts: PostMeta[] }) {
+  const { t, dateLocale } = useLocale();
+
+  function formatDate(iso: string) {
+    if (!iso) return "";
+    const date = new Date(iso);
+    return date.toLocaleDateString(dateLocale, {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  }
+
   const tags = useMemo(() => {
     const all = new Set<string>();
     posts.forEach((p) => p.tags?.forEach((t) => all.add(t)));
@@ -33,7 +36,7 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
   if (posts.length === 0) {
     return (
       <p className="mt-16 max-w-md text-lg text-muted">
-        Пока здесь пусто — первая запись скоро появится.
+        {t.blog.emptyArchive}
       </p>
     );
   }
@@ -51,7 +54,7 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
                 : "border-line-strong text-muted hover:border-ink hover:text-ink"
             }`}
           >
-            Все
+            {t.blog.all}
           </button>
           {tags.map((tag) => (
             <button
@@ -79,7 +82,7 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
           >
             <Link
               href={`/blog/${post.slug}`}
-              data-cursor-label="Читать"
+              data-cursor-label={t.blog.readCursor}
               className="group grid grid-cols-1 gap-3 md:grid-cols-12 md:items-baseline md:gap-8"
             >
               <span className="label md:col-span-2">
@@ -94,13 +97,13 @@ export default function BlogList({ posts }: { posts: PostMeta[] }) {
                 </p>
               </div>
               <span className="label text-ink underline decoration-line-strong underline-offset-4 transition-colors duration-300 group-hover:decoration-ink md:col-span-2 md:text-right">
-                Читать →
+                {t.blog.readMore}
               </span>
             </Link>
           </Reveal>
         ))}
         {filtered.length === 0 && (
-          <p className="py-10 text-muted">Пока нет записей с этим тегом.</p>
+          <p className="py-10 text-muted">{t.blog.noTaggedPosts}</p>
         )}
       </div>
     </>

@@ -4,9 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { social, email } from "@/data/social";
 import { isChromeFreePath } from "@/lib/site";
+import { useLocale } from "./LocaleProvider";
 
 export default function Footer() {
   const pathname = usePathname();
+  const { t } = useLocale();
   if (isChromeFreePath(pathname)) return null;
 
   return (
@@ -16,7 +18,7 @@ export default function Footer() {
           <span className="font-mono text-sm tracking-label text-ink">
             НИКИТА ИСАЕВ
           </span>
-          <span className="label">AI-дизайнер и моушн-дизайнер</span>
+          <span className="label">{t.footer.tagline}</span>
         </div>
 
         <nav className="flex flex-wrap gap-x-8 gap-y-3">
@@ -48,7 +50,7 @@ export default function Footer() {
 
       <div className="container-studio pb-10">
         <Link href="#main" className="label text-faint hover:text-muted">
-          Наверх ↑
+          {t.footer.toTop}
         </Link>
       </div>
     </footer>

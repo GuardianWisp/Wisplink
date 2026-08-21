@@ -5,17 +5,20 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { isChromeFreePath } from "@/lib/site";
-
-const links = [
-  { href: "/#work", label: "Проекты" },
-  { href: "/blog", label: "Журнал" },
-  { href: "/about", label: "Обо мне" },
-  { href: "/contact", label: "Контакты" },
-];
+import { useLocale } from "./LocaleProvider";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { t } = useLocale();
+
+  const links = [
+    { href: "/#work", label: t.nav.work },
+    { href: "/blog", label: t.nav.blog },
+    { href: "/about", label: t.nav.about },
+    { href: "/contact", label: t.nav.contact },
+  ];
 
   useEffect(() => {
     setOpen(false);
@@ -38,7 +41,7 @@ export default function Nav() {
           href="/"
           className="font-mono text-sm font-medium tracking-label text-ink"
         >
-          Wisp
+          {t.nav.brand}
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
@@ -51,17 +54,21 @@ export default function Nav() {
               {link.label}
             </Link>
           ))}
+          <LanguageSwitcher />
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label={open ? "Закрыть меню" : "Открыть меню"}
-          className="label flex items-center gap-3 md:hidden"
-        >
-          {open ? "Закрыть" : "Меню"}
-        </button>
+        <div className="flex items-center gap-5 md:hidden">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? t.nav.menuCloseLabel : t.nav.menuOpenLabel}
+            className="label flex items-center gap-3"
+          >
+            {open ? t.nav.menuCloseText : t.nav.menuOpenText}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import RenderPlaceholder from "./RenderPlaceholder";
 import type { GalleryImage } from "@/lib/projects";
+import { useLocale } from "./LocaleProvider";
 
 type Aspect = "portrait" | "landscape" | "square" | "wide";
 type Size = "sm" | "md" | "lg" | "xl";
@@ -95,6 +96,7 @@ export default function ProjectGallery({
   renders: GalleryImage[];
   process: GalleryImage[];
 }) {
+  const { t } = useLocale();
   const items = useMemo(
     () => buildSequence(renders, process),
     [renders, process]
@@ -141,13 +143,13 @@ export default function ProjectGallery({
               src={item.src}
               alt={
                 item.type === "render"
-                  ? `${title} — рендер`
-                  : `${title} — процесс`
+                  ? `${title} — ${t.gallery.renderAlt}`
+                  : `${title} — ${t.gallery.processAlt}`
               }
               label={
                 item.type === "render"
-                  ? `${title} — Рендер`
-                  : `${title} — Процесс`
+                  ? `${title} — ${t.gallery.render}`
+                  : `${title} — ${t.gallery.process}`
               }
               index={String(i + 1).padStart(2, "0")}
               aspect={item.aspect}
@@ -168,22 +170,22 @@ export default function ProjectGallery({
             className="fixed inset-0 z-[100] flex flex-col bg-paper"
             role="dialog"
             aria-modal="true"
-            aria-label={`${title} — просмотр изображений`}
+            aria-label={`${title} — ${t.gallery.imagesView}`}
             onClick={close}
           >
             <div className="flex items-center justify-between px-6 py-5 md:px-12 md:py-8">
               <span className="label">
                 {String(openIndex + 1).padStart(2, "0")} /{" "}
                 {String(items.length).padStart(2, "0")} —{" "}
-                {current.type === "render" ? "Рендер" : "Процесс"}
+                {current.type === "render" ? t.gallery.render : t.gallery.process}
               </span>
               <button
                 type="button"
                 onClick={close}
-                aria-label="Закрыть просмотр"
+                aria-label={t.gallery.closeView}
                 className="label border border-ink px-4 py-2 transition-colors duration-300 hover:bg-ink hover:text-paper"
               >
-                Закрыть ✕
+                {t.gallery.close}
               </button>
             </div>
 
@@ -194,7 +196,7 @@ export default function ProjectGallery({
               <button
                 type="button"
                 onClick={prev}
-                aria-label="Предыдущее изображение"
+                aria-label={t.gallery.prevImage}
                 className="label absolute left-2 top-1/2 z-10 hidden -translate-y-1/2 border border-ink bg-paper px-3 py-3 transition-colors duration-300 hover:bg-ink hover:text-paper md:left-6 md:block"
               >
                 ←
@@ -211,13 +213,13 @@ export default function ProjectGallery({
                   src={current.src}
                   alt={
                     current.type === "render"
-                      ? `${title} — рендер`
-                      : `${title} — процесс`
+                      ? `${title} — ${t.gallery.renderAlt}`
+                      : `${title} — ${t.gallery.processAlt}`
                   }
                   label={
                     current.type === "render"
-                      ? `${title} — Рендер`
-                      : `${title} — Процесс`
+                      ? `${title} — ${t.gallery.render}`
+                      : `${title} — ${t.gallery.process}`
                   }
                   index={String(openIndex + 1).padStart(2, "0")}
                   aspect="wide"
@@ -229,7 +231,7 @@ export default function ProjectGallery({
               <button
                 type="button"
                 onClick={next}
-                aria-label="Следующее изображение"
+                aria-label={t.gallery.nextImage}
                 className="label absolute right-2 top-1/2 z-10 hidden -translate-y-1/2 border border-ink bg-paper px-3 py-3 transition-colors duration-300 hover:bg-ink hover:text-paper md:right-6 md:block"
               >
                 →
@@ -240,18 +242,18 @@ export default function ProjectGallery({
               <button
                 type="button"
                 onClick={prev}
-                aria-label="Предыдущее изображение"
+                aria-label={t.gallery.prevImage}
                 className="label border border-ink px-4 py-2"
               >
-                ← Назад
+                {t.gallery.back}
               </button>
               <button
                 type="button"
                 onClick={next}
-                aria-label="Следующее изображение"
+                aria-label={t.gallery.nextImage}
                 className="label border border-ink px-4 py-2"
               >
-                Далее →
+                {t.gallery.forward}
               </button>
             </div>
           </motion.div>
