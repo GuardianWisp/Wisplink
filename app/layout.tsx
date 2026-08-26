@@ -8,7 +8,9 @@ import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import GrainOverlay from "@/components/GrainOverlay";
 import ScrollProgress from "@/components/ScrollProgress";
+import StarField from "@/components/StarField";
 import { LocaleProvider } from "@/components/LocaleProvider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import SkipLink from "@/components/SkipLink";
 import { siteUrl } from "@/lib/site";
 import { personJsonLd, websiteJsonLd } from "@/lib/structured-data";
@@ -78,22 +80,31 @@ export default function RootLayout({
     <html lang="ru" className={`${inter.variable} ${mono.variable}`}>
       <body className="flex min-h-screen flex-col bg-paper text-ink antialiased font-sans">
         <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('wisplink-theme');if(t==='dark')document.documentElement.dataset.theme='dark';}catch(e){}})();",
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([personJsonLd(), websiteJsonLd()]),
           }}
         />
-        <LocaleProvider>
-          <SkipLink />
-          <Nav />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <Footer />
-          <ScrollProgress />
-          <GrainOverlay />
-          <CustomCursor />
-        </LocaleProvider>
+        <ThemeProvider>
+          <LocaleProvider>
+            <StarField />
+            <SkipLink />
+            <Nav />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <ScrollProgress />
+            <GrainOverlay />
+            <CustomCursor />
+          </LocaleProvider>
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

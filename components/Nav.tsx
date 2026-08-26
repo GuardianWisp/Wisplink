@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { isChromeFreePath } from "@/lib/site";
 import { useLocale } from "./LocaleProvider";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -55,10 +56,12 @@ export default function Nav() {
             </Link>
           ))}
           <LanguageSwitcher />
+          <ThemeToggle />
         </nav>
 
         <div className="flex items-center gap-5 md:hidden">
           <LanguageSwitcher />
+          <ThemeToggle />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

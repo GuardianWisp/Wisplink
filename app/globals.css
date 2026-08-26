@@ -3,6 +3,27 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-paper: 255 255 255;
+    --color-ink: 17 17 17;
+    --color-muted: 119 119 119;
+    --color-faint: 163 163 161;
+    --color-line: 230 230 228;
+    --color-line-strong: 214 214 211;
+    --color-panel: 241 241 239;
+  }
+
+  /* monochrome "star" theme — no hue, just black, white and gray */
+  html[data-theme="dark"] {
+    --color-paper: 10 10 10;
+    --color-ink: 240 240 238;
+    --color-muted: 158 158 155;
+    --color-faint: 108 108 105;
+    --color-line: 34 34 34;
+    --color-line-strong: 60 60 60;
+    --color-panel: 20 20 20;
+  }
+
   * {
     @apply border-line;
   }
@@ -24,16 +45,17 @@
     @apply bg-paper text-ink antialiased font-sans;
     font-feature-settings: "ss01" 1, "cv01" 1;
     text-rendering: optimizeLegibility;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 
   ::selection {
-    background: #111111;
-    color: #ffffff;
+    background: rgb(var(--color-ink));
+    color: rgb(var(--color-paper));
   }
 
   /* visible, deliberate focus state — never removed */
   :focus-visible {
-    outline: 1.5px solid #111111;
+    outline: 1.5px solid rgb(var(--color-ink));
     outline-offset: 4px;
   }
 

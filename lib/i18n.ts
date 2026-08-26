@@ -129,6 +129,10 @@ export type Dictionary = {
   languageSwitcher: {
     label: string;
   };
+  themeSwitcher: {
+    toDark: string;
+    toLight: string;
+  };
 };
 
 const ru: Dictionary = {
@@ -328,6 +332,10 @@ const ru: Dictionary = {
   languageSwitcher: {
     label: "Язык",
   },
+  themeSwitcher: {
+    toDark: "Тёмная тема",
+    toLight: "Светлая тема",
+  },
 };
 
 const en: Dictionary = {
@@ -526,6 +534,10 @@ const en: Dictionary = {
   },
   languageSwitcher: {
     label: "Language",
+  },
+  themeSwitcher: {
+    toDark: "Dark theme",
+    toLight: "Light theme",
   },
 };
 

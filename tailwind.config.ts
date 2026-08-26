@@ -9,13 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#FFFFFF",
-        ink: "#111111",
-        muted: "#777777",
-        faint: "#A3A3A1",
-        line: "#E6E6E4",
-        "line-strong": "#D6D6D3",
-        panel: "#F1F1EF",
+        paper: "rgb(var(--color-paper) / <alpha-value>)",
+        ink: "rgb(var(--color-ink) / <alpha-value>)",
+        muted: "rgb(var(--color-muted) / <alpha-value>)",
+        faint: "rgb(var(--color-faint) / <alpha-value>)",
+        line: "rgb(var(--color-line) / <alpha-value>)",
+        "line-strong": "rgb(var(--color-line-strong) / <alpha-value>)",
+        panel: "rgb(var(--color-panel) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
