@@ -95,7 +95,7 @@ function distributeIntoColumns(
       for (let c = 1; c < columnCount; c++) {
         if (heights[c] < heights[target]) target = c;
       }
-      columns[target].push(entry);
+      columns[target]!.push(entry);
       heights[target] += 1 / aspectRatioMap[entry.item.aspect];
     }
     segments.push({ type: "columns", columns });
