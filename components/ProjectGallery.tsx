@@ -19,24 +19,28 @@ type GalleryItem = {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /**
- * How much grid space + which default aspect each size tier gets.
- * `grid-flow-row-dense` on the container (below) backfills any gaps
- * left when spans don't divide evenly into a row — so any mix of
- * sizes, in any order, still lays out cleanly with no holes.
+ * Default aspect per size tier — only used as the placeholder's fallback
+ * box (real photos/videos size themselves from their own intrinsic
+ * ratio in the masonry below, so this never crops actual work).
+ * `xl` additionally means "break out and span every column."
  */
-const sizeMap: Record<Size, { col: string; aspect: Aspect }> = {
-  sm: { col: "md:col-span-4", aspect: "square" },
-  md: { col: "md:col-span-6", aspect: "landscape" },
-  lg: { col: "md:col-span-8", aspect: "landscape" },
-  xl: { col: "md:col-span-12", aspect: "wide" },
+const sizeMap: Record<Size, { aspect: Aspect }> = {
+  sm: { aspect: "square" },
+  md: { aspect: "landscape" },
+  lg: { aspect: "landscape" },
+  xl: { aspect: "wide" },
 };
 
 /**
  * Automatic rhythm used only for images that don't specify their own
- * size — so a plain list of image paths still reads as a considered,
- * asymmetric layout with zero manual curation required.
+ * size. In the masonry grid below, actual tile width comes from each
+ * item's own intrinsic aspect ratio — `size` only still matters for
+ * `xl` (breaks out to span every column), which is why it's excluded
+ * here: auto-assigning a full-bleed span to whatever happens to land
+ * on that beat would blow up a tall/portrait item to full width.
+ * `xl` stays available as an explicit, intentional opt-in per image.
  */
-const defaultSizeCycle: Size[] = ["lg", "sm", "md", "xl", "sm", "md"];
+const defaultSizeCycle: Size[] = ["lg", "sm", "md", "sm", "md", "lg"];
 
 function resolveImage(
   image: GalleryImage,
@@ -136,9 +140,14 @@ export default function ProjectGallery({
 
   return (
     <>
-      <div className="grid grid-flow-row-dense grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
+      <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 md:gap-8">
         {items.map((item, i) => (
-          <div key={item.src} className={sizeMap[item.size].col}>
+          <div
+            key={item.src}
+            className={`mb-6 break-inside-avoid md:mb-8 ${
+              item.size === "xl" ? "[column-span:all]" : ""
+            }`}
+          >
             <RenderPlaceholder
               src={item.src}
               alt={
@@ -153,6 +162,7 @@ export default function ProjectGallery({
               }
               index={String(i + 1).padStart(2, "0")}
               aspect={item.aspect}
+              natural
               onClick={() => setOpenIndex(i)}
               className="cursor-zoom-in transition-opacity duration-500 hover:opacity-90"
             />

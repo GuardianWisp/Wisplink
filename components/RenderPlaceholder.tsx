@@ -17,6 +17,14 @@ type RenderPlaceholderProps = {
   priority?: boolean;
   /** Skip the scroll-triggered reveal — used inside the fullscreen lightbox. */
   static?: boolean;
+  /**
+   * Size the frame to the media's own intrinsic aspect ratio instead of
+   * cropping it into a fixed box — what a masonry/Pinterest-style grid
+   * needs. Renders a plain `<img>` (no next/image `fill`, which requires
+   * a pre-set box) and lets `<video>` report its natural size once its
+   * metadata loads.
+   */
+  natural?: boolean;
   onClick?: MouseEventHandler<HTMLDivElement>;
 };
 
@@ -43,6 +51,7 @@ export default function RenderPlaceholder({
   className = "",
   priority = false,
   static: isStatic = false,
+  natural = false,
   onClick,
 }: RenderPlaceholderProps) {
   const { t } = useLocale();
@@ -105,7 +114,7 @@ export default function RenderPlaceholder({
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
       {...(onClick ? { "data-cursor-label": t.renderPlaceholder.open } : {})}
-      className={`group relative w-full overflow-hidden bg-panel ${aspectMap[aspect]} ${className}`}
+      className={`group relative w-full overflow-hidden bg-panel ${natural ? "" : aspectMap[aspect]} ${className}`}
     >
       {showVideo ? (
         <video
@@ -118,7 +127,20 @@ export default function RenderPlaceholder({
           preload="metadata"
           onLoadedData={() => setLoaded(true)}
           onError={() => setFailed(true)}
-          className={`h-full w-full transform-gpu object-cover ${loaded ? "opacity-100" : "opacity-0"} transition-opacity duration-700 ease-studio group-hover:scale-[1.03] group-hover:transition-transform group-hover:duration-1100`}
+          className={`transform-gpu transition-opacity duration-700 ease-studio group-hover:scale-[1.03] group-hover:transition-transform group-hover:duration-1100 ${
+            natural ? "block h-auto w-full" : "h-full w-full object-cover"
+          } ${loaded ? "opacity-100" : "opacity-0"}`}
+        />
+      ) : showImage && natural ? (
+        // eslint-disable-next-line @next/next/no-img-element -- intrinsic sizing for masonry; next/image's `fill` needs a pre-set box, which is exactly what a natural-ratio tile can't have.
+        <img
+          ref={imgRef}
+          src={src}
+          alt={alt || resolvedLabel}
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          onError={() => setFailed(true)}
+          className={`block h-auto w-full transform-gpu transition-opacity duration-700 ease-studio group-hover:scale-[1.03] group-hover:transition-transform group-hover:duration-1100 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
       ) : showImage ? (
         <Image
