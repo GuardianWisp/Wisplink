@@ -34,9 +34,14 @@ export default function ProjectPage({ params }: Props) {
 
   // Hero image plus the first few renders — a curated highlight reel,
   // separate from the full render+process set browsable in the Gallery below.
+  // Most projects have enough visual variety for the default of 4; a
+  // project can override with `heroCount` if its early renders read as
+  // too repetitive next to each other in the carousel.
   const heroImages = [
     project.hero,
-    ...project.renders.slice(0, 4).map((r) => (typeof r === "string" ? r : r.src)),
+    ...project.renders
+      .slice(0, project.heroCount ?? 4)
+      .map((r) => (typeof r === "string" ? r : r.src)),
   ].filter((src): src is string => Boolean(src));
 
   return (

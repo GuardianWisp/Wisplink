@@ -38,6 +38,8 @@ export type Project = {
   cover: string;
   /** Fullscreen hero image at the top of the project page. */
   hero: string;
+  /** How many leading `renders` join `hero` in the top carousel (default 4). */
+  heroCount?: number;
   /** Gallery images, in order — leave empty to fall back to placeholders. */
   renders: GalleryImage[];
   process: GalleryImage[];
@@ -95,6 +97,7 @@ export function getProject(slug: string): ProjectWithContent | null {
     aspect: data.aspect ?? "landscape",
     cover: data.cover ?? "",
     hero: data.hero ?? "",
+    heroCount: data.heroCount,
     renders: data.renders ?? [],
     process: data.process ?? [],
     content,
