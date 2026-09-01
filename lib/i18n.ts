@@ -156,7 +156,7 @@ const ru: Dictionary = {
   hero: {
     roles: ["UX/UI Designer", "CGI Generalist", "AI-дизайнер"],
     paragraph1:
-      "Я держу AI в центре процесса — от быстрого концепта до ускорения продакшна — и довожу результат до финального качества руками, там, где точность важнее скорости. Прошёл путь от UX/UI до 3D — подход остаётся тем же.",
+      "Делаю UX/UI-интерфейсы, мобильные приложения и дизайн для сайтов, а ещё — 3D-контент. Последнее время подключаю AI-инструменты, чтобы улучшать качество на всех этапах.",
     paragraph2: "Россия, работаю удалённо.",
   },
   process: {
@@ -359,7 +359,7 @@ const en: Dictionary = {
   hero: {
     roles: ["UX/UI Designer", "CGI Generalist", "AI Designer"],
     paragraph1:
-      "I keep AI at the centre of the process — from fast concepting to speeding up production — and finish the result to final quality by hand, wherever precision matters more than speed. I've gone from UX/UI to 3D — the approach stays the same.",
+      "I do UX/UI interfaces, mobile apps and website design, plus 3D content. Lately I've been using AI tools to raise the quality across all of it.",
     paragraph2: "Based in Russia, working remotely.",
   },
   process: {
