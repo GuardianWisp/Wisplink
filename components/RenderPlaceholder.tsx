@@ -35,6 +35,17 @@ const aspectMap: Record<string, string> = {
   wide: "aspect-[21/9]",
 };
 
+// Numeric fallback for `natural` mode — reserves a sensible box the
+// instant the tile mounts, before the media's real ratio is known, so
+// a slow-loading video never collapses to zero height and yanks the
+// masonry column around once it finally arrives.
+const aspectRatioMap: Record<string, number> = {
+  portrait: 4 / 5,
+  landscape: 16 / 10,
+  square: 1,
+  wide: 21 / 9,
+};
+
 const VIDEO_EXTENSION = /\.(mp4|webm|mov)$/i;
 
 /**
@@ -60,6 +71,7 @@ export default function RenderPlaceholder({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [ratio, setRatio] = useState<number | null>(null);
   const isVideo = Boolean(src) && VIDEO_EXTENSION.test(src!);
 
   // If the browser already has this image cached, the load event can fire
@@ -77,12 +89,19 @@ export default function RenderPlaceholder({
 
   useEffect(() => {
     setFailed(false);
+    setRatio(null);
     if (isVideo) {
-      if ((videoRef.current?.readyState ?? 0) >= 2) setLoaded(true);
+      const v = videoRef.current;
+      if ((v?.readyState ?? 0) >= 2) setLoaded(true);
+      if (v?.videoWidth && v?.videoHeight) setRatio(v.videoWidth / v.videoHeight);
       return;
     }
-    if (imgRef.current?.complete) {
+    const img = imgRef.current;
+    if (img?.complete) {
       setLoaded(true);
+      if (img.naturalWidth && img.naturalHeight) {
+        setRatio(img.naturalWidth / img.naturalHeight);
+      }
     }
   }, [src, isVideo]);
 
@@ -115,6 +134,7 @@ export default function RenderPlaceholder({
       onClick={onClick}
       {...(onClick ? { "data-cursor-label": t.renderPlaceholder.open } : {})}
       className={`group relative w-full overflow-hidden bg-panel ${natural ? "" : aspectMap[aspect]} ${className}`}
+      style={natural ? { aspectRatio: ratio ?? aspectRatioMap[aspect] } : undefined}
     >
       {showVideo ? (
         <video
@@ -125,6 +145,10 @@ export default function RenderPlaceholder({
           loop
           playsInline
           preload="metadata"
+          onLoadedMetadata={(e) => {
+            const v = e.currentTarget;
+            if (v.videoWidth && v.videoHeight) setRatio(v.videoWidth / v.videoHeight);
+          }}
           onLoadedData={() => setLoaded(true)}
           onError={() => setFailed(true)}
           className={`transform-gpu transition-opacity duration-700 ease-studio group-hover:scale-[1.03] group-hover:transition-transform group-hover:duration-1100 ${
@@ -138,7 +162,13 @@ export default function RenderPlaceholder({
           src={src}
           alt={alt || resolvedLabel}
           decoding="async"
-          onLoad={() => setLoaded(true)}
+          onLoad={(e) => {
+            setLoaded(true);
+            const img = e.currentTarget;
+            if (img.naturalWidth && img.naturalHeight) {
+              setRatio(img.naturalWidth / img.naturalHeight);
+            }
+          }}
           onError={() => setFailed(true)}
           className={`block h-auto w-full transform-gpu transition-opacity duration-700 ease-studio group-hover:scale-[1.03] group-hover:transition-transform group-hover:duration-1100 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
