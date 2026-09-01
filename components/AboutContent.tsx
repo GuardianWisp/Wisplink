@@ -3,6 +3,9 @@
 import RenderPlaceholder from "@/components/RenderPlaceholder";
 import Reveal from "@/components/Reveal";
 import { useLocale } from "./LocaleProvider";
+import { email, social } from "@/data/social";
+
+const telegram = social.find((item) => item.label === "Telegram");
 
 export default function AboutContent() {
   const { t } = useLocale();
@@ -15,16 +18,9 @@ export default function AboutContent() {
         <h1 className="mt-4 max-w-3xl text-[clamp(2.5rem,6vw,5rem)] font-medium leading-[0.98] tracking-tightest">
           {about.heading}
         </h1>
-        <a
-          href="/cv.pdf"
-          download
-          className="label mt-8 inline-flex items-center gap-3 border border-ink px-6 py-4 text-ink transition-colors duration-300 hover:bg-ink hover:text-paper"
-        >
-          {about.downloadCv}
-        </a>
       </Reveal>
 
-      <div className="mt-16 grid grid-cols-1 gap-10 md:mt-24 md:grid-cols-12 md:gap-12">
+      <div className="mt-10 grid grid-cols-1 gap-10 md:mt-16 md:grid-cols-12 md:gap-12">
         <Reveal className="md:col-span-5">
           <RenderPlaceholder
             src="/images/portrait.webp"
@@ -32,6 +28,31 @@ export default function AboutContent() {
             aspect="portrait"
             priority
           />
+          <div className="mt-6 flex flex-wrap items-center gap-5">
+            <a
+              href="/cv.pdf"
+              download
+              className="label inline-flex items-center gap-3 border border-ink px-6 py-4 text-ink transition-colors duration-300 hover:bg-ink hover:text-paper"
+            >
+              {about.downloadCv}
+            </a>
+            <a
+              href={`mailto:${email}`}
+              className="label text-ink transition-colors duration-300 hover:text-muted"
+            >
+              {t.contact.emailLabel}
+            </a>
+            {telegram && (
+              <a
+                href={telegram.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="label text-ink transition-colors duration-300 hover:text-muted"
+              >
+                {telegram.label}
+              </a>
+            )}
+          </div>
         </Reveal>
 
         <Reveal delay={0.1} className="md:col-span-6 md:col-start-7">

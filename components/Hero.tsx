@@ -7,6 +7,14 @@ import { useLocale } from "./LocaleProvider";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+function toTitleCase(text: string) {
+  return text
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 const TYPE_MS = 65;
 const DELETE_MS = 40;
 const PAUSE_TYPED_MS = 1500;
@@ -85,11 +93,20 @@ export default function Hero({
     <section className="container-studio pb-20 pt-16 md:pb-28 md:pt-20">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-start md:gap-12">
         <div className="md:col-span-7">
+          <motion.span
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease }}
+            className="block font-sans text-2xl font-normal text-ink"
+          >
+            {toTitleCase(t.personName)}
+          </motion.span>
+
           <motion.h1
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1, ease }}
-            className="text-[clamp(2.5rem,5.4vw,5.5rem)] font-medium leading-[0.96] tracking-tightest"
+            transition={{ duration: 1.1, delay: 0.1, ease }}
+            className="mt-4 text-[clamp(2.5rem,5.4vw,5.5rem)] font-medium leading-[0.96] tracking-tightest"
           >
             <TypewriterRole roles={t.hero.roles} />
           </motion.h1>

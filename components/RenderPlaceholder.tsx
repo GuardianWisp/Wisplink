@@ -27,6 +27,8 @@ const aspectMap: Record<string, string> = {
   wide: "aspect-[21/9]",
 };
 
+const VIDEO_EXTENSION = /\.(mp4|webm|mov)$/i;
+
 /**
  * Frame for a 3D render. Pass `src` to show a real image; omit it to
  * show a placeholder box (label + index) reserved for work not shot yet.
@@ -46,21 +48,37 @@ export default function RenderPlaceholder({
   const { t } = useLocale();
   const resolvedLabel = label ?? t.renderPlaceholder.comingSoon;
   const imgRef = useRef<HTMLImageElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
+  const isVideo = Boolean(src) && VIDEO_EXTENSION.test(src!);
 
   // If the browser already has this image cached, the load event can fire
   // before React attaches the listener (or not fire at all) — checking
   // `.complete` on mount catches that case so a cached image never gets
   // stuck at opacity-0, or double-fades in.
+  // React's `muted` JSX prop doesn't reliably set the underlying IDL
+  // property before autoplay is attempted, so the browser's autoplay
+  // policy silently blocks playback — setting it imperatively fixes that.
+  useEffect(() => {
+    if (!isVideo || !videoRef.current) return;
+    videoRef.current.muted = true;
+    videoRef.current.play().catch(() => {});
+  }, [isVideo, src]);
+
   useEffect(() => {
     setFailed(false);
+    if (isVideo) {
+      if ((videoRef.current?.readyState ?? 0) >= 2) setLoaded(true);
+      return;
+    }
     if (imgRef.current?.complete) {
       setLoaded(true);
     }
-  }, [src]);
+  }, [src, isVideo]);
 
-  const showImage = Boolean(src) && !failed;
+  const showImage = Boolean(src) && !isVideo && !failed;
+  const showVideo = Boolean(src) && isVideo && !failed;
 
   // Only when there's a real photo do we need the container itself to be
   // visible immediately (so its bg-panel shows through as a calm "loading"
@@ -89,7 +107,20 @@ export default function RenderPlaceholder({
       {...(onClick ? { "data-cursor-label": t.renderPlaceholder.open } : {})}
       className={`group relative w-full overflow-hidden bg-panel ${aspectMap[aspect]} ${className}`}
     >
-      {showImage ? (
+      {showVideo ? (
+        <video
+          ref={videoRef}
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onLoadedData={() => setLoaded(true)}
+          onError={() => setFailed(true)}
+          className={`h-full w-full transform-gpu object-cover ${loaded ? "opacity-100" : "opacity-0"} transition-opacity duration-700 ease-studio group-hover:scale-[1.03] group-hover:transition-transform group-hover:duration-1100`}
+        />
+      ) : showImage ? (
         <Image
           ref={imgRef}
           src={src!}
