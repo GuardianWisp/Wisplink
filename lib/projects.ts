@@ -56,12 +56,21 @@ function readSlugs(): string[] {
     .map((file) => file.replace(/\.mdx$/, ""));
 }
 
-/** All projects, sorted by their `index` field (as shown in the UI). */
+/**
+ * All projects, sorted by their `index` field (as shown in the UI) —
+ * except "archive", which is the oldest, roughest, pre-portfolio work
+ * and always sorts last regardless of its own index or how many other
+ * projects get added later.
+ */
 export function getAllProjects(): Project[] {
   return readSlugs()
     .map((slug) => getProject(slug))
     .filter((p): p is ProjectWithContent => Boolean(p))
-    .sort((a, b) => a.index.localeCompare(b.index))
+    .sort((a, b) => {
+      if (a.slug === "archive") return 1;
+      if (b.slug === "archive") return -1;
+      return a.index.localeCompare(b.index);
+    })
     .map(({ content, ...project }) => project);
 }
 
