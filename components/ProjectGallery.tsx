@@ -31,6 +31,90 @@ const sizeMap: Record<Size, { aspect: Aspect }> = {
   xl: { aspect: "wide" },
 };
 
+/** Numeric version of the same ratios, used only to estimate column
+ *  heights while packing — how tall each item is guessed to render
+ *  at a fixed column width, before its real size is known. */
+const aspectRatioMap: Record<Aspect, number> = {
+  portrait: 4 / 5,
+  landscape: 16 / 10,
+  square: 1,
+  wide: 21 / 9,
+};
+
+/**
+ * Column count follows the same breakpoints the grid used to rely on
+ * Tailwind's `columns-*` utilities for. Native CSS multi-column balance
+ * isn't guaranteed identical across browsers — Chrome and Safari can
+ * legitimately pick different break points for the same content — so
+ * columns are packed by hand here instead, which is deterministic
+ * everywhere.
+ */
+function useColumnCount() {
+  const [count, setCount] = useState(3);
+
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      if (w < 640) return 1;
+      if (w < 1024) return 2;
+      return 3;
+    };
+    const update = () => setCount(compute());
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return count;
+}
+
+type IndexedItem = { item: GalleryItem; index: number };
+type GallerySegment =
+  | { type: "columns"; columns: IndexedItem[][] }
+  | { type: "full"; entry: IndexedItem };
+
+/**
+ * Greedy shortest-column-first packing (the actual Pinterest algorithm):
+ * each item goes into whichever column is currently shortest, using its
+ * fallback aspect ratio as a height estimate. An `xl` item breaks out
+ * to its own full-width segment instead of joining a column.
+ */
+function distributeIntoColumns(
+  items: GalleryItem[],
+  columnCount: number
+): GallerySegment[] {
+  const segments: GallerySegment[] = [];
+  let pending: IndexedItem[] = [];
+
+  const flushColumns = () => {
+    if (pending.length === 0) return;
+    const heights = new Array(columnCount).fill(0);
+    const columns: IndexedItem[][] = Array.from({ length: columnCount }, () => []);
+    for (const entry of pending) {
+      let target = 0;
+      for (let c = 1; c < columnCount; c++) {
+        if (heights[c] < heights[target]) target = c;
+      }
+      columns[target].push(entry);
+      heights[target] += 1 / aspectRatioMap[entry.item.aspect];
+    }
+    segments.push({ type: "columns", columns });
+    pending = [];
+  };
+
+  items.forEach((item, index) => {
+    if (item.size === "xl") {
+      flushColumns();
+      segments.push({ type: "full", entry: { item, index } });
+    } else {
+      pending.push({ item, index });
+    }
+  });
+  flushColumns();
+
+  return segments;
+}
+
 /**
  * Automatic rhythm used only for images that don't specify their own
  * size. In the masonry grid below, actual tile width comes from each
@@ -105,6 +189,11 @@ export default function ProjectGallery({
     () => buildSequence(renders, process),
     [renders, process]
   );
+  const columnCount = useColumnCount();
+  const segments = useMemo(
+    () => distributeIntoColumns(items, columnCount),
+    [items, columnCount]
+  );
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const close = useCallback(() => setOpenIndex(null), []);
@@ -138,36 +227,49 @@ export default function ProjectGallery({
 
   const current = openIndex !== null ? items[openIndex] : null;
 
+  const renderTile = ({ item, index }: IndexedItem) => (
+    <RenderPlaceholder
+      key={item.src}
+      src={item.src}
+      alt={
+        item.type === "render"
+          ? `${title} — ${t.gallery.renderAlt}`
+          : `${title} — ${t.gallery.processAlt}`
+      }
+      label={
+        item.type === "render"
+          ? `${title} — ${t.gallery.render}`
+          : `${title} — ${t.gallery.process}`
+      }
+      index={String(index + 1).padStart(2, "0")}
+      aspect={item.aspect}
+      natural
+      onClick={() => setOpenIndex(index)}
+      className="cursor-zoom-in transition-opacity duration-500 hover:opacity-90"
+    />
+  );
+
   return (
     <>
-      <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 md:gap-8">
-        {items.map((item, i) => (
-          <div
-            key={item.src}
-            className={`mb-6 break-inside-avoid md:mb-8 ${
-              item.size === "xl" ? "[column-span:all]" : ""
-            }`}
-          >
-            <RenderPlaceholder
-              src={item.src}
-              alt={
-                item.type === "render"
-                  ? `${title} — ${t.gallery.renderAlt}`
-                  : `${title} — ${t.gallery.processAlt}`
-              }
-              label={
-                item.type === "render"
-                  ? `${title} — ${t.gallery.render}`
-                  : `${title} — ${t.gallery.process}`
-              }
-              index={String(i + 1).padStart(2, "0")}
-              aspect={item.aspect}
-              natural
-              onClick={() => setOpenIndex(i)}
-              className="cursor-zoom-in transition-opacity duration-500 hover:opacity-90"
-            />
-          </div>
-        ))}
+      <div className="flex flex-col gap-6 md:gap-8">
+        {segments.map((segment, si) =>
+          segment.type === "full" ? (
+            <div key={`full-${segment.entry.index}`}>
+              {renderTile(segment.entry)}
+            </div>
+          ) : (
+            <div
+              key={`row-${si}`}
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3"
+            >
+              {segment.columns.map((column, ci) => (
+                <div key={ci} className="flex flex-col gap-6 md:gap-8">
+                  {column.map((entry) => renderTile(entry))}
+                </div>
+              ))}
+            </div>
+          )
+        )}
       </div>
 
       <AnimatePresence>
