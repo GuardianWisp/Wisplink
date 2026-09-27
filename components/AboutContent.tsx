@@ -8,8 +8,9 @@ import { email, social } from "@/data/social";
 const telegram = social.find((item) => item.label === "Telegram");
 
 export default function AboutContent() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const { about } = t;
+  const cvHref = locale === "en" ? "/cv-en.pdf" : "/cv.pdf";
 
   return (
     <div className="container-studio py-16 md:py-24">
@@ -30,7 +31,7 @@ export default function AboutContent() {
           />
           <div className="mt-6 flex flex-wrap items-center gap-5">
             <a
-              href="/cv.pdf"
+              href={cvHref}
               download
               className="label inline-flex items-center gap-3 border border-ink px-6 py-4 text-ink transition-colors duration-300 hover:bg-ink hover:text-paper"
             >

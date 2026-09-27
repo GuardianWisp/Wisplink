@@ -9,7 +9,8 @@ const buttonClass =
   "label block w-full border border-ink px-6 py-4 text-center text-ink transition-colors duration-300 hover:bg-ink hover:text-paper";
 
 export default function LinksContent() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  const cvHref = locale === "en" ? "/cv-en.pdf" : "/cv.pdf";
   const links = [
     { label: t.links.portfolio, href: "/" },
     { label: t.links.projects, href: "/#work" },
@@ -46,7 +47,7 @@ export default function LinksContent() {
             {t.links.write}
           </a>
 
-          <a href="/cv.pdf" download className={buttonClass}>
+          <a href={cvHref} download className={buttonClass}>
             {t.links.downloadCv}
           </a>
 
